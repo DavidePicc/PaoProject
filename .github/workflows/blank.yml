@@ -1,0 +1,47 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up GCC
+        run: |
+          sudo apt-get install -y gcc-11 g++-11
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
+
+      - name: Set up Qt
+        run: |
+          sudo apt-get install -y qt6-qmake qt6-default
+          sudo apt-get install -y libgl1-mesa-dev
+          sudo apt-get install -y qtchooser
+          echo "/usr/lib/x86_64-linux-gnu/qt6/bin" | sudo tee /etc/xdg/qtchooser/default.conf
+          sudo ln -s /usr/lib/x86_64-linux-gnu/qt6/bin/qmake /usr/bin/qmake
+
+      - name: Build project
+        run: |
+          qmake prova_1/prova_1.pro
+          make -C directory
+
+      #- name: Run tests
+       # run: ./run_tests.sh
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: |
+            binary
+            artifacts
