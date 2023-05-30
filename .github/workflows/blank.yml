@@ -36,8 +36,9 @@ jobs:
 
       - name: Build project
         run: |
-          qmake
+          qmake -makefile
           make
+          ./hello-world
 
       #- name: Run tests
       #  run: ./run_tests.sh
