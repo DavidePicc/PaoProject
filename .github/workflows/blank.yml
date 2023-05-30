@@ -36,8 +36,8 @@ jobs:
 
       - name: Build project
         run: |
-          $QMAKE prova_1/prova_1.pro
-          make -C directory
+          qmake
+          make
 
       #- name: Run tests
       #  run: ./run_tests.sh
