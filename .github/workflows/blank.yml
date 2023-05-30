@@ -22,22 +22,17 @@ jobs:
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
 
-      - name: Set up environment for Qt
-        run: |
-          echo 'export PATH="$HOME/Qt/6.2.4/gcc_64/bin:$PATH"' >> $HOME/.bashrc
-          echo 'export LD_LIBRARY_PATH="$HOME/Qt/6.2.4/gcc_64/lib:$LD_LIBRARY_PATH"' >> $HOME/.bashrc
-          echo 'export QMAKE="$HOME/Qt/6.2.4/gcc_64/bin/qmake"' >> $HOME/.bashrc
-          source $HOME/.bashrc
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.2.4'
+          host: 'linux'
+          target: 'desktop'
+          dir: '${{ github.workspace }}/'
 
-      - name: Download and install Qt 6.2.4
-        run: |
-          wget https://www.qt.io/download-qt-installer-oss?hsCtaTracking=99d9dd4f-5681-48d2-b096-470725510d34%7C074ddad0-fdef-4e53-8aa8-5e8a876d6ab4
-          chmod +x qt-opensource-linux-x64-6.2.4.run
-          sudo ./qt-opensource-linux-x64-6.2.4.run --script qt-installer-noninteractive.qs
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get install -y libgl1-mesa-dev
+#      - name: Install dependencies
+#        run: |
+#          sudo apt-get install -y libgl1-mesa-dev
 
       - name: Build project
         run: |
