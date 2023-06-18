@@ -1,0 +1,652 @@
+Delivered-To: davide.picello@studenti.unipd.it
+Received: by 2002:a05:7022:3712:b0:60:831b:30c3 with SMTP id ph18csp207831dlb;
+        Sat, 18 Mar 2023 02:44:33 -0700 (PDT)
+X-Received: by 2002:a67:f4c3:0:b0:421:db47:ced0 with SMTP id s3-20020a67f4c3000000b00421db47ced0mr728624vsn.4.1679132673122;
+        Sat, 18 Mar 2023 02:44:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1679132673; cv=none;
+        d=google.com; s=arc-20160816;
+        b=MPVSyUt7dWDXd+ubykrKMsBnvSSyAHrY/+b93uEIipoXYWHX0Ui2v0V06PBsqAz3mg
+         7/vvS3N18sMYm9hMusGILE4BCrnnXtCY4t2tJKrq3UG6LzAvskx2+9IZ4w5cEfZfbtCd
+         MSRO0S5H8pfJcl+9vr9LBDxsXaFfJ5jYLBExyHpWZy4wn5DjpT7CPqerk8/vTcSiT1dU
+         oKXLe9AuMvIsBewJoQczyIE37kPIG56AiUNOCszx3muPFjYaoXtgWZxyNf9Y/34ZpZlX
+         m9HqfX1TWPlPGvevjbJr0HCE0DgsY7McyEoRDB80meVdzMrtqUBt7zuK9xPoeBUSgB9y
+         b0iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=UnKUXp3xirSON5fN+Lj6R5uww5PznL1Gqj2ediHyZcE=;
+        b=jVcmsSfTHzzmPUZTY8D3j/8GtizzQlG4aSFyYtCv7VDWlKGZMX12vly7YQIrCL64va
+         ElmselgEgVmUvl+fKe9MBNnFtSo7nOnPwmHhNm+uE2gMwV1szpmzsG+8GacAimmf48Rd
+         AcQamuJIfzqxAhPHhVMRWVyMk6vyb0zDT6849Yw3U+k7/oREZo/aKyy8hbHTjso/A/OT
+         Z3IsY+H+kNlUAWViFNI4W+aBsPNisLcM9FGjSUg1BYwyY2jnWPN9Gm5XeDJCJMuNOwIH
+         DGN8eZ06YmBWYcNvaeoN2g0XzzDM716WkFylEb81np+woH/lZHnrrmMCclHayuE2JDCz
+         lLQg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@unipd-it.20210112.gappssmtp.com header.s=20210112 header.b=fWKeR05J;
+       spf=pass (google.com: domain of marco.zanella@unipd.it designates 209.85.220.41 as permitted sender) smtp.mailfrom=marco.zanella@unipd.it
+Return-Path: <marco.zanella@unipd.it>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id g15-20020a056102080f00b00425c72fb24asor1652481vsb.71.2023.03.18.02.44.32
+        for <davide.picello@studenti.unipd.it>
+        (Google Transport Security);
+        Sat, 18 Mar 2023 02:44:33 -0700 (PDT)
+Received-SPF: pass (google.com: domain of marco.zanella@unipd.it designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@unipd-it.20210112.gappssmtp.com header.s=20210112 header.b=fWKeR05J;
+       spf=pass (google.com: domain of marco.zanella@unipd.it designates 209.85.220.41 as permitted sender) smtp.mailfrom=marco.zanella@unipd.it
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=unipd-it.20210112.gappssmtp.com; s=20210112; t=1679132672;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UnKUXp3xirSON5fN+Lj6R5uww5PznL1Gqj2ediHyZcE=;
+        b=fWKeR05JQV3pwQFu+HROWBioWfy3qkiq5w3twafItxWTlvi1t5nJ+RyBvlJRLQUFJc
+         0EgOi47lLNigaZuQU4K4/0hEKP9bpIPD9WLBASkJ5H3Ujc4KOCR8IG4kS9dMxCrmcXRu
+         qkGcF4aR6SUyTA2Ec8ecfSwTgvRdRDH029n3f/61y5AM0yDCC1RdDXbZPNx7l2cQAq+G
+         Vo/Y4fEMFu80I0QCuVgQKEappsPcM/ojIVTfVtH3mY3LXP9i9rNkeYzhmiy/m3Z2eEMr
+         PFDrWpk1SZoqNW2nB3//rrIKqINC+NPtn2kk83/JSpdoqLUvre+b+jEO8VLMsS7DgX+C
+         XhYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679132672;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UnKUXp3xirSON5fN+Lj6R5uww5PznL1Gqj2ediHyZcE=;
+        b=Y0ZdGopznIwmmuisuVrsDuC9LjJv8nA8NfAj+enJNB5Z32hiijN5vamrYzzlQ2z7DH
+         JVSRiYTfetzRJd3C84D3emLONoxAzakE/KPpIpZ4XWUpHnPxUUSZcVXdeaFzUifJwQEZ
+         xmpg55ku6dfzTT9mdJuMcynYlohsgjYV77IijCmOQ5XsKfuqaxTEWDladhzyLLMqCuaF
+         N0wqyvtUkf+ekxitvAH3d+M89eItRoBJ5RnSxamhYXJTxIRJ5tL33OgK8m8S07Ixdwg/
+         rSwoQDBjMsp/re+GiTNJQesELuIGCEM4LXPxHsYAoL4bqzW5lASS9z92D9gSRMQmIJvk
+         BlKw==
+X-Gm-Message-State: AO0yUKWquVgkf04AjegQQhD+y5PRsCbch7hNbdi4BS3BteIslBucNxG+
+	DT/gGxAZVkcEut0s0ZUXhqQGX447E/Yr3FQNNIxv8Y4wWj+rclMPuDCB/Q==
+X-Google-Smtp-Source: AK7set9Je2io7R4L+TZvidtuFhDdk36NM6X5dLODVQHDiOFLA6j0V4/h5lCapUFuoPg0Pj5SGYv6guo/WTTN3p9Vd6I=
+X-Received: by 2002:a05:6102:b01:b0:425:ddcf:69b3 with SMTP id
+ b1-20020a0561020b0100b00425ddcf69b3mr807234vst.0.1679132672052; Sat, 18 Mar
+ 2023 02:44:32 -0700 (PDT)
+MIME-Version: 1.0
+References: <CABhjozQ81C+coftF8m1tS0YeJHVCYN+yTQBtbPfNUEXiv8cw5A@mail.gmail.com>
+ <CABhjozTf0BY_Cs7WEYgL=iEB=DhjaZFQ2MXFmcbLy+vdPLb1fg@mail.gmail.com>
+In-Reply-To: <CABhjozTf0BY_Cs7WEYgL=iEB=DhjaZFQ2MXFmcbLy+vdPLb1fg@mail.gmail.com>
+From: Marco Zanella <marco.zanella@unipd.it>
+Date: Sat, 18 Mar 2023 10:44:20 +0100
+Message-ID: <CANrXxtEzBtEjm5ZfJCNBe1CUU-dTaPZA9j36ZKAW7Hp1zTuJ1Q@mail.gmail.com>
+Subject: Re: Progetto PaO
+To: Davide Picello <davide.picello@studenti.unipd.it>
+Content-Type: multipart/related; boundary="000000000000735ffb05f7298a78"
+
+--000000000000735ffb05f7298a78
+Content-Type: multipart/alternative; boundary="000000000000735ffa05f7298a77"
+
+--000000000000735ffa05f7298a77
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Ciao Davide,
+l'idea =C3=A8 sicuramente accettabile, al netto del fatto di trovare un mod=
+o di
+applicare il polimorfismo. A tale proposito una soluzione "automatica"
+consiste nell'utilizzare un visitor per costruire dinamicamente i widget da
+mostrare nell'interfaccia in base al tipo di animale, come visto a lezione
+e nell'esempio di codice su GitHub (per esempio il visitor che costruisce
+un widget in formato card in base al tipo di prodotto:
+https://github.com/Unipd-Object-Oriented-Programming/search-engine/blob/mai=
+n/src/View/ItemRenderer/Card.cpp
+), questo soddisferebbe il vincolo relativo all'uso del polimorfismo.
+Naturalmente se vi vengono in mente altre applicazioni alternative del
+polimorfismo va benissimo.
+
+L'alimentazione potrebbe essere gestita in modi diversi a seconda di come
+intendete utilizzarla. In ogni caso credo sarebbe pi=C3=B9 semplice da gest=
+ire
+tramite composizione anzich=C3=A9 tramite ereditariet=C3=A0, ovvero un anim=
+ale "ha
+un" tipo di alimentazione piuttosto di "essere un"
+erbivoro/carnivoro/onnivoro, bench=C3=A9 anche quest'ultimo approccio sia
+corretto. Nel caso pi=C3=B9 semplice potreste usare una *enum* per elencare=
+ i 3
+possibili tipi di alimentazione, questo =C3=A8 utile qualora al tipo di
+alimentazione non siano associate altre informazioni. Se, invece, intendete
+realizzare qualcosa di pi=C3=B9 approfondito potete rendere l'alimentazione=
+ una
+gerarchia di classi a se stanti con i propri attributi, per esempio un
+"costo di mantenimento" realizzato come metodo virtuale puro. Nell'immagine
+allegata c'=C3=A8 un UML che descrive questo scenario.
+
+Non mi =C3=A8 invece molto chiara la classe AnimalType: che tipo di informa=
+zioni
+contiene? Se sono informazioni comuni a tutti gli animali potrebbero
+risiedere nella classe Animale, se sono specifiche per ciascun animale
+potrebbero risiedere nelle singole classi, se sono comuni a sottogruppi di
+animali si potrebbe pensare di aggiungere classi astratte intermedie nella
+gerarchia (per esempio Mammifero, Uccello, Rettile, ecc.).
+
+Resto a disposizione,
+
+[image: zoopage.png]
+
+
+Il giorno sab 18 mar 2023 alle ore 10:18 Davide Picello <
+davide.picello@studenti.unipd.it> ha scritto:
+
+> Purtroppo non si =C3=A8 allegata correttamente l'immagine, provo a rinvia=
+rla
+>
+> Il giorno sab 18 mar 2023 alle ore 10:13 Davide Picello <
+> davide.picello@studenti.unipd.it> ha scritto:
+>
+>> Buongiorno professore,
+>>
+>> Le scrivo in merito al progetto di PaO.
+>>
+>> Io ed il mio compagno avevamo pensato di creare un piccolo gioco di tipo
+>> gestionale in cui si dovr=C3=A0, appunto, gestire uno zoo.
+>>
+>> Quest=E2=80=99idea ci =C3=A8 venuta pensando ai possibili usi del polimo=
+rfismo che
+>> potremo implementare tra le varie tipologie di animali.
+>>
+>> Quello che volevo chiederle =C3=A8, semplicemente, un parere se, secondo=
+ lei,
+>> il modo in cui abbiamo pensato di implementarlo non sia troppo banale
+>> (allego bozza del diagramma UML per avere una piccola rappresentazione
+>> visiva).
+>>
+>> Abbiamo una classe padre (pura) animal e 6 sottoclassi specifiche, dove
+>> ognuna rappresenta un animale, con le sue caratteristiche che andranno a=
+d
+>> aggiungersi a metodi ed attributi derivati, appunto, dalla classe padre
+>> Animal.
+>>
+>> Gabbia sar=C3=A0 invece il contenitore nativo chiesto di implementare, m=
+entre
+>> zooPage sar=C3=A0 la classe riguardo alla mappa della partita.
+>>
+>> Infine AnimalType =C3=A8 una classe secondaria fuori dal ramo =E2=80=9Cp=
+rincipale=E2=80=9D del
+>> diagramma che rappresenta il tipo dell=E2=80=99animale in base a dei par=
+ametri, e
+>> che viene usata dentro Animal come attributo.
+>> Questa pu=C3=B2 essere accettata come idea ?
+>>
+>> Inoltre avevamo avuto anche un idea leggermente diversa, in cui tra le
+>> classi degli animali e la loro classe padre c=E2=80=99era una classe int=
+ermedia
+>> denominata come il loro tipo di alimentazione (per esempio tra la classe
+>> Animal e le classi =E2=80=9Cleone=E2=80=9D e =E2=80=9Ccoccodrillo=E2=80=
+=9D ci sarebbe stata una classe
+>> =E2=80=9CCarnivori=E2=80=9D) in quanto poi nel gioco ci saranno delle pi=
+ccole differenze
+>> tra le alimentazioni di questo tipo di animali e, per esempio, quelli
+>> erbivori e quelli onnivori.
+>>
+>> Allo stesso tempo, per=C3=B2, nonostante sulla carta questa potesse esse=
+re una
+>> buona rappresentazione del polimorfismo non abbiamo trovato una vera
+>> utilit=C3=A0 per questa implementazione, per questo motivo abbiamo scelt=
+o l=E2=80=99idea
+>> descritta qui sopra.
+>>
+>> Secondo lei questa potrebbe essere stata una strada migliore?
+>>
+>> La ringrazio enormemente per l=E2=80=99attenzione
+>>
+>> Davide
+>>
+>>
+>>
+>> [image: image.png]
+>>
+>
+
+--=20
+ing. Marco Zanella
+email: marco.zanella@unipd.it
+
+--000000000000735ffa05f7298a77
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Ciao Davide,</div><div>l&#39;idea =C3=A8 sicuramente =
+accettabile, al netto del fatto di trovare un modo di applicare il polimorf=
+ismo. A tale proposito una soluzione &quot;automatica&quot; consiste nell&#=
+39;utilizzare un visitor per costruire dinamicamente i widget da mostrare n=
+ell&#39;interfaccia in base al tipo di animale, come visto a lezione e nell=
+&#39;esempio di codice su GitHub (per esempio il visitor che costruisce un =
+widget in formato card in base al tipo di prodotto: <a href=3D"https://gith=
+ub.com/Unipd-Object-Oriented-Programming/search-engine/blob/main/src/View/I=
+temRenderer/Card.cpp">https://github.com/Unipd-Object-Oriented-Programming/=
+search-engine/blob/main/src/View/ItemRenderer/Card.cpp</a> ), questo soddis=
+ferebbe il vincolo relativo all&#39;uso del polimorfismo. Naturalmente se v=
+i vengono in mente altre applicazioni alternative del polimorfismo va benis=
+simo.</div><div><br></div><div>L&#39;alimentazione potrebbe essere gestita =
+in modi diversi a seconda di come intendete utilizzarla. In ogni caso credo=
+ sarebbe pi=C3=B9 semplice da gestire tramite composizione anzich=C3=A9 tra=
+mite ereditariet=C3=A0, ovvero un animale &quot;ha un&quot; tipo di aliment=
+azione piuttosto di &quot;essere un&quot; erbivoro/carnivoro/onnivoro, benc=
+h=C3=A9 anche quest&#39;ultimo approccio sia corretto. Nel caso pi=C3=B9 se=
+mplice potreste usare una <i>enum</i> per elencare i 3 possibili tipi di al=
+imentazione, questo =C3=A8 utile qualora al tipo di alimentazione non siano=
+ associate altre informazioni. Se, invece, intendete realizzare qualcosa di=
+ pi=C3=B9 approfondito potete rendere l&#39;alimentazione una gerarchia di =
+classi a se stanti con i propri attributi, per esempio un &quot;costo di ma=
+ntenimento&quot; realizzato come metodo virtuale puro. Nell&#39;immagine al=
+legata c&#39;=C3=A8 un UML che descrive questo scenario.</div><div><br></di=
+v><div>Non mi =C3=A8 invece molto chiara la classe AnimalType: che tipo di =
+informazioni contiene? Se sono informazioni comuni a tutti gli animali potr=
+ebbero risiedere nella classe Animale, se sono specifiche per ciascun anima=
+le potrebbero risiedere nelle singole classi, se sono comuni a sottogruppi =
+di animali si potrebbe pensare di aggiungere classi astratte intermedie nel=
+la gerarchia (per esempio Mammifero, Uccello, Rettile, ecc.).</div><div><br=
+></div><div>Resto a disposizione,<br></div><div><br></div><div><img src=3D"=
+cid:ii_lfds7ta10" alt=3D"zoopage.png" width=3D"578" height=3D"241"><br><br>=
+</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_=
+attr">Il giorno sab 18 mar 2023 alle ore 10:18 Davide Picello &lt;<a href=
+=3D"mailto:davide.picello@studenti.unipd.it">davide.picello@studenti.unipd.=
+it</a>&gt; ha scritto:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
+t:1ex"><div dir=3D"ltr">Purtroppo=C2=A0non si =C3=A8 allegata correttamente=
+ l&#39;immagine, provo a rinviarla</div><br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">Il giorno sab 18 mar 2023 alle ore 10:13 =
+Davide Picello &lt;<a href=3D"mailto:davide.picello@studenti.unipd.it" targ=
+et=3D"_blank">davide.picello@studenti.unipd.it</a>&gt; ha scritto:<br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><span i=
+d=3D"m_8569743626514256676m_8884171386404251815m_-5831482526693266950gmail-=
+docs-internal-guid-88e0ef39-7fff-3eaf-cfc1-93bba25faf18"><p dir=3D"ltr" sty=
+le=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"fon=
+t-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transparent=
+;font-variant-numeric:normal;font-variant-east-asian:normal;font-variant-al=
+ternates:normal;vertical-align:baseline;white-space:pre-wrap">Buongiorno pr=
+ofessore,</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt=
+;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:r=
+gb(0,0,0);background-color:transparent;font-variant-numeric:normal;font-var=
+iant-east-asian:normal;font-variant-alternates:normal;vertical-align:baseli=
+ne;white-space:pre-wrap">Le scrivo in merito al progetto di PaO.=C2=A0</spa=
+n></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom=
+:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);back=
+ground-color:transparent;font-variant-numeric:normal;font-variant-east-asia=
+n:normal;font-variant-alternates:normal;vertical-align:baseline;white-space=
+:pre-wrap">Io ed il mio compagno avevamo pensato di creare un piccolo gioco=
+ di tipo gestionale in cui si dovr=C3=A0, appunto, gestire uno zoo.</span><=
+/p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0p=
+t"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);backgro=
+und-color:transparent;font-variant-numeric:normal;font-variant-east-asian:n=
+ormal;font-variant-alternates:normal;vertical-align:baseline;white-space:pr=
+e-wrap">Quest=E2=80=99idea ci =C3=A8 venuta pensando ai possibili usi del p=
+olimorfismo che potremo implementare tra le varie tipologie di animali.</sp=
+an></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-botto=
+m:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);bac=
+kground-color:transparent;font-variant-numeric:normal;font-variant-east-asi=
+an:normal;font-variant-alternates:normal;vertical-align:baseline;white-spac=
+e:pre-wrap">Quello che volevo chiederle =C3=A8, semplicemente, un parere se=
+, secondo lei, il modo in cui abbiamo pensato di implementarlo non sia trop=
+po banale (allego bozza del diagramma UML per avere una piccola rappresenta=
+zione visiva).</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-to=
+p:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;co=
+lor:rgb(0,0,0);background-color:transparent;font-variant-numeric:normal;fon=
+t-variant-east-asian:normal;font-variant-alternates:normal;vertical-align:b=
+aseline;white-space:pre-wrap">Abbiamo una classe padre (pura) animal e 6 so=
+ttoclassi specifiche, dove ognuna rappresenta un animale, con le sue caratt=
+eristiche che andranno ad aggiungersi a metodi ed attributi derivati, appun=
+to, dalla classe padre Animal.</span></p><p dir=3D"ltr" style=3D"line-heigh=
+t:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font=
+-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu=
+meric:normal;font-variant-east-asian:normal;font-variant-alternates:normal;=
+vertical-align:baseline;white-space:pre-wrap">Gabbia sar=C3=A0 invece il co=
+ntenitore nativo chiesto di implementare, mentre zooPage sar=C3=A0 la class=
+e riguardo alla mappa della partita.</span></p><p dir=3D"ltr" style=3D"line=
+-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11p=
+t;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-vari=
+ant-numeric:normal;font-variant-east-asian:normal;font-variant-alternates:n=
+ormal;vertical-align:baseline;white-space:pre-wrap">Infine AnimalType =C3=
+=A8 una classe secondaria fuori dal ramo =E2=80=9Cprincipale=E2=80=9D del d=
+iagramma che rappresenta il tipo dell=E2=80=99animale in base a dei paramet=
+ri, e che viene usata dentro Animal come attributo. </span><span style=3D"f=
+ont-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transpare=
+nt;font-variant-numeric:normal;font-variant-east-asian:normal;font-variant-=
+alternates:normal;vertical-align:baseline;white-space:pre-wrap"><br></span>=
+<span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background=
+-color:transparent;font-variant-numeric:normal;font-variant-east-asian:norm=
+al;font-variant-alternates:normal;vertical-align:baseline;white-space:pre-w=
+rap">Questa pu=C3=B2 essere accettata come idea ?</span></p><p dir=3D"ltr" =
+style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"=
+font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-color:transpar=
+ent;font-variant-numeric:normal;font-variant-east-asian:normal;font-variant=
+-alternates:normal;vertical-align:baseline;white-space:pre-wrap">Inoltre av=
+evamo avuto anche un idea leggermente diversa, in cui tra le classi degli a=
+nimali e la loro classe padre c=E2=80=99era una classe intermedia denominat=
+a come il loro tipo di alimentazione (per esempio tra la classe Animal e le=
+ classi =E2=80=9Cleone=E2=80=9D e =E2=80=9Ccoccodrillo=E2=80=9D ci sarebbe =
+stata una classe =E2=80=9CCarnivori=E2=80=9D) in quanto poi nel gioco ci sa=
+ranno delle piccole differenze tra le alimentazioni di questo tipo di anima=
+li e, per esempio, quelli erbivori e quelli onnivori.=C2=A0</span></p><p di=
+r=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span=
+ style=3D"font-size:11pt;font-family:Arial;color:rgb(0,0,0);background-colo=
+r:transparent;font-variant-numeric:normal;font-variant-east-asian:normal;fo=
+nt-variant-alternates:normal;vertical-align:baseline;white-space:pre-wrap">=
+Allo stesso tempo, per=C3=B2, nonostante sulla carta questa potesse essere =
+una buona rappresentazione del polimorfismo non abbiamo trovato una vera ut=
+ilit=C3=A0 per questa implementazione, per questo motivo abbiamo scelto l=
+=E2=80=99idea descritta qui sopra.</span></p><p dir=3D"ltr" style=3D"line-h=
+eight:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;=
+font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-varian=
+t-numeric:normal;font-variant-east-asian:normal;font-variant-alternates:nor=
+mal;vertical-align:baseline;white-space:pre-wrap">Secondo lei questa potreb=
+be essere stata una strada migliore?</span></p><p dir=3D"ltr" style=3D"line=
+-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11p=
+t;font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-vari=
+ant-numeric:normal;font-variant-east-asian:normal;font-variant-alternates:n=
+ormal;vertical-align:baseline;white-space:pre-wrap">La ringrazio enormement=
+e per l=E2=80=99attenzione</span></p><br><p dir=3D"ltr" style=3D"line-heigh=
+t:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font=
+-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu=
+meric:normal;font-variant-east-asian:normal;font-variant-alternates:normal;=
+vertical-align:baseline;white-space:pre-wrap">David</span><span style=3D"ba=
+ckground-color:transparent;color:rgb(0,0,0);font-family:Arial;font-size:11p=
+t;white-space:pre-wrap">e</span></p><p dir=3D"ltr" style=3D"line-height:1.3=
+8;margin-top:0pt;margin-bottom:0pt"><span style=3D"background-color:transpa=
+rent;color:rgb(0,0,0);font-family:Arial;font-size:11pt;white-space:pre-wrap=
+"><br></span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
+rgin-bottom:0pt"><span style=3D"background-color:transparent;color:rgb(0,0,=
+0);font-family:Arial;font-size:11pt;white-space:pre-wrap"><br></span></p></=
+span><img alt=3D"image.png" width=3D"392" height=3D"122"><br><div></div></d=
+iv>
+</blockquote></div>
+</blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signature_pre=
+fix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"l=
+tr"><div><span style=3D"color:rgb(68,68,68)">ing. Marco Zanella</span></div=
+><div><span style=3D"color:rgb(68,68,68)">email: <span style=3D"color:rgb(6=
+1,133,198)"><a href=3D"mailto:marco.zanella@unipd.it" target=3D"_blank">mar=
+co.zanella@unipd.it</a></span></span><br></div></div></div>
+
+--000000000000735ffa05f7298a77--
+--000000000000735ffb05f7298a78
+Content-Type: image/png; name="zoopage.png"
+Content-Disposition: inline; filename="zoopage.png"
+Content-Transfer-Encoding: base64
+Content-ID: <ii_lfds7ta10>
+X-Attachment-Id: ii_lfds7ta10
+
+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
+O336dG9v72buUoM4SQ937NgRGRl55MiRa9euRUZGykKXHltn6J6l8FEt57k0AEC9yFPa31//+teu
+XbsGBgZ26tRp+fLl1dXVVip//PHH7dq1Gzdu3NatW9XCbdu2de/evVu3br169Vq6dGloaKhMZRUX
+Fz/11FNRUVERERG//vWvKyoqZP3+/fv/5je/GTp0aIcOHSZMmFBeXi6EOHv2bLt27X7xi19cuHCh
+Xbt27dq1W716tZUevvjii21/ZDQaly1bZqWHQoibN29OmjQpJCQkNjZ26dKlNTU1lnpipedS3759
+n3/+eVvGdsuWLY8++mjXrl23b99eb+XaPbc0sA0a24YOrKWxbdDANnpsrdD9SC1R/peVmgAAmFNg
+MxtHbO3atceOHausrPzhhx+io6NXr14ty7Ozsy1t/vjjjy9YsED9uHXr1o4dO1ZUVPTp0+fpp5++
+cuWK0WisqqqaOHHiz3/+84KCgsLCwhEjRixbtkzW79ev38CBA8vLyysqKrp37/7RRx+ZNhUXF2dj
+D6Vvv/22devW3333nZUeKory8MMPT5o0qbS09Pz58zExMe+//76VnljquRQcHDxr1izro6ooSklJ
+idFo/Oabb5577rkHH3zQdJWNY2tpYK300NIRNWJglbrG1saBtdIT62MrmU7dRvwS4PcGAKBeXPu2
+v8cee0wutG/ffty4cVlZWY1opH379t7e3h07duzSpUtUVJROpzt//vzmzZv/9a9/tW7dWgjx7LPP
+Lly4cOnSpbL+lClTjEajEKJv374ywGpcD69fv/7II4/IfJuVFu7du7dz586jR4/6+fl17Nhx9uzZ
+mzdvfvzxx+vsSX5+vpWeCyEKCwttGZM9e/b4+vr279+/srLyzTffLCwsbNmypS0bmqo9sIWFhYqi
+2GVsrZ96W8bWysDW2ZN6x9aUWaJRsfmKtlpTbYGcpcux/XQDQOMQU2rSv3//I0eOCCFWrFjxwgsv
+yMK9e/e+/PLLP/zwg6Io//nPfyZPntyIlvV6vRDCYDAYDAb58YcffhBCjBw5Ulaorq42/V4PCgqS
+Cy1atCgrK7PeuKUeVlZWTpo06dFHH504caL1Fm7evFlTU9OmTRv5sU2bNnl5eZZ6cunSJSs9t92W
+LVtGjhyp1+sHDRrk6+u7a9euGTNmNLSR2gNbVVV19epVKz20fWytnHobx9bKwNbZE1vGttGhZG21
+g0sAACRiSk0OHz5sVnLnzp0xY8akpaVNmDBBp9PNnTu3srJSrvLy8hJCKIrSuO/jmJgYIURWVlar
+Vq1s38rLy8sshrDSw/nz5/v7+//+97+vt9mwsDAvL6+8vDz5oExeXl5ERISlyrGxsY3ouZl79+7t
+2bOnvLzcx8dHCFFZWbl161Y1ptQytoqiNKKHDRpYYfPYNmhghW1jazYsWp68qT28ZL+cH38AAGge
+PKNjZ3fv3r13716fPn10Ot2VK1dMH7+Qz2ccOHCgcS3fd999EydO/PWvf11QUFBTU3Pu3Lndu3fX
+u1VUVNTVq1cLCgrq7eFHH32Unp6+YcMGGZ9Z5+3tPXbs2FdeeeXu3bs//PDD2rVrU1JSGt3zXr16
+LVq0yPoe//73v1dUVNy8ebO8vLy8vDwtLS0jI0PNGjb/2No+sKIhY9uggW1oz+X9LupH25+8sfI0
+T73bAgA8BDGlnYWFhf3pT38aOXLksGHDFixY8NBDD6mr/Pz83n777cmTJwcEBPzpT3+ShQMGDGjX
+rt2nn366evXqdu3ajRo1ykrja9asadmyZc+ePYODg1NSUq5fv15vf3r37p2amtqtW7e2bdu+9957
+Vnq4bt2669evd+7cOSQkJCQk5NVXX7Xew/fee6+qqio6OjopKWnmzJlz5sxpdM9/+OGHGzduWD+Q
+rVu3jhw5Ur2BcuzYsUKIL774Qn5s/rG1fWCFhbG1y8A2oue1w0FLwSWhJADAdjq+Hmwnv1wZMbgc
+61O33lQlc96l8YsLQPPgfkrA01l68oYoBABgO2JKAP8lg0idjssXAIAG435KAP+DgBIA0AjElAAA
+ANCKa98NxsveAAAAzJCnBAAAgFbkKRuMu83gckiuAwCaGnlKAAAAaEVMCQAAAK2IKQEAAKAVMSUA
+AAC0IqYEAACAVjz33WA8QgsAAGCGPCUAAAC0Ik/ZALyZsqnpdDoGGQAAV0SeEgAAAFoRU8JZyBtV
+uV0VAABXREwJAAAArYgp4RRM05OkKgEAcDnElHAiPKADAICLIqaE49VOTJKqBADAtRBTwlnIJCWp
+SgAAXBExJRzMUkqSVCUAAC6EmBJOwTQ9SaoSAACXQ0wJR7KejCRVCQCAqyCmhOPVTkySqgQAwLUQ
+U8JhbElDkqoEAMAlEFPCwSylJElVAgDgQogp4Ri2JyBJVQIA4PyIKeFI1pORpCoBAHAVxJRwgIam
+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
+--000000000000735ffb05f7298a78--
