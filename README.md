@@ -1,5 +1,8 @@
 # PaoProject - ZOO
 
+## UML
+![Schema UML](https://github.com/DavidePicc/PaoProject/blob/main/prova.drawio.svg)
+
 Animale (virtual):  
 - name:
 - age:
