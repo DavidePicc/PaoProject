@@ -16,7 +16,7 @@ public:
             const std::string& cibo_preferito, 
             std::string& descrizione, 
             float lunghezza, 
-            int numero_denti): Animal(nome, eta, sesso, peso, cibo_preferito, descrizione), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
+            int numero_denti): Animal(setNome(), setEta(), setSesso(), setPeso(), setCiboPreferito(), setDescrizione()), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
 
     std::string getName() const;
     std::string emettereVerso() const override;
