@@ -1,6 +1,6 @@
 #include <iostream>
 #include <random>
-#include "Animal.h"
+#include "Coccodrillo.h"
 
 //DECIDERE SE I METODI SET TENERLI DENTRO LA CLASSE O SPOSTARLI FUORI
 
