@@ -19,20 +19,20 @@ public:
             int numero_denti): Animal(nome, eta, sesso, peso, cibo_preferito, descrizione), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
 
     std::string getName() const;
-    void emettereVerso() const override;
+    std::string emettereVerso() const override;
 
     //Da aggiungere all'UML
-    
-
-    // METODI
+    static const std::string& setNome();
+    int setEta();
+    char setSesso();
+    float setPeso();
+    std::string setCiboPreferito();
+    std::string setDescrizione();
+    float setLunghezza();
+    int setDenti();
+    std::string getName() const;
+    std::string emettereVerso() const override;
 };
-
-template <typename T>
-T generaNumeroCasuale(T min, T max);
-
-float setLunghezza();
-int setDenti();
-int setEta();
 
 
 #endif

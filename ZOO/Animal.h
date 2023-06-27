@@ -5,7 +5,7 @@
 #include "animaltype.h"
 
 class Animal {
-private:
+protected:
     std::string nome;//nome o codice dell'animale
     std::string descrizione;
     int eta;
@@ -20,7 +20,7 @@ public:
 
     std::string getName() const { return "Animale"; }
 
-    virtual void emettereVerso() const {}
+    virtual std::string  emettereVerso() const {}
 
     bool operator==(const Animal& other) const {
         // confronto tra Animal
