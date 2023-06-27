@@ -20,14 +20,12 @@ public:
 
     std::string getName() const { return "Animale"; }
 
-    void emettereVerso() const {
-        //std::cout << "Verso!" << std::endl;
-    }
+    virtual void emettereVerso() const {}
 
     bool operator==(const Animal& other) const {
         // confronto tra Animal
         
-        _//return true;
+        //return true;
     }
 };
 
