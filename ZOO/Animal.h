@@ -14,7 +14,7 @@ protected:
     Alimentazione tipo;
     
 public:
-    Animal(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string& descrizione);
+    Animal(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string descrizione);
 
     virtual ~Animal();
 

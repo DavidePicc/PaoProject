@@ -25,13 +25,13 @@ public:
                 const char sesso, 
                 float peso, 
                 const std::string& cibo_preferito, 
-                std::string& descrizione, 
+                std::string descrizione, 
                 float lunghezza, 
                 int numero_denti): Animal(setNome(), setEta(), setSesso(), setPeso(), setCiboPreferito(), setDescrizione()), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
             
 
 
-    static const std::string& setNome(){//Dangling reference ?
+    static const std::string setNome(){
         static unsigned int num;
         return "Coccodrillo " + std::to_string(num);
     }
@@ -52,7 +52,7 @@ public:
         return "Carne";
     }
 
-    std::string& setDescrizione(){//Dangling reference ?
+    std::string setDescrizione(){
         std::string a = "Nome: " + nome + "\nEta: " + std::to_string(eta) + "\nSesso: " + sesso + "\nPeso: " + std::to_string(peso) + "\nCibo preferito: " + /*cibo_preferito*/ + "\nLunghezza: " + std::to_string(lunghezza) + "\nNumero denti: " + std::to_string(numero_denti); //Non si resce ad accedere ai membri privati della classe base
         return a;
     }

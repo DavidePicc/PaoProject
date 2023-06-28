@@ -14,7 +14,7 @@ public:
             const char sesso, 
             float peso, 
             const std::string& cibo_preferito, 
-            std::string& descrizione, 
+            std::string descrizione, 
             float lunghezza, 
             int numero_denti): Animal(setNome(), setEta(), setSesso(), setPeso(), setCiboPreferito(), setDescrizione()), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
 
@@ -22,12 +22,12 @@ public:
     std::string emettereVerso() const override;
 
     //Da aggiungere all'UML
-    static const std::string& setNome();
+    static const std::string setNome();
     int setEta();
     char setSesso();
     float setPeso();
     std::string& setCiboPreferito();
-    std::string& setDescrizione();
+    std::string setDescrizione();
     float setLunghezza();
     int setDenti();
     std::string getName() const;
