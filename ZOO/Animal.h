@@ -6,27 +6,24 @@
 
 class Animal {
 protected:
-    std::string nome;//nome o codice dell'animale
+    const std::string nome;//nome o codice dell'animale
     std::string descrizione;
     int eta;
-    char sesso;
+    const char sesso;
     float peso;//in kg
-    Alimentazione tipo;
+    const Alimentazione tipo;
     
 public:
+    Animal();
     Animal(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string descrizione);
 
     virtual ~Animal();
 
-    std::string getName() const { return "Animale"; }
+    virtual std::string getName() const =0;
 
-    virtual std::string  emettereVerso() const {}
+    virtual std::string  emettereVerso() const = 0;
 
-    bool operator==(const Animal& other) const {
-        // confronto tra Animal
-        
-        //return true;
-    }
+    bool operator==(const Animal& other) const;
 };
 
 #endif

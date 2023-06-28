@@ -1,4 +1,5 @@
 #include "Coccodrillo.h"
+#include <iostream>
 
 int main(int argc, char *argv[]){
     std::string nome = "Nessie";
@@ -11,5 +12,5 @@ int main(int argc, char *argv[]){
     int numeroDenti = 80;
 
     Coccodrillo c1(nome, eta, sesso, peso, ciboPreferito, descrizione, lunghezza, numeroDenti);
-    //Coccodrillo c2; -> Da implementare
+    //std::cout << c1.descrizione;
 }
