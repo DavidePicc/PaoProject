@@ -21,13 +21,15 @@ int numero_denti;
 
 public:
     Coccodrillo(const std::string& nome, 
-            int eta, 
-            const char sesso, 
-            float peso, 
-            const std::string& cibo_preferito, 
-            std::string& descrizione, 
-            float lunghezza, 
-            int numero_denti): Animal(setNome(), setEta(), setSesso(), setPeso(), setCiboPreferito(), setDescrizione()), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
+                int eta, 
+                const char sesso, 
+                float peso, 
+                const std::string& cibo_preferito, 
+                std::string& descrizione, 
+                float lunghezza, 
+                int numero_denti): Animal(setNome(), setEta(), setSesso(), setPeso(), setCiboPreferito(), setDescrizione()), lunghezza(setLunghezza()), numero_denti(setDenti()) {}
+            
+
 
     static const std::string& setNome(){//Dangling reference ?
         static unsigned int num;
@@ -46,7 +48,7 @@ public:
         return generaNumeroCasuale<float>(200.0, 900.0);
     }
 
-    const std::string setCiboPreferito(){
+    const std::string& setCiboPreferito(){
         return "Carne";
     }
 

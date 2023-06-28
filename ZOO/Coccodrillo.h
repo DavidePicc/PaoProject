@@ -26,8 +26,8 @@ public:
     int setEta();
     char setSesso();
     float setPeso();
-    std::string setCiboPreferito();
-    std::string setDescrizione();
+    std::string& setCiboPreferito();
+    std::string& setDescrizione();
     float setLunghezza();
     int setDenti();
     std::string getName() const;
