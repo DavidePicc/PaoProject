@@ -11,19 +11,20 @@ protected:
     int eta;
     const char sesso;
     float peso;//in kg
-    const Alimentazione tipo;
+    const Alimentazione* tipo;
     
 public:
-    Animal();
-    Animal(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string descrizione);
+    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);
+
+    //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
     virtual ~Animal();
+
+    bool operator==(const Animal& other) const;
 
     virtual std::string getName() const =0;
 
     virtual std::string  emettereVerso() const = 0;
-
-    bool operator==(const Animal& other) const;
 };
 
 #endif

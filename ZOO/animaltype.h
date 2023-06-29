@@ -4,20 +4,24 @@
 #include <string>
 
 // Classe Alimentazione
-class Alimentazione {
+class Alimentazione {//Astratta
 protected:
     std::string cibo_preferito;
 
 public:
+    //Costruttore
     Alimentazione(const std::string& cibo_preferito);
 
-    Alimentazione(const Alimentazione& other); // CDC
+    //Costruttore di copia
+    Alimentazione(const Alimentazione& other);
+
+    virtual ~Alimentazione();/////////////////////////////////////
 
     Alimentazione& operator=(const Alimentazione& other);
     
-    std::string getCiboPreferito() const;
+    void setCiboPreferito(std::string a);
 
-    virtual ~Alimentazione();
+    std::string getCiboPreferito() const;
 
     // METODI
 };

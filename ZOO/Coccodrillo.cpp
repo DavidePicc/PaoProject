@@ -4,9 +4,11 @@
 #include "generate.h"
 
 
-Coccodrillo::Coccodrillo(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string descrizione, float lunghezza, int numero_denti)
-            : Animal(setNome(), comodo::generaNumeroCasuale(10, 80), comodo::setSesso(), comodo::generaNumeroCasuale(200.0, 900.0), setCiboPreferito(), setDescrizione()), lunghezza(comodo::generaNumeroCasuale(4, 7)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
- 
+Coccodrillo::Coccodrillo(const std::string& nome, int eta, const char sesso, float peso, const Alimentazione* type, std::string cibo, float lunghezza, int numero_denti)
+            : Animal(setNome(), setDescrizione(), eta, sesso, peso, type), lunghezza(lunghezza), numero_denti(numero_denti) {
+                descrizione = setDescrizione();
+            }
+
 std::string Coccodrillo::getName() const { 
     return nome; 
 }
@@ -20,11 +22,6 @@ const std::string setNome(){
     return "Coccodrillo " + std::to_string(num);
 }
 
-std::string setCiboPreferito(){
-    return "Carne";
-}
-
-std::string setDescrizione(){
-    //std::string a = "Nome: " + nome + "\nEta: " + std::to_string(eta) + "\nSesso: " + sesso + "\nPeso: " + std::to_string(peso) + "\nCibo preferito: " + /*cibo_preferito*/ + "\nLunghezza: " + std::to_string(lunghezza) + "\nNumero denti: " + std::to_string(numero_denti);
-    //return a;
+static std::string setDescrizione(){
+    return "Il coccodrillo è un rettile appartenente all'ordine dei Crocodylia. È un animale di grandi dimensioni, con un corpo allungato e muscoloso, zampe corte e una lunga coda. Si caratterizza per la presenza di una testa larga e piatta, dotata di mascelle forti e denti affilati. I coccodrilli hanno una pelle dura e squamosa, di solito di colore verde-oliva o marrone, che può variare a seconda delle specie.";
 }
