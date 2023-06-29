@@ -5,9 +5,7 @@
 
 
 Coccodrillo::Coccodrillo(const std::string& nome, int eta, const char sesso, float peso, const Alimentazione* type, std::string cibo, float lunghezza, int numero_denti)
-            : Animal(setNome(), setDescrizione(), eta, sesso, peso, type), lunghezza(lunghezza), numero_denti(numero_denti) {
-                descrizione = setDescrizione();
-            }
+            : Animal(setNome(), setDescrizione(), eta, sesso, peso, type), lunghezza(lunghezza), numero_denti(numero_denti) {}
 
 std::string Coccodrillo::getName() const { 
     return nome; 
