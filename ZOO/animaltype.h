@@ -9,7 +9,8 @@ protected:
     std::string cibo_preferito;
 
 public:
-    //Costruttore
+    //Costruttori
+    Alimentazione();
     Alimentazione(const std::string& cibo_preferito);
 
     //Costruttore di copia
@@ -27,17 +28,19 @@ public:
 };
 
 // Sottoclasse Erbivoro
-class Erbivoro : public Alimentazione {
+class Erbivoro : virtual public Alimentazione {
 public:
     Erbivoro();
+    Erbivoro(const std::string& cibo_preferito);
 
     // METODI
 };
 
 // Sottoclasse Carnivoro
-class Carnivoro : public Alimentazione {
+class Carnivoro : virtual public Alimentazione {
 public:
     Carnivoro();
+    Carnivoro(const std::string& cibo_preferito);
 
     // METODI
 };
@@ -45,7 +48,7 @@ public:
 // Sottoclasse Onnivoro (sottoclasse di Carnivoro)
 class Onnivoro : public Carnivoro, public Erbivoro {
 public:
-    Onnivoro();
+    Onnivoro(const std::string& cibo_preferito);
 
     // METODI
 };

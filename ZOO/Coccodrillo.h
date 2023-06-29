@@ -4,14 +4,14 @@
 #include "Animal.h"
 
 class Coccodrillo : public Animal {
-private:
+public://private//////////////////////////////////////////////////////////////////////////////////////////////////////////////////DA ELIMINARE
     float lunghezza;
     int numero_denti;
 
 public:
-    Coccodrillo(const std::string& nome, int eta, const char sesso, float peso, const Alimentazione* type, std::string cibo, float lunghezza, int numero_denti);
+    Coccodrillo(int eta, const char sesso, float peso, std::string cibo, float lunghezza, int numero_denti);
 
-    std::string getName() const;
+    std::string getName() const override;
     std::string emettereVerso() const override;
 
     //Da aggiungere all'UML

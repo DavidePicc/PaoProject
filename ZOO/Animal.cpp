@@ -5,10 +5,7 @@ Animal::Animal(const std::string name, std::string description, int age, const c
         : nome(name), descrizione(description), eta(age), sesso(sex), peso(weight), tipo(type) {}
 
 bool Animal::operator==(const Animal& other) const{
-    if(typeid(*this) == typeid(other))
-        return 1;
-    else
-        return 0;
+    return (typeid(*this) == typeid(other)) ? 1 : 0;
 }
 
 //virtual ~Animal();

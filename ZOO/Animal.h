@@ -5,7 +5,7 @@
 #include "animaltype.h"
 
 class Animal {
-protected:
+public://protected:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////DA ELIMINARE
     const std::string nome;//nome o codice dell'animale
     std::string descrizione;
     int eta;
@@ -14,7 +14,8 @@ protected:
     const Alimentazione* tipo;
     
 public:
-    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);
+    //Costruttore con parametri
+    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);//Da modificare
 
     //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
