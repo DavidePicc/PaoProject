@@ -1,6 +1,7 @@
 #include "Coccodrillo.h"
 #include "Leone.h"
-#include <iostream>
+#include "Pavone.h"
+//#include <iostream>
 
 int main(int argc, char *argv[]){
     //Prova coccodrillo
@@ -9,7 +10,7 @@ int main(int argc, char *argv[]){
         int eta = 10;
         char sesso = 'F';
         float peso = 500.0;
-        std::string ciboPreferito = "carne";
+        std::string ciboPreferito = "Carne";
         float lunghezza = 5.5;
         int numeroDenti = 80;
 
@@ -19,7 +20,13 @@ int main(int argc, char *argv[]){
 
     //Prova leone
     {
-        Leone leone(5, 'M', 150.5, "carne", 10, true);
+        Leone leone(5, 'M', 150.5, "Carne", 10, true);
         std::cout << leone.getName() << std::endl;
+    }
+
+    //Prova pavone
+    {
+        Pavone p(2, 'M', 20, "Mangime", 1.7);
+        std::cout << p.getName() << " " << p.emettereVerso() <<std::endl;
     }
 }

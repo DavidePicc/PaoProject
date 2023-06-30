@@ -7,15 +7,12 @@ private:
 float raggioRuota;//raggio solo se sesso M
 
 public:
-    Pavone(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string& descrizione, float raggioRuota);
+    Pavone(int eta, const char sesso, float peso, std::string cibo, float ruota);
 
-    std::string getName() const override { 
-        //return "Pavone"; 
-        }
 
-    void emettereVerso() const override {
-        //std::cout << "eeee-ow!" << std::endl;
-    }
+    std::string emettereVerso() const override;
+    const std::string setNome();
+    std::string setDescrizione();
 
     // METODI
 };
