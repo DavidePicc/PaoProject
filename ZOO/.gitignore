@@ -1,2 +1,3 @@
-# Ignora tutti i file oggetto
-*.o
+# Includi solo i file .h e .cpp
+!*.h
+!*.cpp
