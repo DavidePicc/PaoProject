@@ -1,0 +1,16 @@
+# Ignora file oggetto
+*.o
+
+# Ignora file di progetto QMake
+*.pro
+
+# Ignora eseguibili
+ZOO
+
+# Ignora file generati automaticamente da QMake
+Makefile
+Makefile.*
+
+# Ignora file temporanei
+*.swp
+*~
