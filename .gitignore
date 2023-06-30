@@ -6,6 +6,7 @@
 
 # Ignora eseguibili
 ZOO
+PaoProject
 
 # Ignora file generati automaticamente da QMake
 Makefile
