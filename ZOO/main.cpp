@@ -6,7 +6,6 @@
 int main(int argc, char *argv[]){
     //Prova coccodrillo
     {
-        std::string nome = "Nessie";
         int eta = 10;
         char sesso = 'F';
         float peso = 500.0;
