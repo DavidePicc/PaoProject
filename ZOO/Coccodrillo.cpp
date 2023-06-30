@@ -12,14 +12,14 @@ std::string Coccodrillo::getName() const {
 }
 
 std::string Coccodrillo::emettereVerso() const{
-    return "Grrrr!\n";
+    return "Grrrr!";
 }
 
-const std::string setNome(){
-    static unsigned int num;
+const std::string Coccodrillo::setNome(){
+    static unsigned int num = 1;
     return "Coccodrillo " + std::to_string(num);
 }
 
-static std::string setDescrizione(){
+std::string Coccodrillo::setDescrizione(){
     return "Il coccodrillo è un rettile appartenente all'ordine dei Crocodylia. È un animale di grandi dimensioni, con un corpo allungato e muscoloso, zampe corte e una lunga coda. Si caratterizza per la presenza di una testa larga e piatta, dotata di mascelle forti e denti affilati. I coccodrilli hanno una pelle dura e squamosa, di solito di colore verde-oliva o marrone, che può variare a seconda delle specie.";
 }

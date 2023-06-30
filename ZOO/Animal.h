@@ -19,7 +19,7 @@ public:
 
     //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
-    virtual ~Animal();
+    //virtual ~Animal();
 
     bool operator==(const Animal& other) const;
 

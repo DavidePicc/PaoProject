@@ -16,7 +16,7 @@ public:
     //Costruttore di copia
     Alimentazione(const Alimentazione& other);
 
-    virtual ~Alimentazione();/////////////////////////////////////
+    //virtual ~Alimentazione();/////////////////////////////////////
 
     Alimentazione& operator=(const Alimentazione& other);
     
