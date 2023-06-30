@@ -6,9 +6,6 @@
 Struzzo::Struzzo(int eta, const char sesso, float peso, std::string cibo, float LunghezzaCollo, int Altezza)
     : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), LunghezzaCollo(LunghezzaCollo), Altezza(Altezza) {}
     
-std::string Struzzo::getName() const { 
-    return nome; 
-}
 
 std::string Struzzo::emettereVerso() const{
     return "Grugnito!\n";
