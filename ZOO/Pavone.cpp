@@ -6,9 +6,6 @@
 Pavone::Pavone(int eta, const char sesso, float peso, std::string cibo, float raggioRuota)
     : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), raggioRuota(raggioRuota) {}
     
-std::string Pavone::getName() const { 
-    return nome; 
-}
 
 std::string Pavone::emettereVerso() const{
     return "eeee-ow!\n";
