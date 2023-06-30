@@ -5,10 +5,7 @@
 
 Tartaruga::Tartaruga(int eta, const char sesso, float peso, std::string cibo, float x,  float y)
     : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), isura.x(x), misura.y(y) {}
-    
-std::string Tartaruga::getName() const { 
-    return nome; 
-}
+
 
 std::string Tartaruga::emettereVerso() const{
     return "Grugnito!\n";
