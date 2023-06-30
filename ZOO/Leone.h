@@ -4,20 +4,17 @@
 
 class Leone : public Animal {
 private:
-int rugito; //-Ruggito: Misura in boh
+int ruggito; //-Ruggito: Misura in DB (max 110)
 bool criniera;//-Criniera: Si/No solo per maschi
 
 
 
 public:
-    Leone(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string& descrizione, int rugito, bool criniera);
-    std::string getName() const override { 
-        //return "Leone"; 
-        }
-    void emettereVerso() const override {
-        //std::cout << "Ruggito!" << std::endl;
-    }
+    Leone(int eta, const char sesso, float peso, std::string cibo, int rug, bool crin);
+    std::string emettereVerso() const override;
 
-    // METODI
+    //Da aggiungere all'UML
+    static const std::string setNome();
+    static std::string setDescrizione();
 };
 #endif

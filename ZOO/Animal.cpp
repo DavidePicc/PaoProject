@@ -8,4 +8,6 @@ bool Animal::operator==(const Animal& other) const{
     return (typeid(*this) == typeid(other)) ? 1 : 0;
 }
 
-//virtual ~Animal();
+std::string Animal::getName() const{
+    return nome;
+}

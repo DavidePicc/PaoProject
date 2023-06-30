@@ -23,7 +23,7 @@ public:
 
     bool operator==(const Animal& other) const;
 
-    virtual std::string getName() const =0;
+    std::string getName() const; 
 
     virtual std::string  emettereVerso() const = 0;
 };

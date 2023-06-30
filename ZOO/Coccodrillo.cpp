@@ -6,10 +6,6 @@
 
 Coccodrillo::Coccodrillo(int eta, const char sesso, float peso, std::string cibo, float lunghezza, int numero_denti)
     : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), lunghezza(lunghezza), numero_denti(numero_denti) {}
-    
-std::string Coccodrillo::getName() const { 
-    return nome; 
-}
 
 std::string Coccodrillo::emettereVerso() const{
     return "Grrrr!";

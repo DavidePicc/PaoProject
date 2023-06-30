@@ -10,8 +10,6 @@ public://private////////////////////////////////////////////////////////////////
 
 public:
     Coccodrillo(int eta, const char sesso, float peso, std::string cibo, float lunghezza, int numero_denti);
-
-    std::string getName() const override;
     std::string emettereVerso() const override;
 
     //Da aggiungere all'UML
