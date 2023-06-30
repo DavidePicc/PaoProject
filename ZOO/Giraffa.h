@@ -10,13 +10,9 @@ float Altezza;
 public:
     Giraffa(const std::string& nome, int eta, const char sesso, float peso, const std::string& cibo_preferito, std::string& descrizione, float LunghezzaCollo, float Altezza);
 
-    std::string getName() const override { 
-        //return "Giraffa"; 
-        }
-        
-    void emettereVerso() const override {
-        //std::cout << "belato!" << std::endl;
-    }
+    std::string emettereVerso() const override;
+    const std::string setNome();
+    std::string setDescrizione();
 
     // METODI
 };
