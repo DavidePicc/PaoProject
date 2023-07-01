@@ -1,10 +1,12 @@
 #include "src/Coccodrillo.h"
 #include "src/Leone.h"
 #include "src/Pavone.h"
-//#include <iostream>
+#include "viewer/MainWindow.h"
+
+
 
 int main(int argc, char *argv[]){
-    //Prova coccodrillo
+    /*//Prova coccodrillo
     {
         int eta = 10;
         char sesso = 'F';
@@ -28,4 +30,19 @@ int main(int argc, char *argv[]){
         Pavone p(2, 'M', 20, "Mangime", 1.7);
         std::cout << p.getName() << " " << p.emettereVerso() <<std::endl;
     }
+
+    QApplication app(argc, argv);
+
+    QMainWindow mainWindow;
+    mainWindow.setGeometry(100, 100, 800, 600); // Imposta le dimensioni e la posizione della finestra
+
+    // Crea un QLabel per visualizzare l'immagine di sfondo
+    QLabel backgroundLabel(&mainWindow);
+    QPixmap backgroundImage("/assets/map.jpg"); // Imposta il percorso dell'immagine di sfondo
+    backgroundLabel.setPixmap(backgroundImage);
+    backgroundLabel.setGeometry(0, 0, 800, 600); // Imposta le dimensioni del QLabel
+
+    mainWindow.show();
+
+    return app.exec();*/
 }
