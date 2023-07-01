@@ -1,6 +1,6 @@
-#include "Coccodrillo.h"
-#include "Leone.h"
-#include "Pavone.h"
+#include "src/Coccodrillo.h"
+#include "src/Leone.h"
+#include "src/Pavone.h"
 //#include <iostream>
 
 int main(int argc, char *argv[]){
