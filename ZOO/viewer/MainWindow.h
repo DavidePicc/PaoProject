@@ -6,6 +6,19 @@
 #include <QLabel>
 #include <QPixmap>
 
-MainWindow(QWidget *parent);
+
+
+namespace View {
+
+    class MainWindow: public QWidget {
+        Q_OBJECT
+
+        //private:
+
+        public:
+            MainWindow();
+    };
+
+}
 
 #endif
