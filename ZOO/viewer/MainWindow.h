@@ -1,10 +1,13 @@
-#ifndef Coccodrillo_H
-#define Coccodrillo_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QApplication>
 #include <QMainWindow>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QWidget>
 #include <QLabel>
-#include <QPixmap>
+#include <QSpacerItem>
 
 
 

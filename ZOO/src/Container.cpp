@@ -1,18 +1,20 @@
-#include "Container.h"
+#include <iostream>
 
+
+template<typename T>
 class Vettore {
 private:
-    Animal* array;//array che contera gli animali
+    T* array; // Array che conterrà gli oggetti di tipo T
     int size;
 
 public:
-    // Costruttore di default
+    // Costruttore default
     Vettore() : array(nullptr), size(0) {}
     // Costruttore con size specificata
-    Vettore(int size) : array(new Animal[size]), size(size) {}
+    Vettore(int size) : array(new T[size]), size(size) {}
 
-    // copia profonda
-    Vettore(const Vettore& other) : array(new Animal[other.size]), size(other.size) {
+    // Copia profonda
+    Vettore(const Vettore& other) : array(new T[other.size]), size(other.size) {
         for (int i = 0; i < size; i++) {
             array[i] = other.array[i];
         }
@@ -23,11 +25,11 @@ public:
         delete[] array;
     }
 
-    // Assegnazione profonda di un vettore di animali ad un altro
+    // Assegnazione profonda di un vettore di oggetti T ad un altro
     Vettore& operator=(const Vettore& other) {
         if (this != &other) {
             delete[] array;
-            array = new Animal[other.size];
+            array = new T[other.size];
             size = other.size;
             for (int i = 0; i < size; i++) {
                 array[i] = other.array[i];
@@ -36,10 +38,10 @@ public:
         return *this;
     }
 
-    // se volessi mettere gli animali di due gabbie in una unica più grande
+    // Se volessi mettere gli oggetti di due vettori in uno unico più grande
     void Unite(const Vettore& other) {
         int newSize = size + other.size;
-        Animal* newArray = new Animal[newSize];
+        T* newArray = new T[newSize];
         for (int i = 0; i < size; i++) {
             newArray[i] = array[i];
         }
@@ -60,7 +62,7 @@ public:
     }
 
     // Overloading di []
-    Animal& operator[](int index) {
+    T& operator[](int index) {
         return array[index];
     }
 };

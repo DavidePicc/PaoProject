@@ -14,8 +14,11 @@ public://protected://///////////////////////////////////////////////////////////
     const Alimentazione* tipo;
     
 public:
+    //Costruttore vuoto
+    //Animal();
+
     //Costruttore con parametri
-    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);//Da modificare
+    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);
 
     //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 

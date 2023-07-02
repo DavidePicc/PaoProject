@@ -387,11 +387,13 @@ main.o: ZOO/main.cpp ZOO/src/Coccodrillo.h \
 		ZOO/src/Animal.h \
 		ZOO/src/animaltype.h \
 		ZOO/src/Leone.h \
-		ZOO/src/Pavone.h
+		ZOO/src/Pavone.h \
+		ZOO/viewer/MainWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ZOO/main.cpp
 
 Animal.o: ZOO/src/Animal.cpp ZOO/src/Animal.h \
-		ZOO/src/animaltype.h
+		ZOO/src/animaltype.h \
+		ZOO/src/generate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animal.o ZOO/src/Animal.cpp
 
 animaltype.o: ZOO/src/animaltype.cpp ZOO/src/animaltype.h

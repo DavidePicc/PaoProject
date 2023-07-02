@@ -1,4 +1,4 @@
-#ifndef VETTORE_H
+/*#ifndef VETTORE_H
 #define VETTORE_H
 
 #include <iostream>
@@ -33,3 +33,4 @@ public:
 };
 
 #endif  // VETTORE_H
+*/
