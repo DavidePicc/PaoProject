@@ -9,12 +9,13 @@ int main(int argc, char *argv[]){
     QApplication app(argc, argv);
 
     QWidget window;
-    window.setGeometry(100, 100, 800, 600); // Imposta le dimensioni e la posizione della finestra
+    window.setGeometry(500, 0, 1000, 1000); // Imposta le dimensioni e la posizione della finestra
     window.setStyleSheet("QWidget { background-image: url(ZOO/assets/ZooCover.png); }");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(&window);
     QLabel *titleLabel = new QLabel("ZOO SIMULATOR", &window);
     titleLabel->setAlignment(Qt::AlignCenter);
+    titleLabel->setStyleSheet("QLabel { font-size: 70px; font-weight: bold; color: white; }");
     mainLayout->addWidget(titleLabel);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
@@ -22,6 +23,8 @@ int main(int argc, char *argv[]){
 
     QPushButton *nuovaPartita = new QPushButton("Nuova partita", &window);
     QPushButton *caricaPartita = new QPushButton("Carica partita", &window);
+    nuovaPartita->setStyleSheet("QPushButton { font-size: 20px; background-color: white; color: white; height : 50px}");
+    caricaPartita->setStyleSheet("QPushButton { font-size: 20px; background-color: white; color: white; height : 50px}");
 
 
     buttonsLayout->addWidget(nuovaPartita);
