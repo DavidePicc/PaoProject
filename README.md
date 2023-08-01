@@ -9,6 +9,16 @@ Animale (virtual):
 - weight:
 - type:AnimalType
 
+## Come compilare
+- Clonare la repository
+- Posizionarsi in "PaoProject/ZOO"
+- Eseguire il comando "qmake -project"
+- Aggiungere alla fine del file ZOO.pro
+    - QT += widgets
+    - QT += gui
+- Eseguire il comando "make"
+- Eseguire il comando "./ZOO"
+
 ### Leone:
 M - C
 -Ruggito: Misura in boh
