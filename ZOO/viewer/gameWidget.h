@@ -20,6 +20,7 @@
 #include "../src/Pavone.h"
 #include "../src/Struzzo.h"
 #include "../src/Tartaruga.h"
+#include "../src/Container.h"
 
 
 class GameWidget : public QWidget {
@@ -27,14 +28,14 @@ class GameWidget : public QWidget {
 
 public:
     GameWidget(QWidget *parent = nullptr);
-    QPushButton* createButton(int x, int y);
+    QPushButton* createButton(int x, int y, std::string animale);
+
+    unsigned int soldi;
+    //Qui devo mettere i 6 recinti (contenitore ?)
 
 public slots:
-    void chooseAnimal();
-    void handleItemClicked(QListWidgetItem *item);
+    void seeDetails();
 
-private:
-    Animal* animal;
 };
 
 

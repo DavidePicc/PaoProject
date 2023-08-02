@@ -1,102 +1,69 @@
-#include "gameWidget.h"
+    #include "gameWidget.h"
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {
-    QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
+    GameWidget::GameWidget(QWidget *parent) : QWidget(parent), soldi(1000) {//Setto i soldi ad una quota fissa, 1000 per iniziare
+        QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
 
-    // Crea una QLabel e imposta l'immagine
-    QLabel *label = new QLabel(this);
-    label->setPixmap(pixmap);
+        // Crea una QLabel e imposta l'immagine
+        QLabel *label = new QLabel(this);
+        label->setPixmap(pixmap);
 
-    // Imposta la dimensione della finestra sulla dimensione dell'immagine
-    this->setFixedSize(pixmap.width(), pixmap.height());
+        // Imposta la dimensione della finestra sulla dimensione dell'immagine
+        this->setFixedSize(pixmap.width(), pixmap.height());
 
-    // Ottieni le dimensioni dello schermo
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->geometry();
-    int x = (screenGeometry.width() - this->width()) / 2;
-    int y = (screenGeometry.height() - this->height()) / 2;
+        // Ottieni le dimensioni dello schermo
+        QScreen *screen = QGuiApplication::primaryScreen();
+        QRect screenGeometry = screen->geometry();
+        int x = (screenGeometry.width() - this->width()) / 2;
+        int y = (screenGeometry.height() - this->height()) / 2;
 
-    // Posiziona la finestra al centro dello schermo
-    this->move(x, y);
+        // Posiziona la finestra al centro dello schermo
+        this->move(x, y);
 
-    //Creo i bottoni nelle coordinate fisse
-    QPushButton *recinto1 = createButton(350, 60);
-    QPushButton *recinto2 = createButton(700, 150);
-    QPushButton *recinto3 = createButton(270, 210);
-    QPushButton *recinto4 = createButton(575, 335);
-    QPushButton *recinto5 = createButton(220, 440);
-    QPushButton *recinto6 = createButton(760, 490);
+        //Creo i bottoni nelle coordinate fisse
+        createButton(345, 55, "leone");
+        createButton(690, 138, "coccodrillo");
+        createButton(260, 200, "pavone");
+        createButton(565, 325, "tartaruga");
+        createButton(215, 430, "struzzo");
+        createButton(750, 480, "giraffa");
 
-    //Creo l'orologio
-    DigitalClock *clock = new DigitalClock(this);
-    clock->show();
+        //Creo l'orologio
+        DigitalClock *clock = new DigitalClock(this);
+        clock->show();
 
-}
+        //Mostro i soldi
+        QLabel *money = new QLabel(this);
+        money->setText("€ " + QString::number(soldi)); // Aggiungi "€" prima del numero
+        money->move(630, 85);
+        money->setAlignment(Qt::AlignRight); //Sennò se numero soldi è grande -> copre orologio
+        money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px;");
+        money->show();
 
-QPushButton* GameWidget::createButton(int x, int y) {
-    QPushButton *button = new QPushButton("+", this);
-    button->setCursor(Qt::PointingHandCursor);
-    button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
-    button->move(x, y);
-
-    // Connetti il segnale clicked() del bottone al tuo slot chooseAnimal()
-    connect(button, &QPushButton::clicked, this, &GameWidget::chooseAnimal);
-
-    return button;
-}
-
-// Adatta il metodo chooseAnimal:
-
-void GameWidget::chooseAnimal() {
-    QDialog *dialog = new QDialog(this);
-    QListWidget *listWidget = new QListWidget(dialog);
-
-    QStringList descriptions = {
-        "Leone",
-        "Coccodrillo",
-        "Pavone",
-        "Tartaruga",
-        "Struzzo",
-        "Giraffa"
-    };
-
-    QStringList imagePaths = {
-        "assets/leone.png",
-        "assets/coccodrillo.png",
-        "assets/pavone.png",
-        "assets/tartaruga.png",
-        "assets/struzzo.png",
-        "assets/giraffa.png"
-    };
-
-    for (int i = 0; i < 6; ++i) {
-        QListWidgetItem *item = new QListWidgetItem(QIcon(imagePaths[i]), descriptions[i]);
-        listWidget->addItem(item);
+        
     }
 
-    connect(listWidget, &QListWidget::itemClicked, this, &GameWidget::handleItemClicked);
+    QPushButton* GameWidget::createButton(int x, int y, std::string animale) {
+        QString var = "assets/" + QString::fromStdString(animale) + ".png";
+        QPixmap pixmap(var);
+        QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
 
-    QHBoxLayout *layout = new QHBoxLayout(dialog);
-    layout->addWidget(listWidget);
-    dialog->setLayout(layout);
+        QPushButton *button = new QPushButton(this);
+        button->setIcon(ButtonIcon);
+        button->setIconSize(QSize(80,80));
+        button->setToolTip(QString::fromStdString(animale));//Se mi fermo sopra con il mouse vedo il nome dell'animale
+        button->setCursor(Qt::PointingHandCursor);
+        button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
+        button->move(x, y);
 
-    dialog->exec(); 
-}
+        // Connetti il segnale clicked() del bottone al tuo slot seeDetails()
+        connect(button, &QPushButton::clicked, this, &GameWidget::seeDetails);        
 
-void GameWidget::handleItemClicked(QListWidgetItem *item) {
-    QString animalName = item->text();
 
-    if (animalName == "Leone") {
-        //animal = new Leone();
-    } else if (animalName == "Coccodrillo") {
-        //animal = new Coccodrillo();
-    } else if (animalName == "Pavone") {
-        //animal = new Pavone();
-    } else if (animalName == "Tartaruga") {
-        //animal = new Tartaruga();
-    } else if (animalName == "Struzzo") {
-        //animal = new Struzzo();
-    } else if (animalName == "Giraffa") {
-        //animal = new Giraffa();
+        return button;
     }
-}
+
+
+
+    void GameWidget::seeDetails() {
+        
+    }

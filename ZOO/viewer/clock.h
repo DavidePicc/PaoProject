@@ -16,7 +16,7 @@ public:
     DigitalClock(QWidget *parent = nullptr);
 
 private slots:
-    void showTime();
+    void addTime();
 
 private:
     QLabel *label;

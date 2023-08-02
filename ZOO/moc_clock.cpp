@@ -24,18 +24,18 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DigitalClock_t {
     const uint offsetsAndSize[6];
-    char stringdata0[23];
+    char stringdata0[22];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_DigitalClock_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_DigitalClock_t qt_meta_stringdata_DigitalClock = {
     {
 QT_MOC_LITERAL(0, 12), // "DigitalClock"
-QT_MOC_LITERAL(13, 8), // "showTime"
-QT_MOC_LITERAL(22, 0) // ""
+QT_MOC_LITERAL(13, 7), // "addTime"
+QT_MOC_LITERAL(21, 0) // ""
 
     },
-    "DigitalClock\0showTime\0"
+    "DigitalClock\0addTime\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -67,7 +67,7 @@ void DigitalClock::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         auto *_t = static_cast<DigitalClock *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->showTime(); break;
+        case 0: _t->addTime(); break;
         default: ;
         }
     }

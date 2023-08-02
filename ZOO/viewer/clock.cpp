@@ -15,18 +15,18 @@ DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent), time(QTime(7, 0))
     setLayout(layout);
 
     QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(addTime()));
     timer->start(1000);
 
-    showTime();
+    addTime();
 
     setWindowTitle("Digital Clock");
-    resize(150, 90); // Potrebbe essere necessario regolare la dimensione in base al tuo font
+    resize(150, 60); // Potrebbe essere necessario regolare la dimensione in base al tuo font
 
-    this->move(700, 40);
+    this->move(625, 25);
 }
 
-void DigitalClock::showTime()
+void DigitalClock::addTime()
 {
     time = time.addSecs(120); //Aggiungo al gioco 120 secondi ogni secondo reale cosìcchè il tempo sia più fluido
     QString text = time.toString("hh:mm");
