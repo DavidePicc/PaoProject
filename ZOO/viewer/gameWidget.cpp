@@ -33,11 +33,70 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {
 
 }
 
-//Metodo per creare bottone con caratteristiche specificate
 QPushButton* GameWidget::createButton(int x, int y) {
     QPushButton *button = new QPushButton("+", this);
     button->setCursor(Qt::PointingHandCursor);
     button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
     button->move(x, y);
+
+    // Connetti il segnale clicked() del bottone al tuo slot chooseAnimal()
+    connect(button, &QPushButton::clicked, this, &GameWidget::chooseAnimal);
+
     return button;
+}
+
+// Adatta il metodo chooseAnimal:
+
+void GameWidget::chooseAnimal() {
+    QDialog *dialog = new QDialog(this);
+    QListWidget *listWidget = new QListWidget(dialog);
+
+    QStringList descriptions = {
+        "Leone",
+        "Coccodrillo",
+        "Pavone",
+        "Tartaruga",
+        "Struzzo",
+        "Giraffa"
+    };
+
+    QStringList imagePaths = {
+        "assets/leone.png",
+        "assets/coccodrillo.png",
+        "assets/pavone.png",
+        "assets/tartaruga.png",
+        "assets/struzzo.png",
+        "assets/giraffa.png"
+    };
+
+    for (int i = 0; i < 6; ++i) {
+        QListWidgetItem *item = new QListWidgetItem(QIcon(imagePaths[i]), descriptions[i]);
+        listWidget->addItem(item);
+    }
+
+    connect(listWidget, &QListWidget::itemClicked, this, &GameWidget::handleItemClicked);
+
+    QHBoxLayout *layout = new QHBoxLayout(dialog);
+    layout->addWidget(listWidget);
+    dialog->setLayout(layout);
+
+    dialog->exec(); 
+}
+
+void GameWidget::handleItemClicked(QListWidgetItem *item) {
+    QString animalName = item->text();
+
+    if (animalName == "Leone") {
+        //animal = new Leone();
+    } else if (animalName == "Coccodrillo") {
+        //animal = new Coccodrillo();
+    } else if (animalName == "Pavone") {
+        //animal = new Pavone();
+    } else if (animalName == "Tartaruga") {
+        //animal = new Tartaruga();
+    } else if (animalName == "Struzzo") {
+        //animal = new Struzzo();
+    } else if (animalName == "Giraffa") {
+        //animal = new Giraffa();
+    }
 }

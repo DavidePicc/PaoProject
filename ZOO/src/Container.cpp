@@ -10,6 +10,7 @@ private:
 public:
     // Costruttore default
     Vettore() : array(nullptr), size(0) {}
+    
     // Costruttore con size specificata
     Vettore(int size) : array(new T[size]), size(size) {}
 

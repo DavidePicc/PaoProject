@@ -1,4 +1,4 @@
-/*#ifndef VETTORE_H
+#ifndef VETTORE_H
 #define VETTORE_H
 
 #include <iostream>
@@ -12,10 +12,13 @@ private:
 public:
     // Costruttore di default
     Vettore();
+
     // Costruttore con size specificata
     Vettore(int size);
+
     // Costruttore di copia
     Vettore(const Vettore& other);
+    
     // Distruttore
     ~Vettore();
 
@@ -33,4 +36,3 @@ public:
 };
 
 #endif  // VETTORE_H
-*/
