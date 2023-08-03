@@ -4,8 +4,8 @@
 
 class Giraffa : public Animal {
 private:
-float LunghezzaCollo;
-float Altezza;
+    float LunghezzaCollo;
+    float Altezza;
 
 public:
     Giraffa(int eta, const char sesso, float peso, std::string cibo, float LunghezzaCollo, int Altezza);

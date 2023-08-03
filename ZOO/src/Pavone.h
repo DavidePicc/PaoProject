@@ -4,7 +4,7 @@
 
 class Pavone : public Animal {
 private:
-float raggioRuota;//raggio solo se sesso M
+    float raggioRuota;//raggio solo se sesso M
 
 public:
     Pavone(int eta, const char sesso, float peso, std::string cibo, float ruota);

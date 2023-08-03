@@ -5,7 +5,7 @@
 
 class Struzzo : public Animal {
 private:
-float velocitamax; //in km/h
+    float velocitamax; //in km/h
 
 public:
     Struzzo(int eta, const char sesso, float peso, std::string cibo, float velocita);

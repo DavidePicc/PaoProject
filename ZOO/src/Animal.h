@@ -5,7 +5,7 @@
 #include "animaltype.h"
 
 class Animal {
-public://protected:////////////////////////////////////////////////////////////////////////////////////////////////////////////////////DA ELIMINARE
+protected:
     const std::string nome;//nome o codice dell'animale
     std::string descrizione;
     int eta;

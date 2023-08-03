@@ -10,7 +10,7 @@ struct Dim_Guscio {//dimensioni guscio in cm
 
 class Tartaruga : public Animal {
 private:
-Dim_Guscio misura;
+    Dim_Guscio misura;
 
 public:
     Tartaruga(int eta, const char sesso, float peso, std::string cibo, float x,  float y);

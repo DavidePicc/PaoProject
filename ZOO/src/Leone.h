@@ -4,8 +4,8 @@
 
 class Leone : public Animal {
 private:
-int ruggito; //-Ruggito: Misura in DB (max 110)
-bool criniera;//-Criniera: Si/No solo per maschi
+    int ruggito; //-Ruggito: Misura in DB (max 110)
+    bool criniera;//-Criniera: Si/No solo per maschi
 
 
 
