@@ -1,6 +1,5 @@
 #ifndef Coccodrillo_H
 #define Coccodrillo_H
-#include <iostream>
 #include "Animal.h"
 
 class Coccodrillo : public Animal {
