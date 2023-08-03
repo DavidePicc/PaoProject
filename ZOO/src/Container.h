@@ -17,9 +17,10 @@ private:
     Node* head;
     Node* tail;
     size_t size;
+    unsigned int vita;
 
 public:
-    DLrecinto() : head(nullptr), tail(nullptr), size(0) {}
+    DLrecinto() : head(nullptr), tail(nullptr), size(0), vita(100) {}
 
     ~DLrecinto() {
         clear();
@@ -124,6 +125,22 @@ public:
     size_t getSize() const {
         return size;
     }
+//metodi per vita
+    unsigned int getVita() const {
+        return vita;
+    }
+
+    void setVita(unsigned int newVita) {
+        vita = newVita;
+    }
+
+    void modificavita(int amount) {
+        int newVita = static_cast<int>(vita) + amount;
+        newVita = std::max(0, newVita); //gestione sotto zero
+        newVita = std::min(100, newVita); // gestione oltre 100
+        vita = static_cast<unsigned int>(newVita);
+    }
+
 };
 
 #endif // DLRECINTO_H

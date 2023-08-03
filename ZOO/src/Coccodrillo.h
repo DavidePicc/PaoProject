@@ -4,11 +4,12 @@
 #include "Animal.h"
 
 class Coccodrillo : public Animal {
-private:
+protected:
     float lunghezza;
     int numero_denti;
 
 public:
+    Coccodrillo();
     Coccodrillo(int eta, const char sesso, float peso, std::string cibo, float lunghezza, int numero_denti);
     std::string emettereVerso() const override;
 

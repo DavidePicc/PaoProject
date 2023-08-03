@@ -2,7 +2,7 @@
 #include "Animal.h"
 #include "generate.h"
 
-//Animal::Animal() : sesso(comodo::setSesso()) {}
+Animal::Animal(const std::string name, const char sex) : nome(name), sesso(sex) {}
 
 Animal::Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type)
         : nome(name), descrizione(description), eta(age), sesso(sex), peso(weight), tipo(type) {}

@@ -3,10 +3,11 @@
 #include "Animal.h"
 
 class Pavone : public Animal {
-private:
-    float raggioRuota;//raggio solo se sesso M
+protected:
+    float raggioRuota;//raggio solo se sesso M in centimetri
 
 public:
+    Pavone();
     Pavone(int eta, const char sesso, float peso, std::string cibo, float ruota);
 
 

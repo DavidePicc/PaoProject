@@ -35,7 +35,6 @@
         QLabel *money = new QLabel(this);
         money->setText("€ " + QString::number(soldi)); // Aggiungi "€" prima del numero
         money->move(630, 85);
-        money->setAlignment(Qt::AlignRight); //Sennò se numero soldi è grande -> copre orologio
         money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px;");
         money->show();
 

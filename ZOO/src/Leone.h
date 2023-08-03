@@ -3,13 +3,13 @@
 #include "Animal.h"
 
 class Leone : public Animal {
-private:
+protected:
     int ruggito; //-Ruggito: Misura in DB (max 110)
     bool criniera;//-Criniera: Si/No solo per maschi
 
 
-
 public:
+    Leone();
     Leone(int eta, const char sesso, float peso, std::string cibo, int rug, bool crin);
     std::string emettereVerso() const override;
 

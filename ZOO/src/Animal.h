@@ -13,9 +13,12 @@ protected:
     float peso;//in kg
     const Alimentazione* tipo;
     
-public:
+
+    
     //Costruttore vuoto
-    //Animal();
+    Animal();
+
+    Animal(const std::string name, const char sex);
 
     //Costruttore con parametri
     Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);

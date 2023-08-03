@@ -3,11 +3,12 @@
 #include "Animal.h"
 
 class Giraffa : public Animal {
-private:
+protected:
     float LunghezzaCollo;
     float Altezza;
 
 public:
+    Giraffa();
     Giraffa(int eta, const char sesso, float peso, std::string cibo, float LunghezzaCollo, int Altezza);
 
     std::string emettereVerso() const override;

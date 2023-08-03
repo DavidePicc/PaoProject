@@ -1,7 +1,8 @@
 #include "Leone.h"
+#include "generate.h"
 
-/*Coccodrillo::Coccodrillo(int eta, const char sesso, float peso, std::string cibo, float lunghezza, int numero_denti)
-    : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), lunghezza(lunghezza), numero_denti(numero_denti) {}*/
+Leone::Leone()
+    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 20), comodo::setSesso(), comodo::generaNumeroCasuale(130, 180), new Carnivoro("Carne")), ruggito(comodo::generaNumeroCasuale(50, 110)), criniera(comodo::generaNumeroCasuale(0, 1) == 1 ? 1 : 0) {}
 
 Leone::Leone(int eta, const char sesso, float peso, std::string cibo, int rug, bool crin)
         :Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), ruggito(rug), criniera(crin){}
