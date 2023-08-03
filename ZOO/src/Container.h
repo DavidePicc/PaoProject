@@ -1,38 +1,129 @@
-#ifndef VETTORE_H
-#define VETTORE_H
+#ifndef DLRECINTO_H
+#define DLRECINTO_H
 
 #include <iostream>
-#include "Animal.h"
 
-class Vettore {
+template <typename T>
+class DLrecinto {
 private:
-    Animal* array;  // array che conterrà gli animali
-    int size;
+    struct Node {
+        T data;
+        Node* prev;
+        Node* next;
+
+        Node(const T& value) : data(value), prev(nullptr), next(nullptr) {}
+    };
+
+    Node* head;
+    Node* tail;
+    size_t size;
 
 public:
-    // Costruttore di default
-    Vettore();
+    DLrecinto() : head(nullptr), tail(nullptr), size(0) {}
 
-    // Costruttore con size specificata
-    Vettore(int size);
+    ~DLrecinto() {
+        clear();
+    }
 
-    // Costruttore di copia
-    Vettore(const Vettore& other);
+    void insert(const T& value) {
+        Node* newNode = new Node(value);
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    bool IsThere(const T& value) const { //ricerca di un oggetto specifico per vedere se c'è dentro ad un recinto, bisogna definire meglio l'operatore di ugualianza in animal
+        Node* currentNode = head;
+        while (currentNode) {
+            if (currentNode->data == value) {
+                return true;
+            }
+            currentNode = currentNode->next;
+        }
+        return false;
+    }
     
-    // Distruttore
-    ~Vettore();
+    T* find(const std::string& string) const {//ricerca in base al nome visto che è unico
+        Node* currentNode = head;
+        while (currentNode) {
+        	
+            if (currentNode->data.getName() == string) {
+            	std::cout<<"trovato"<<std::endl;
+                return &(currentNode->data); // puntatore all'oggetto trovato
+            }
+            currentNode = currentNode->next;
+        }
+        std::cout<<"non trovato"<<std::endl;
+        return nullptr; // nullptr se non è stato trovato
+    }
 
-    // Assegnazione di un vettore di animali ad un altro
-    Vettore& operator=(const Vettore& other);
+    void remove(const T& value) {
+        Node* currentNode = head;
+        while (currentNode) {
+            if (currentNode->data == value) {
+                if (currentNode->prev) {
+                    currentNode->prev->next = currentNode->next;
+                } else {
+                    head = currentNode->next;
+                }
 
-    // Unire due vettori di animali in un unico vettore più grande
-    void Unite(const Vettore& other);
+                if (currentNode->next) {
+                    currentNode->next->prev = currentNode->prev;
+                } else {
+                    tail = currentNode->prev;
+                }
 
-    // Overloading dell'operatore di output
-    friend std::ostream& operator<<(std::ostream& os, const Vettore& v);
+                delete currentNode;
+                size--;
+                return;
+            }
+            currentNode = currentNode->next;
+        }
+    }
+    
+    T& operator[](size_t index) const {//Navigazione come array
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
 
-    // Overloading dell'operatore di accesso []
-    Animal& operator[](int index);
+        Node* currentNode = head;
+        for (size_t i = 0; i < index; i++) {
+            currentNode = currentNode->next;
+        }
+
+        return currentNode->data;
+    }
+
+    void clear() {
+        Node* currentNode = head;
+        while (currentNode) {
+            Node* nextNode = currentNode->next;
+            delete currentNode;
+            currentNode = nextNode;
+        }
+        head = nullptr;
+        tail = nullptr;
+        size = 0;
+    }
+
+    void print() const {
+        Node* currentNode = head;
+        while (currentNode) {
+            std::cout << currentNode->data << " ";
+            currentNode = currentNode->next;
+        }
+        std::cout << std::endl;
+    }
+
+    size_t getSize() const {
+        return size;
+    }
 };
 
-#endif  // VETTORE_H
+#endif // DLRECINTO_H
