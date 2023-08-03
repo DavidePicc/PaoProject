@@ -14,7 +14,7 @@ protected:
     const Alimentazione* tipo;
     
 
-    
+public:    
     //Costruttore vuoto
     Animal();
 

@@ -20,12 +20,12 @@
         this->move(x, y);
 
         //Creo i bottoni nelle coordinate fisse
-        createButton(345, 55, "leone");
-        createButton(690, 138, "coccodrillo");
-        createButton(260, 200, "pavone");
-        createButton(565, 325, "tartaruga");
-        createButton(215, 430, "struzzo");
-        createButton(750, 480, "giraffa");
+        createButton<Leone>(345, 55, "leone", leoni);
+        createButton<Coccodrillo>(690, 138, "coccodrillo", coccodrilli);
+        createButton<Pavone>(260, 200, "pavone", pavoni);
+        createButton<Tartaruga>(565, 325, "tartaruga", tartarughe);
+        createButton<Struzzo>(215, 430, "struzzo", struzzi);
+        createButton<Giraffa>(750, 480, "giraffa", giraffe);
 
         //Creo l'orologio
         DigitalClock *clock = new DigitalClock(this);
@@ -41,7 +41,10 @@
         
     }
 
-    QPushButton* GameWidget::createButton(int x, int y, std::string animale) {
+
+
+    template <typename T>
+    QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecinto<T>& recinto) {
         QString var = "assets/" + QString::fromStdString(animale) + ".png";
         QPixmap pixmap(var);
         QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
@@ -54,15 +57,20 @@
         button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
         button->move(x, y);
 
-        // Connetti il segnale clicked() del bottone al tuo slot seeDetails()
-        connect(button, &QPushButton::clicked, this, &GameWidget::seeDetails);        
-
+        // Connetti il segnale clicked() del bottone al tuo slot seeAnimals()
+        connect(button, &QPushButton::clicked, [this, &recinto]() { this->template seeAnimals<T>(recinto); });
 
         return button;
     }
 
+//DA RISTRUTTURARE SOSTITUENDO TEMPLATE CON EREDITARIETA' ?
+
+/*void GameWidget::addAnimal(){
+
+}
 
 
-    void GameWidget::seeDetails() {
-        
-    }
+
+void GameWidget::giveFood(){
+
+}*/
