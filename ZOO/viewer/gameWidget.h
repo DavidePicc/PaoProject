@@ -41,7 +41,6 @@ public:
     template <typename T>
     QPushButton* createButton(int x, int y, std::string animale, DLrecinto<T>& recinto);
 
-    // definizione di seeAnimals come un metodo template all'interno della classe
     template <typename T>
     void seeAnimals(const DLrecinto<T>& recinto);
 
