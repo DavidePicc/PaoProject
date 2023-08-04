@@ -45,8 +45,8 @@ public:
     void seeAnimals(const DLrecinto<T>& recinto);
 
 public slots:
-    //void addAnimal();
-    //void giveFood();
+    void addAnimal();
+    void giveFood();
 
 };
 

@@ -27,6 +27,14 @@
         createButton<Struzzo>(215, 430, "struzzo", struzzi);
         createButton<Giraffa>(750, 480, "giraffa", giraffe);
 
+        //PROVA////////////////////////////////////////////////////////
+        leoni.insert(Leone());
+        coccodrilli.insert(Coccodrillo());
+        pavoni.insert(Pavone());
+        tartarughe.insert(Tartaruga());
+        struzzi.insert(Struzzo());
+        giraffe.insert(Giraffa());
+
         //Creo l'orologio
         DigitalClock *clock = new DigitalClock(this);
         clock->show();
@@ -91,8 +99,8 @@
         layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
 
         // Connetti il segnale del bottone al tuo slot personalizzato
-        //connect(addButton, &QPushButton::clicked, this, &YourClass::addAnimal);
-        //connect(foodButton, &QPushButton::clicked, this, &YourClass::giveFood);
+        connect(addButton, &QPushButton::clicked, this, &GameWidget::addAnimal);
+        connect(foodButton, &QPushButton::clicked, this, &GameWidget::giveFood);
 
 
         if(recinto.getSize() == 0){
@@ -116,12 +124,12 @@
 
 //DA RISTRUTTURARE SOSTITUENDO TEMPLATE CON EREDITARIETA' ?
 
-/*void GameWidget::addAnimal(){
-
+void GameWidget::addAnimal(){
+    //
 }
 
 
 
 void GameWidget::giveFood(){
-
-}*/
+    //
+}
