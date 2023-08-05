@@ -11,6 +11,7 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QHBoxLayout>
+#include <QProgressBar>
 
 #include "clock.h"
 #include "../src/Animal.h"
@@ -42,11 +43,11 @@ public:
     QPushButton* createButton(int x, int y, std::string animale, DLrecinto<T>& recinto);
 
     template <typename T>
-    void seeAnimals(const DLrecinto<T>& recinto);
+    void seeAnimals(const DLrecinto<T>& recinto,  QProgressBar* healthBar);
 
 public slots:
     void addAnimal();
-    void giveFood();
+    void giveFood(QProgressBar* healthBar);
 
 };
 
