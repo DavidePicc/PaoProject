@@ -13,7 +13,8 @@ std::string Leone::emettereVerso() const {
 }
 
 const std::string Leone::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num++;
     return "Leone " + std::to_string(num);
 }
 

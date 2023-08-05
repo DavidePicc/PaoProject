@@ -27,14 +27,6 @@
         createButton(215, 430, "struzzo", struzzi);
         createButton(750, 480, "giraffa", giraffe);
 
-        //PROVA////////////////////////////////////////////////////////
-        leoni.insert(std::make_shared<Leone>());
-        coccodrilli.insert(std::make_shared<Coccodrillo>());
-        pavoni.insert(std::make_shared<Pavone>());
-        tartarughe.insert(std::make_shared<Tartaruga>());
-        struzzi.insert(std::make_shared<Struzzo>());
-        giraffe.insert(std::make_shared<Giraffa>());
-
         //Creo l'orologio
         DigitalClock *clock = new DigitalClock(this);
         clock->show();
@@ -92,7 +84,7 @@
     }
 
     // definizione di seeAnimals
-    void GameWidget::seeAnimals(const DLrecinto& recinto,  QProgressBar* healthBar) {
+    void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
         QDialog *dialog = new QDialog(this);
         dialog->setWindowTitle("Recinto");
 
@@ -145,8 +137,17 @@
         layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
         
 
-        connect(addButton, &QPushButton::clicked, this, &GameWidget::addAnimal);
-        //connect(foodButton, &QPushButton::clicked, [this, &recinto, healthBar]() { this->giveFood(recinto, healthBar); });        
+        connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
+            this->addAnimal(recinto); 
+            dialog->accept(); // chiude la finestra di dialogo attuale
+            this->seeAnimals(recinto, healthBar); 
+        });
+
+        connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
+            this->giveFood(recinto, healthBar); 
+            dialog->accept(); // chiude la finestra di dialogo attuale
+            this->seeAnimals(recinto, healthBar); 
+        });       
 
         dialog->exec();
     }
@@ -175,13 +176,26 @@ void GameWidget::animalDetails(Animal& a){
 }
 
 
-void GameWidget::addAnimal(){
-    //
+void GameWidget::addAnimal(DLrecinto& recinto){
+    if(&recinto == &leoni)
+        recinto.insert(std::make_shared<Leone>());
+    else if(&recinto == &coccodrilli)
+        recinto.insert(std::make_shared<Coccodrillo>());
+    else if(&recinto == &pavoni)
+        recinto.insert(std::make_shared<Pavone>());
+    else if(&recinto == &tartarughe)
+        recinto.insert(std::make_shared<Tartaruga>());
+    else if(&recinto == &struzzi)
+        recinto.insert(std::make_shared<Struzzo>());
+    else if(&recinto == &giraffe)
+        recinto.insert(std::make_shared<Giraffa>());
+    else
+        throw("Errore 1\n");
 }
 
 
 
-void GameWidget::giveFood(QProgressBar* healthBar){
+void GameWidget::giveFood(DLrecinto& recinto, QProgressBar* healthBar){
     /*
     if(soldi > (100 - recinto.getVita()) * recinto.getSize()){//Se ho abbastanza soldi
         soldi -= (100 - recinto.getVita()) * recinto.getSize();

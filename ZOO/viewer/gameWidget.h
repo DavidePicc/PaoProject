@@ -40,12 +40,12 @@ private:
 public:
     GameWidget(QWidget *parent = nullptr);
     QPushButton* createButton(int x, int y, std::string animale, DLrecinto& recinto);
-    void seeAnimals(const DLrecinto& recinto,  QProgressBar* healthBar);
+    void seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar);
 
 public slots:
     void animalDetails(Animal& a);
-    void addAnimal();
-    void giveFood(QProgressBar* healthBar);
+    void addAnimal(DLrecinto& recinto);
+    void giveFood(DLrecinto& recinto, QProgressBar* healthBar);
 
 };
 

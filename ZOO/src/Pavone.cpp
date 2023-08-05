@@ -14,7 +14,8 @@ std::string Pavone::emettereVerso() const{
 }
 
 const std::string Pavone::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;    
+    num ++;
     return "Pavone " + std::to_string(num);
 }
 

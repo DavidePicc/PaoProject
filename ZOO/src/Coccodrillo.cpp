@@ -13,7 +13,8 @@ std::string Coccodrillo::emettereVerso() const{
 }
 
 const std::string Coccodrillo::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num ++;
     return "Coccodrillo " + std::to_string(num);
 }
 

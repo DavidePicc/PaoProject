@@ -13,7 +13,8 @@ std::string Giraffa::emettereVerso() const{
 }
 
 const std::string Giraffa::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num ++;
     return "Giraffa " + std::to_string(num);
 }
 

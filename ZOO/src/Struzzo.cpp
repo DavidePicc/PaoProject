@@ -14,7 +14,8 @@ std::string Struzzo::emettereVerso() const{
 }
 
 const std::string Struzzo::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num ++;
     return "Struzzo " + std::to_string(num);
 }
 

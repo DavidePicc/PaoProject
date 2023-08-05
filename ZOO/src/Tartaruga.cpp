@@ -17,7 +17,8 @@ std::string Tartaruga::emettereVerso() const{
 }
 
 const std::string Tartaruga::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num ++;
     return "Tartaruga " + std::to_string(num);
 }
 
