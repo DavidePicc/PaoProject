@@ -30,21 +30,17 @@ class GameWidget : public QWidget {
 private:
     //Variabili di gioco: soldi e recinti
     unsigned int soldi;
-    DLrecinto<Leone> leoni;
-    DLrecinto<Coccodrillo> coccodrilli;
-    DLrecinto<Pavone> pavoni;
-    DLrecinto<Tartaruga> tartarughe;
-    DLrecinto<Struzzo> struzzi;
-    DLrecinto<Giraffa> giraffe;
+    DLrecinto leoni;
+    DLrecinto coccodrilli;
+    DLrecinto pavoni;
+    DLrecinto tartarughe;
+    DLrecinto struzzi;
+    DLrecinto giraffe;
 
 public:
     GameWidget(QWidget *parent = nullptr);
-
-    template <typename T>
-    QPushButton* createButton(int x, int y, std::string animale, DLrecinto<T>& recinto);
-
-    template <typename T>
-    void seeAnimals(const DLrecinto<T>& recinto,  QProgressBar* healthBar);
+    QPushButton* createButton(int x, int y, std::string animale, DLrecinto& recinto);
+    void seeAnimals(const DLrecinto& recinto,  QProgressBar* healthBar);
 
 public slots:
     void animalDetails(Animal& a);

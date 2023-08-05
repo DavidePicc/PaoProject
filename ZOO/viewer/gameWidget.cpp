@@ -20,20 +20,20 @@
         this->move(x, y);
 
         //Creo i bottoni nelle coordinate fisse
-        createButton<Leone>(345, 55, "leone", leoni);
-        createButton<Coccodrillo>(690, 138, "coccodrillo", coccodrilli);
-        createButton<Pavone>(260, 200, "pavone", pavoni);
-        createButton<Tartaruga>(565, 325, "tartaruga", tartarughe);
-        createButton<Struzzo>(215, 430, "struzzo", struzzi);
-        createButton<Giraffa>(750, 480, "giraffa", giraffe);
+        createButton(345, 55, "leone", leoni);
+        createButton(690, 138, "coccodrillo", coccodrilli);
+        createButton(260, 200, "pavone", pavoni);
+        createButton(565, 325, "tartaruga", tartarughe);
+        createButton(215, 430, "struzzo", struzzi);
+        createButton(750, 480, "giraffa", giraffe);
 
         //PROVA////////////////////////////////////////////////////////
-        leoni.insert(Leone());
-        coccodrilli.insert(Coccodrillo());
-        pavoni.insert(Pavone());
-        tartarughe.insert(Tartaruga());
-        struzzi.insert(Struzzo());
-        giraffe.insert(Giraffa());
+        leoni.insert(std::make_shared<Leone>());
+        coccodrilli.insert(std::make_shared<Coccodrillo>());
+        pavoni.insert(std::make_shared<Pavone>());
+        tartarughe.insert(std::make_shared<Tartaruga>());
+        struzzi.insert(std::make_shared<Struzzo>());
+        giraffe.insert(std::make_shared<Giraffa>());
 
         //Creo l'orologio
         DigitalClock *clock = new DigitalClock(this);
@@ -51,8 +51,7 @@
 
 
 
-    template <typename T>
-    QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecinto<T>& recinto) {
+    QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
         QString var = "assets/" + QString::fromStdString(animale) + ".png";
         QPixmap pixmap(var);
         QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
@@ -87,14 +86,13 @@
 
 
         // Connetti il segnale clicked() di button al tuo slot seeAnimals()
-        connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {this->template seeAnimals<T>(recinto, healthBar);});
+        connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {this-> seeAnimals(recinto, healthBar);});
 
         return button;
     }
 
-    // definizione di seeAnimals come un metodo template all'interno della classe
-    template <typename T>
-    void GameWidget::seeAnimals(const DLrecinto<T>& recinto,  QProgressBar* healthBar) {
+    // definizione di seeAnimals
+    void GameWidget::seeAnimals(const DLrecinto& recinto,  QProgressBar* healthBar) {
         QDialog *dialog = new QDialog(this);
         dialog->setWindowTitle("Recinto");
 
@@ -131,9 +129,9 @@
             buttonLayout2->addWidget(emptyLabel);
         }else{
             for(unsigned int i=0; i<recinto.getSize(); i++){
-                QPushButton *button = new QPushButton(QString::fromStdString(recinto[i].getName()), buttonWidget);
+                QPushButton *button = new QPushButton(QString::fromStdString((*recinto[i]).getName()), buttonWidget);
                 buttonLayout2->addWidget(button);
-                connect(button, &QPushButton::clicked, [this, &recinto, i](){ this->animalDetails(recinto[i]); });
+                connect(button, &QPushButton::clicked, [this, &recinto, i](){ this->animalDetails(*recinto[i]); });
             }
         }
 
