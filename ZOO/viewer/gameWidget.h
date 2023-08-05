@@ -12,6 +12,7 @@
 #include <QListWidgetItem>
 #include <QHBoxLayout>
 #include <QProgressBar>
+#include <QScrollArea>
 
 #include "clock.h"
 #include "../src/Animal.h"
@@ -46,6 +47,7 @@ public:
     void seeAnimals(const DLrecinto<T>& recinto,  QProgressBar* healthBar);
 
 public slots:
+    void animalDetails(Animal& a);
     void addAnimal();
     void giveFood(QProgressBar* healthBar);
 

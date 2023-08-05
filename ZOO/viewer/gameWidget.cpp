@@ -97,53 +97,85 @@
     void GameWidget::seeAnimals(const DLrecinto<T>& recinto,  QProgressBar* healthBar) {
         QDialog *dialog = new QDialog(this);
         dialog->setWindowTitle("Recinto");
-        QListWidget *listWidget = new QListWidget(dialog);
 
         //Aggiungo bottone Aggiungi animale
-        QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog); // Crea il bottone
-        addButton->setStyleSheet("color: black; background-color: #D3D3D3;"); // Modifica lo stile del bottone
-        addButton->setFixedHeight(50); // Imposta l'altezza fissa
+        QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
+        addButton->setStyleSheet("color: black; background-color: #D3D3D3;");
+        addButton->setFixedHeight(50);
         addButton->setCursor(Qt::PointingHandCursor);
 
         //Aggiungo bottone Sfama
-        QPushButton *foodButton = new QPushButton("Sfama", dialog); // Crea il bottone
-        foodButton->setStyleSheet("color: black; background-color: #D3D3D3;"); // Modifica lo stile del bottone
-        foodButton->setFixedHeight(50); // Imposta l'altezza fissa
+        QPushButton *foodButton = new QPushButton("Sfama", dialog);
+        foodButton->setStyleSheet("color: black; background-color: #D3D3D3;");
+        foodButton->setFixedHeight(50);
         foodButton->setCursor(Qt::PointingHandCursor);
 
         QHBoxLayout *buttonLayout = new QHBoxLayout(); // Crea un nuovo layout orizzontale
         buttonLayout->addWidget(addButton); // Aggiunge il primo bottone al layout orizzontale
         buttonLayout->addWidget(foodButton); // Aggiunge il secondo bottone al layout orizzontale
+        
+
+        // Crea un widget per contenere i pulsanti
+        QWidget *buttonWidget = new QWidget(dialog);
+
+        // Crea un layout per i pulsanti
+        QVBoxLayout *buttonLayout2 = new QVBoxLayout(buttonWidget);
+
+        if(recinto.getSize() == 0){
+            QLabel *emptyLabel = new QLabel("Gabbia vuota", dialog);
+            QFont font;
+            font.setPointSize(20);
+            font.setBold(true);
+            emptyLabel->setFont(font);
+            emptyLabel->setAlignment(Qt::AlignCenter);
+            buttonLayout2->addWidget(emptyLabel);
+        }else{
+            for(unsigned int i=0; i<recinto.getSize(); i++){
+                QPushButton *button = new QPushButton(QString::fromStdString(recinto[i].getName()), buttonWidget);
+                buttonLayout2->addWidget(button);
+                connect(button, &QPushButton::clicked, [this, &recinto, i](){ this->animalDetails(recinto[i]); });
+            }
+        }
+
+        // Crea un QScrollArea
+        QScrollArea *scrollArea = new QScrollArea(dialog);
+        scrollArea->setWidget(buttonWidget); // Imposta buttonWidget come widget figlio di scrollArea
+        scrollArea->setWidgetResizable(true); // Permette al widget figlio di ridimensionarsi con scrollArea
 
         QVBoxLayout *layout = new QVBoxLayout(dialog);
-        layout->addWidget(listWidget);
+        layout->addWidget(scrollArea);
         layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
+        
 
-        // Connetti il segnale del bottone al tuo slot personalizzato
         connect(addButton, &QPushButton::clicked, this, &GameWidget::addAnimal);
         //connect(foodButton, &QPushButton::clicked, [this, &recinto, healthBar]() { this->giveFood(recinto, healthBar); });        
 
-
-        if(recinto.getSize() == 0){
-            QListWidgetItem *item = new QListWidgetItem(QString::fromStdString("Gabbia vuota"));
-            QFont font;
-            font.setPointSize(20); // Imposta la dimensione del testo a 14
-            font.setBold(true); // Rende il testo in grassetto
-            item->setFont(font);
-            item->setTextAlignment(Qt::AlignCenter);
-
-            listWidget->addItem(item);
-        }
-
-        for(unsigned int i=0; i<recinto.getSize(); i++){
-            QListWidgetItem *item = new QListWidgetItem(QString::fromStdString(recinto[i].getName())); //Altri parametri
-            listWidget->addItem(item);
-        }
-
-        dialog->exec(); 
+        dialog->exec();
     }
 
+
 //DA RISTRUTTURARE SOSTITUENDO TEMPLATE CON EREDITARIETA' ?
+
+void GameWidget::animalDetails(Animal& a){
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Dettagli di " + QString::fromStdString(a.getName()));
+
+    QLabel *nameLabel = new QLabel(QString::fromStdString(a.getName()), dialog);
+    //QLabel *descriptionLabel = new QLabel(QString::fromStdString(a.setDescrizione()), dialog);
+    // Aggiungi qui altri QLabel per mostrare altre proprietà dell'animale...
+
+    //Bottone per emettere il verso ?
+    QPushButton *bottoneVerso = new QPushButton("Emettere verso", dialog);
+    //Connessione al verso
+
+    QVBoxLayout *layout = new QVBoxLayout(dialog);
+    layout->addWidget(nameLabel);
+    layout->addWidget(bottoneVerso);
+
+    dialog->setLayout(layout);
+    dialog->exec();
+}
+
 
 void GameWidget::addAnimal(){
     //
