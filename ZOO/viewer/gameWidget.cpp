@@ -1,6 +1,6 @@
     #include "gameWidget.h"
 
-    GameWidget::GameWidget(QWidget *parent) : QWidget(parent), soldi(1000) {//Setto i soldi ad una quota fissa, 1000 per iniziare
+    GameWidget::GameWidget(QWidget *parent) : QWidget(parent), soldi(100) {//Setto i soldi ad una quota fissa, 1000 per iniziare
         QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
 
         // Crea una QLabel e imposta l'immagine
@@ -20,12 +20,12 @@
         this->move(x, y);
 
         //Creo i bottoni nelle coordinate fisse
-        createButton(345, 55, "leone", leoni);
-        createButton(690, 138, "coccodrillo", coccodrilli);
-        createButton(260, 200, "pavone", pavoni);
-        createButton(565, 325, "tartaruga", tartarughe);
-        createButton(215, 430, "struzzo", struzzi);
-        createButton(750, 480, "giraffa", giraffe);
+        createButton(320, 48, "leone", leoni);
+        createButton(680, 130, "coccodrillo", coccodrilli);
+        createButton(255, 190, "pavone", pavoni);
+        createButton(560, 315, "tartaruga", tartarughe);
+        createButton(210, 420, "struzzo", struzzi);
+        createButton(745, 470, "giraffa", giraffe);
 
         //Creo l'orologio
         DigitalClock *clock = new DigitalClock(this);
@@ -41,9 +41,17 @@
         //Per aggiornare i soldi ogni secondo tramite timer
         QTimer *timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, [this, money]() {
+            soldi += leoni.makeMoney() /10 ;
+            soldi += coccodrilli.makeMoney() /10 ;
+            soldi += pavoni.makeMoney() /10 ;
+            soldi += tartarughe.makeMoney() /10 ;
+            soldi += struzzi.makeMoney() /10 ;
+            soldi += giraffe.makeMoney() /10 ;
+
             money->setText("€ " + QString::number(soldi));
+            money->adjustSize();
         });
-        timer->start(1000); // Aggiorna ogni secondo (1000 millisecondi)
+        timer->start(1000); // Aggiorna ogni 5 secondi (5000 millisecondi)
 
         
     }
@@ -76,8 +84,11 @@
 
         // Connessione del timer alla slot di aggiornamento
         connect(timer, &QTimer::timeout, [this, &recinto, healthBar]() {
-            recinto.setVita(recinto.getVita() - (recinto.getSize() * 0.5));
+            recinto.setVita(static_cast<int>(recinto.getVita()) - (static_cast<float>(recinto.getSize()) * 0.5));
             healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
+
+            if(recinto.getVita() == 0)
+                recinto.remove();
         });
 
         // Avvia il timer per aggiornarsi ogni 2 secondi
@@ -156,6 +167,11 @@
         layout->addWidget(scrollArea);
         layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
         
+        // Controllo sull'attributo "soldi"
+        if (soldi <= 0) {
+            addButton->setEnabled(false); // Disabilita il pulsante addButton
+            addButton->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
+        }
 
         connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
             this->addAnimal(recinto); 
@@ -168,7 +184,7 @@
             dialog->accept(); // chiude la finestra di dialogo attuale
             this->seeAnimals(recinto, healthBar); 
         });       
-
+        
         dialog->exec();
     }
 
@@ -214,7 +230,7 @@ void GameWidget::addAnimal(DLrecinto& recinto){
         throw("Errore 1\n");
 
     recinto.insert(a);
-    //soldi -= a.getCosto;
+    soldi -= (*a).getCosto();
 }
 
 
@@ -277,24 +293,28 @@ void GameWidget::giveFood(DLrecinto& recinto, QProgressBar* healthBar) {
         soldi -= recinto.moneyTo(25);
         recinto.setVita(25);
         healthBar->setValue(25);
+        dialog->close();
     });
 
     connect(button2, &QPushButton::clicked, [&]() {
         soldi -= recinto.moneyTo(50);
         recinto.setVita(50);
         healthBar->setValue(50);
+        dialog->close();
     });
 
     connect(button3, &QPushButton::clicked, [&]() {
         soldi -= recinto.moneyTo(75);
         recinto.setVita(75);
         healthBar->setValue(75);
+        dialog->close();
     });
 
     connect(button4, &QPushButton::clicked, [&]() {
         soldi -= recinto.moneyTo(100);
         recinto.setVita(100);
         healthBar->setValue(100);
+        dialog->close();
     });
 
     dialog->exec();

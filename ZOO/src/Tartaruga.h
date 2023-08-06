@@ -14,7 +14,6 @@ private:
 
 public:
     Tartaruga();
-    Tartaruga(int eta, const char sesso, float peso, std::string cibo, float x,  float y);
 
     std::string emettereVerso() const override;
     static const std::string setNome();

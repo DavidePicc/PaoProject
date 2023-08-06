@@ -3,14 +3,10 @@
 #include "generate.h"
 
 Tartaruga::Tartaruga()
-    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba")){
+    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba"), 4){
     misura.x = comodo::generaNumeroCasuale(30.0, 90.0);
     misura.y = comodo::generaNumeroCasuale(60.0, 130.0);
 }
-
-Tartaruga::Tartaruga(int eta, const char sesso, float peso, std::string cibo, float x,  float y)
-    : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), misura({x, y}) {}
-
 
 std::string Tartaruga::emettereVerso() const{
     return "Grugnito!\n";

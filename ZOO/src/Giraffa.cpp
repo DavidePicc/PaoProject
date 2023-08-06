@@ -3,10 +3,7 @@
 #include "generate.h"
 
 Giraffa::Giraffa()
-    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 25), comodo::setSesso(), comodo::generaNumeroCasuale(700, 1500), new Erbivoro("Foglie")), LunghezzaCollo(comodo::generaNumeroCasuale(2.0, 2.5)), Altezza(comodo::generaNumeroCasuale(4.0, 6.0)) {}
-
-Giraffa::Giraffa(int eta, const char sesso, float peso, std::string cibo, float LunghezzaCollo, int Altezza)
-    : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), LunghezzaCollo(LunghezzaCollo), Altezza(Altezza) {}
+    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 25), comodo::setSesso(), comodo::generaNumeroCasuale(700, 1500), new Erbivoro("Foglie"), 7), LunghezzaCollo(comodo::generaNumeroCasuale(2.0, 2.5)), Altezza(comodo::generaNumeroCasuale(4.0, 6.0)) {}
 
 std::string Giraffa::emettereVerso() const{
     return "Belato!\n";

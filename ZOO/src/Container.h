@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "Animal.h"
+#include "generate.h"
 
 class DLrecinto {
 private:
@@ -61,6 +62,10 @@ public:
         return nullptr; // nullptr se non è stato trovato
     }
 
+    void remove(){
+        remove((*this)[comodo::generaNumeroCasuale(0, static_cast<int>(this->getSize()))]);
+    }
+
     void remove(const std::shared_ptr<Animal>& value) {
         Node* currentNode = head;
         while (currentNode) {
@@ -87,7 +92,7 @@ public:
     
     std::shared_ptr<Animal> operator[](size_t index) const {//Navigazione come array
         if (index >= size) {
-            throw std::out_of_range("Index out of range");
+            throw std::__throw_out_of_range;
         }
 
         Node* currentNode = head;
@@ -124,6 +129,12 @@ public:
         return size;
     }
 
+    //Metodo per ottenere i soldi generati dal recinto
+    unsigned int makeMoney(){
+        return size==0 ? 0 : (size * 2) * (*this)[0]->getCosto(); //Supponendo un animale frutti il doppio di quanto costa sfamarlo
+
+    }
+
 
     //metodi per vita
 
@@ -132,8 +143,11 @@ public:
         return vita;
     }
 
-    void setVita(unsigned int newVita) {
-        vita = newVita;
+    void setVita(int newVita) {
+        if(newVita < 0)
+            vita = 0; // setto vita a 0 se newVita è negativo
+        else
+            vita = static_cast<unsigned int>(newVita);
     }
 
     void modificavita(int amount) {
@@ -146,8 +160,8 @@ public:
     //Funzione che ci dice quanti soldi servono per sfamare il recinto per farlo arrivare alla percentuale (perc)
     unsigned int moneyTo(unsigned int perc){
         if(size > 0){
-            //Supponendo sfamare 1 animale costi 1 moneta
-            float a = (1 * size) * (static_cast<float>(perc) / 100);
+            //Supponendo sfamare 1 animale costi come comprarlo
+            float a = ((*this)[0]->getCosto() * size) * (static_cast<float>(perc) / 100);
             return a;
         }
         return 0;

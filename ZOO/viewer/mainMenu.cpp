@@ -40,6 +40,9 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
 
     this->setLayout(mainLayout);
 
+    nuovaPartita->setCursor(Qt::PointingHandCursor);
+    caricaPartita->setCursor(Qt::PointingHandCursor);
+
     // Collegamento dei segnali dei bottoni ai rispettivi slot
     connect(nuovaPartita, &QPushButton::clicked, this, &MainMenu::handleNewGameButton);
     connect(caricaPartita, &QPushButton::clicked, this, &MainMenu::handleLoadGameButton);
@@ -58,8 +61,8 @@ void MainMenu::handleNewGameButton() {
 void MainMenu::handleLoadGameButton() {
     // Qui puoi gestire il caricamento di una partita esistente
     // Come esempio, creo semplicemente un nuovo GameWidget
-    GameWidget *gameWidget = new GameWidget();
-    gameWidget->show();
+    //GameWidget *gameWidget = new GameWidget();
+    //gameWidget->show();
 
-    this->close(); // Chiudiamo il MainMenu
+    //this->close(); // Chiudiamo il MainMenu
 }

@@ -8,7 +8,6 @@ protected:
 
 public:
     Pavone();
-    Pavone(int eta, const char sesso, float peso, std::string cibo, float ruota);
 
 
     std::string emettereVerso() const override;
