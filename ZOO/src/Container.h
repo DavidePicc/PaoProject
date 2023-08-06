@@ -123,7 +123,11 @@ public:
     size_t getSize() const {
         return size;
     }
-//metodi per vita
+
+
+    //metodi per vita
+
+
     unsigned int getVita() const {
         return vita;
     }
@@ -137,6 +141,16 @@ public:
         newVita = std::max(0, newVita); //gestione sotto zero
         newVita = std::min(100, newVita); // gestione oltre 100
         vita = static_cast<unsigned int>(newVita);
+    }
+
+    //Funzione che ci dice quanti soldi servono per sfamare il recinto per farlo arrivare alla percentuale (perc)
+    unsigned int moneyTo(unsigned int perc){
+        if(size > 0){
+            //Supponendo sfamare 1 animale costi 1 moneta
+            float a = (1 * size) * (static_cast<float>(perc) / 100);
+            return a;
+        }
+        return 0;
     }
 
 };

@@ -38,6 +38,13 @@
         money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px;");
         money->show();
 
+        //Per aggiornare i soldi ogni secondo tramite timer
+        QTimer *timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, [this, money]() {
+            money->setText("€ " + QString::number(soldi));
+        });
+        timer->start(1000); // Aggiorna ogni secondo (1000 millisecondi)
+
         
     }
 
@@ -64,6 +71,19 @@
         healthBar->setStyleSheet("QProgressBar { border: 1px solid black; border-radius: 0px; text-align: center; }"
                                 "QProgressBar::chunk { background-color: red; width: 10px; }"); // Imposta lo stile, incluso il colore rosso
 
+        //Per aggiornare la vita ogni 2 secondi tramite timer
+        QTimer *timer = new QTimer(this);
+
+        // Connessione del timer alla slot di aggiornamento
+        connect(timer, &QTimer::timeout, [this, &recinto, healthBar]() {
+            recinto.setVita(recinto.getVita() - (recinto.getSize() * 0.5));
+            healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
+        });
+
+        // Avvia il timer per aggiornarsi ogni 2 secondi
+        timer->start(2000);
+
+
         // Crea un QVBoxLayout
         QVBoxLayout *layout = new QVBoxLayout;
 
@@ -86,7 +106,7 @@
     // definizione di seeAnimals
     void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
         QDialog *dialog = new QDialog(this);
-        dialog->setWindowTitle("Recinto");
+        dialog->setWindowTitle("Recinto con " + QString::number(recinto.getSize()) + (recinto.getSize() == 1 ? " animale" : " animali"));
 
         //Aggiungo bottone Aggiungi animale
         QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
@@ -139,8 +159,8 @@
 
         connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
             this->addAnimal(recinto); 
-            dialog->accept(); // chiude la finestra di dialogo attuale
             this->seeAnimals(recinto, healthBar); 
+            dialog->accept(); // chiude la finestra di dialogo attuale
         });
 
         connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
@@ -153,7 +173,6 @@
     }
 
 
-//DA RISTRUTTURARE SOSTITUENDO TEMPLATE CON EREDITARIETA' ?
 
 void GameWidget::animalDetails(Animal& a){
     QDialog *dialog = new QDialog(this);
@@ -177,33 +196,106 @@ void GameWidget::animalDetails(Animal& a){
 
 
 void GameWidget::addAnimal(DLrecinto& recinto){
+    std::shared_ptr<Animal> a;
+
     if(&recinto == &leoni)
-        recinto.insert(std::make_shared<Leone>());
+        a = std::make_shared<Leone>();
     else if(&recinto == &coccodrilli)
-        recinto.insert(std::make_shared<Coccodrillo>());
+        a = std::make_shared<Coccodrillo>();
     else if(&recinto == &pavoni)
-        recinto.insert(std::make_shared<Pavone>());
+        a = std::make_shared<Pavone>();
     else if(&recinto == &tartarughe)
-        recinto.insert(std::make_shared<Tartaruga>());
+        a = std::make_shared<Tartaruga>();
     else if(&recinto == &struzzi)
-        recinto.insert(std::make_shared<Struzzo>());
+        a = std::make_shared<Struzzo>();
     else if(&recinto == &giraffe)
-        recinto.insert(std::make_shared<Giraffa>());
+        a = std::make_shared<Giraffa>();
     else
         throw("Errore 1\n");
+
+    recinto.insert(a);
+    //soldi -= a.getCosto;
 }
 
 
 
-void GameWidget::giveFood(DLrecinto& recinto, QProgressBar* healthBar){
-    /*
-    if(soldi > (100 - recinto.getVita()) * recinto.getSize()){//Se ho abbastanza soldi
-        soldi -= (100 - recinto.getVita()) * recinto.getSize();
-        recinto.setVita(100);
-    }else{//Se non ho abbastanza soldi
-        recinto.setVita(((100 - recinto.getVita()) * recinto.getSize()) * (soldi / 100));
-        soldi = 0;
+void GameWidget::giveFood(DLrecinto& recinto, QProgressBar* healthBar) {
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Sfama");
+
+    QVBoxLayout *layout = new QVBoxLayout(dialog); // Imposta il layout del dialogo
+
+    QLabel *sceltaLabel = new QLabel("Scegli tra le seguenti opzioni: ", dialog);
+    QFont font = sceltaLabel->font(); // Ottieni il font corrente
+    font.setBold(true); // Imposta il grassetto
+    sceltaLabel->setFont(font); // Applica il nuovo font
+    sceltaLabel->setAlignment(Qt::AlignCenter); // Allinea la label al centro
+    layout->addWidget(sceltaLabel); // Aggiungi la label al layout
+
+    // Crea due nuovi layout orizzontali per i pulsanti
+    QHBoxLayout *buttonLayout1 = new QHBoxLayout;
+    QHBoxLayout *buttonLayout2 = new QHBoxLayout;
+
+    layout->addLayout(buttonLayout1); 
+    layout->addLayout(buttonLayout2); 
+
+    // Crea i quattro pulsanti
+    QPushButton *button1 = new QPushButton("25%\n€ " + QString::number(recinto.moneyTo(25)), dialog);
+    QPushButton *button2 = new QPushButton("50%\n€ " + QString::number(recinto.moneyTo(50)), dialog);
+    QPushButton *button3 = new QPushButton("75%\n€ " + QString::number(recinto.moneyTo(75)), dialog);
+    QPushButton *button4 = new QPushButton("100%\n€ " + QString::number(recinto.moneyTo(100)), dialog);
+
+    // Aggiungi i pulsanti ai layout orizzontali
+    buttonLayout1->addWidget(button1);
+    buttonLayout1->addWidget(button2);
+    buttonLayout2->addWidget(button3);
+    buttonLayout2->addWidget(button4);
+
+    // Controllo sull'attributo "soldi"
+    if (soldi < recinto.moneyTo(25) || recinto.getVita() >= 25) {
+        button1->setEnabled(false); // Disabilita il pulsante 1
+        button1->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
     }
-    healthBar->setValue(recinto.getVita());
-    */
+
+    if (this->soldi < recinto.moneyTo(50) || recinto.getVita() >= 50) {
+        button2->setEnabled(false); // Disabilita il pulsante 2
+        button2->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
+    }
+
+    if (this->soldi < recinto.moneyTo(75) || recinto.getVita() >= 75) {
+        button3->setEnabled(false); // Disabilita il pulsante 3
+        button3->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
+    }
+
+    if (this->soldi < recinto.moneyTo(100) || recinto.getVita() >= 100) {
+        button4->setEnabled(false); // Disabilita il pulsante 1
+        button4->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
+    }
+
+    // Connettiamo i segnali dei pulsanti ad uno slot appropriato (da implementare)
+    connect(button1, &QPushButton::clicked, [&]() {
+        soldi -= recinto.moneyTo(25);
+        recinto.setVita(25);
+        healthBar->setValue(25);
+    });
+
+    connect(button2, &QPushButton::clicked, [&]() {
+        soldi -= recinto.moneyTo(50);
+        recinto.setVita(50);
+        healthBar->setValue(50);
+    });
+
+    connect(button3, &QPushButton::clicked, [&]() {
+        soldi -= recinto.moneyTo(75);
+        recinto.setVita(75);
+        healthBar->setValue(75);
+    });
+
+    connect(button4, &QPushButton::clicked, [&]() {
+        soldi -= recinto.moneyTo(100);
+        recinto.setVita(100);
+        healthBar->setValue(100);
+    });
+
+    dialog->exec();
 }
