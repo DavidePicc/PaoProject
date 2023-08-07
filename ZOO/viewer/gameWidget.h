@@ -1,6 +1,7 @@
 #ifndef GAMEWIDGET_H
 #define GAMEWIDGET_H
 
+#include <QApplication>
 #include <QWidget>
 #include <QLabel>
 #include <QPixmap>
@@ -13,6 +14,8 @@
 #include <QHBoxLayout>
 #include <QProgressBar>
 #include <QScrollArea>
+#include <QMessageBox>
+#include <QKeyEvent>
 
 #include "clock.h"
 #include "../src/Animal.h"
@@ -23,6 +26,7 @@
 #include "../src/Struzzo.h"
 #include "../src/Tartaruga.h"
 #include "../src/Container.h"
+#include "viewer/mainMenu.h"
 
 
 class GameWidget : public QWidget {
@@ -41,6 +45,8 @@ public:
     GameWidget(QWidget *parent = nullptr);
     QPushButton* createButton(int x, int y, std::string animale, DLrecinto& recinto);
     void seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar);
+    void keyPressEvent(QKeyEvent *event) override;
+    
 
 public slots:
     void animalDetails(Animal& a);

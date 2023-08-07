@@ -3,7 +3,6 @@
 #include "src/Pavone.h"///////////////Necessari ?
 
 #include "viewer/mainMenu.h"
-#include "viewer/gameWidget.h"
 
 
 

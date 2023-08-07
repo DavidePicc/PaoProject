@@ -319,3 +319,20 @@ void GameWidget::giveFood(DLrecinto& recinto, QProgressBar* healthBar) {
 
     dialog->exec();
 }
+
+//Funzione per fare in modo che schiacciando esc esca un menù
+void GameWidget::keyPressEvent(QKeyEvent *event){
+    if (event->key() == Qt::Key_Escape) {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Menu di pausa", "Vuoi salvare la partita o tornare al menu principale?",
+                                      QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+
+        if (reply == QMessageBox::Save) {
+            // Codice per salvare la partita
+        } else if (reply == QMessageBox::Discard) {
+            this->close();
+        }else {
+            QWidget::keyPressEvent(event);
+        }
+    }
+}

@@ -32,8 +32,10 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
 
     QPushButton *nuovaPartita = new QPushButton("Nuova partita", this);
     QPushButton *caricaPartita = new QPushButton("Carica partita", this);
-    nuovaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}");
-    caricaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}");
+    nuovaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}"
+                                "QPushButton:pressed { background-color: #505050; }");
+    caricaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}"
+                                "QPushButton:pressed { background-color: #505050; }");
 
     buttonsLayout->addWidget(nuovaPartita);
     buttonsLayout->addWidget(caricaPartita);
