@@ -138,7 +138,6 @@ public:
 
     //metodi per vita
 
-
     unsigned int getVita() const {
         return vita;
     }
@@ -165,6 +164,10 @@ public:
             return a;
         }
         return 0;
+    }
+
+    void riduciVita(){
+        this->setVita(static_cast<int>(this->getVita()) - (static_cast<float>(this->getSize()) * 0.5));
     }
 
 };

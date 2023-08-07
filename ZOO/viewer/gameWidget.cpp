@@ -75,20 +75,26 @@
         // Crea una QProgressBar
         QProgressBar *healthBar = new QProgressBar;
         healthBar->setRange(0, 100); 
-        healthBar->setValue(recinto.getVita()); // Imposta il valore iniziale a 50 (o qualsiasi altro valore iniziale della salute)
-        healthBar->setStyleSheet("QProgressBar { border: 1px solid black; border-radius: 0px; text-align: center; }"
-                                "QProgressBar::chunk { background-color: red; width: 10px; }"); // Imposta lo stile, incluso il colore rosso
+        healthBar->setValue(recinto.getVita()); // Imposta il valore della salute
+        healthBar->setStyleSheet("QProgressBar { border: 1px solid black; border-radius: 0px; text-align: center; height: 15px; }"
+                                "QProgressBar::chunk { background-color: #FF4D4D; width: 10px; }"); // Imposta lo stile, incluso il colore rosso
+
+        //Label numero animali
+        QLabel* numAnimali = new QLabel("Numero animali: " + QString::number(recinto.getSize()));
+        numAnimali->setStyleSheet("QLabel{font-size: 15px; font-weight: bold; text-align: center;}");
 
         //Per aggiornare la vita ogni 2 secondi tramite timer
         QTimer *timer = new QTimer(this);
 
         // Connessione del timer alla slot di aggiornamento
-        connect(timer, &QTimer::timeout, [this, &recinto, healthBar]() {
-            recinto.setVita(static_cast<int>(recinto.getVita()) - (static_cast<float>(recinto.getSize()) * 0.5));
+        connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {
+            recinto.riduciVita();
             healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
 
-            if(recinto.getVita() == 0)
+            if(recinto.getVita() == 0 && recinto.getSize() > 0)
                 recinto.remove();
+
+            numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
         });
 
         // Avvia il timer per aggiornarsi ogni 2 secondi
@@ -99,6 +105,7 @@
         QVBoxLayout *layout = new QVBoxLayout;
 
         // Aggiungi il bottone e la barra di progresso al layout
+        layout->addWidget(numAnimali);
         layout->addWidget(button);
         layout->addWidget(healthBar);
 
@@ -144,10 +151,7 @@
 
         if(recinto.getSize() == 0){
             QLabel *emptyLabel = new QLabel("Gabbia vuota", dialog);
-            QFont font;
-            font.setPointSize(20);
-            font.setBold(true);
-            emptyLabel->setFont(font);
+            emptyLabel->setStyleSheet("QLabel { font: bold 20px;}");
             emptyLabel->setAlignment(Qt::AlignCenter);
             buttonLayout2->addWidget(emptyLabel);
         }else{

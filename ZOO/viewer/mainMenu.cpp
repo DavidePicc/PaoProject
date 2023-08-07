@@ -5,7 +5,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
     QPixmap pixmap("assets/ZooCover.png"); // Carica l'immagine
 
     // Imposta la dimensione della finestra sulla dimensione dell'immagine
-    this->setFixedSize(pixmap.width(), pixmap.height()-50);
+    this->setFixedSize(pixmap.width(), pixmap.height());
 
     // Imposta l'immagine di sfondo
     QPalette palette;
@@ -52,7 +52,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
 
 
 
-
+//Bottone "Nuova partita"
 void MainMenu::handleNewGameButton() {
     GameWidget *gameWidget = new GameWidget();
     gameWidget->show();
@@ -60,6 +60,7 @@ void MainMenu::handleNewGameButton() {
     this->close(); // Chiudiamo il MainMenu
 }
 
+//Bottone "Carica partita"
 void MainMenu::handleLoadGameButton() {
     // Qui puoi gestire il caricamento di una partita esistente
     // Come esempio, creo semplicemente un nuovo GameWidget
