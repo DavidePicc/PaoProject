@@ -16,3 +16,52 @@ std::string Animal::getName() const{
 unsigned int Animal::getCosto(){
     return costo;
 }
+
+// start NEW
+void Animal::setDescrizione(const std::string& description) {
+    descrizione = description;
+}
+
+std::string Animal::getDescrizione() const {
+    return descrizione;
+}
+
+void Animal::setEta(int age) {
+    eta = age;
+}
+
+int Animal::getEta() const {
+    return eta;
+}
+
+void Animal::setPeso(float weight) {
+    peso = weight;
+}
+
+float Animal::getPeso() const {
+    return peso;
+}
+
+const Alimentazione* Animal::getTipo() const {
+    return tipo;
+}
+
+unsigned int Animal::getCosto() const {
+    return costo;
+}
+
+// Metodo per stampare le informazioni dell'animale
+void Animal::stampa() const {
+    std::cout << "Nome: " << nome << std::endl;
+    std::cout << "Descrizione: " << descrizione << std::endl;
+    std::cout << "Età: " << eta << std::endl;
+    std::cout << "Sesso: " << sesso << std::endl;
+    std::cout << "Peso: " << peso << " kg" << std::endl;
+    std::cout << "Tipo di alimentazione: " << tipo->getNome() << std::endl;
+    std::cout << "Costo: " << costo << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const Animal& animal) {
+    animal.stampa();
+    return os;
+}
