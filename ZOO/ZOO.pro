@@ -26,7 +26,8 @@ HEADERS += src/Animal.h \
            src/Tartaruga.h \
            viewer/clock.h \
            viewer/gameWidget.h \
-           viewer/mainMenu.h
+           viewer/mainMenu.h \
+           viewer/gameModel.h
 SOURCES += main.cpp \
            src/Animal.cpp \
            src/animaltype.cpp \
@@ -39,7 +40,8 @@ SOURCES += main.cpp \
            src/Tartaruga.cpp \
            viewer/clock.cpp \
            viewer/gameWidget.cpp \
-           viewer/mainMenu.cpp
+           viewer/mainMenu.cpp \
+           viewer/gameModel.cpp
 
 QT += widgets 
 QT += gui
