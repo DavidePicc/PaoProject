@@ -5,7 +5,7 @@
 #include "animaltype.h"
 
 class Animal {
-protected:
+private:
     const std::string nome;//nome o codice dell'animale
     std::string descrizione;
     int eta;
@@ -24,7 +24,7 @@ public:
 
     //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
-    //virtual ~Animal();
+    virtual ~Animal();
 
     bool operator==(const Animal& other) const;
 
@@ -32,7 +32,28 @@ public:
 
     virtual std::string  emettereVerso() const = 0;
 
-    unsigned int getCosto();
+    // start NEW
+    void setDescrizione(const std::string& description);
+
+    std::string getDescrizione() const;
+
+    void setEta(int age);
+
+    int getEta() const;
+
+    void setPeso(float weight);
+
+    float getPeso() const;
+
+    const Alimentazione* getTipo() const;
+
+    unsigned int getCosto() const;
+
+    std::ostream& operator<<(std::ostream& os, const Animal& animal);
+
+    virtual void stampa() const;
+    //end NEW
+
 };
 
 #endif
