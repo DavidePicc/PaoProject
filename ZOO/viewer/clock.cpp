@@ -23,7 +23,7 @@ DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent), time(QTime(7, 0))
     setWindowTitle("Digital Clock");
     resize(150, 60); // Potrebbe essere necessario regolare la dimensione in base al tuo font
 
-    this->move(625, 25);
+    this->move(600, 25);
 }
 
 void DigitalClock::addTime()

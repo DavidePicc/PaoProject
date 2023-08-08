@@ -1,17 +1,18 @@
 #ifndef DLRECINTO_H
 #define DLRECINTO_H
 
-#include <iostream>
+#include <memory>
+#include "Animal.h"
+#include "generate.h"
 
-template <typename T>
 class DLrecinto {
 private:
     struct Node {
-        T data;
+        std::shared_ptr<Animal> data; //Puntatori smart
         Node* prev;
         Node* next;
 
-        Node(const T& value) : data(value), prev(nullptr), next(nullptr) {}
+        Node(const std::shared_ptr<Animal>& value) : data(value), prev(nullptr), next(nullptr) {}
     };
 
     Node* head;
@@ -26,7 +27,7 @@ public:
         clear();
     }
 
-    void insert(const T& value) {
+    void insert(std::shared_ptr<Animal> value) {
         Node* newNode = new Node(value);
         if (size == 0) {
             head = newNode;
@@ -39,7 +40,7 @@ public:
         size++;
     }
 
-    bool IsThere(const T& value) const { //ricerca di un oggetto specifico per vedere se c'è dentro ad un recinto, bisogna definire meglio l'operatore di ugualianza in animal
+    bool IsThere(const std::shared_ptr<Animal> value) const { //ricerca di un oggetto specifico per vedere se c'è dentro ad un recinto, bisogna definire meglio l'operatore di ugualianza in animal
         Node* currentNode = head;
         while (currentNode) {
             if (currentNode->data == value) {
@@ -50,21 +51,22 @@ public:
         return false;
     }
     
-    T* find(const std::string& string) const {//ricerca in base al nome visto che è unico
+    std::shared_ptr<Animal> find(const std::string& string) const {//ricerca in base al nome visto che è unico
         Node* currentNode = head;
         while (currentNode) {
-        	
-            if (currentNode->data.getName() == string) {
-            	std::cout<<"trovato"<<std::endl;
-                return &(currentNode->data); // puntatore all'oggetto trovato
+            if(currentNode->data->getName() == string) {
+                return currentNode->data; // puntatore all'oggetto trovato
             }
             currentNode = currentNode->next;
         }
-        std::cout<<"non trovato"<<std::endl;
         return nullptr; // nullptr se non è stato trovato
     }
 
-    void remove(const T& value) {
+    void remove(){
+        remove((*this)[comodo::generaNumeroCasuale(0, static_cast<int>(this->getSize()))]);
+    }
+
+    void remove(const std::shared_ptr<Animal>& value) {
         Node* currentNode = head;
         while (currentNode) {
             if (currentNode->data == value) {
@@ -88,9 +90,9 @@ public:
         }
     }
     
-    T& operator[](size_t index) const {//Navigazione come array
+    std::shared_ptr<Animal> operator[](size_t index) const {//Navigazione come array
         if (index >= size) {
-            throw std::out_of_range("Index out of range");
+            throw std::__throw_out_of_range;
         }
 
         Node* currentNode = head;
@@ -113,25 +115,38 @@ public:
         size = 0;
     }
 
-    void print() const {
+    //Inutilizzata
+    /*std::string print() const {
         Node* currentNode = head;
         while (currentNode) {
             std::cout << currentNode->data << " ";
             currentNode = currentNode->next;
         }
         std::cout << std::endl;
-    }
+    }*/
 
     size_t getSize() const {
         return size;
     }
-//metodi per vita
+
+    //Metodo per ottenere i soldi generati dal recinto
+    unsigned int makeMoney(){
+        return size==0 ? 0 : (size * 2) * (*this)[0]->getCosto(); //Supponendo un animale frutti il doppio di quanto costa sfamarlo
+
+    }
+
+
+    //metodi per vita
+
     unsigned int getVita() const {
         return vita;
     }
 
-    void setVita(unsigned int newVita) {
-        vita = newVita;
+    void setVita(int newVita) {
+        if(newVita < 0)
+            vita = 0; // setto vita a 0 se newVita è negativo
+        else
+            vita = static_cast<unsigned int>(newVita);
     }
 
     void modificavita(int amount) {
@@ -139,6 +154,20 @@ public:
         newVita = std::max(0, newVita); //gestione sotto zero
         newVita = std::min(100, newVita); // gestione oltre 100
         vita = static_cast<unsigned int>(newVita);
+    }
+
+    //Funzione che ci dice quanti soldi servono per sfamare il recinto per farlo arrivare alla percentuale (perc)
+    unsigned int moneyTo(unsigned int perc){
+        if(size > 0){
+            //Supponendo sfamare 1 animale costi come comprarlo
+            float a = ((*this)[0]->getCosto() * size) * (static_cast<float>(perc) / 100);
+            return a;
+        }
+        return 0;
+    }
+
+    void riduciVita(){
+        this->setVita(static_cast<int>(this->getVita()) - (static_cast<float>(this->getSize()) * 0.5));
     }
 
 };

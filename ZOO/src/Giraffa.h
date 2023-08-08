@@ -9,7 +9,6 @@ protected:
 
 public:
     Giraffa();
-    Giraffa(int eta, const char sesso, float peso, std::string cibo, float LunghezzaCollo, int Altezza);
 
     std::string emettereVerso() const override;
     static const std::string setNome();

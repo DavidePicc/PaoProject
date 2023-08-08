@@ -12,16 +12,15 @@ protected:
     const char sesso;
     float peso;//in kg
     const Alimentazione* tipo;
+    const unsigned int costo;
     
 
 public:    
     //Costruttore vuoto
     Animal();
 
-    Animal(const std::string name, const char sex);
-
     //Costruttore con parametri
-    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type);
+    Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value);
 
     //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
@@ -32,6 +31,8 @@ public:
     std::string getName() const; 
 
     virtual std::string  emettereVerso() const = 0;
+
+    unsigned int getCosto();
 };
 
 #endif

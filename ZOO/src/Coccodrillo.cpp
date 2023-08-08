@@ -3,17 +3,15 @@
 #include "generate.h"
 
 Coccodrillo::Coccodrillo()
-    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100, 800), new Carnivoro("Carne")), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
-
-Coccodrillo::Coccodrillo(int eta, const char sesso, float peso, std::string cibo, float lunghezza, int numero_denti)
-    : Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), lunghezza(lunghezza), numero_denti(numero_denti) {}
+    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100, 800), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
 
 std::string Coccodrillo::emettereVerso() const{
     return "Grrrr!";
 }
 
 const std::string Coccodrillo::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num ++;
     return "Coccodrillo " + std::to_string(num);
 }
 

@@ -10,7 +10,6 @@ protected:
 
 public:
     Leone();
-    Leone(int eta, const char sesso, float peso, std::string cibo, int rug, bool crin);
     std::string emettereVerso() const override;
 
     //Da aggiungere all'UML

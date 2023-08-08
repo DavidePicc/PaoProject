@@ -2,18 +2,15 @@
 #include "generate.h"
 
 Leone::Leone()
-    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 20), comodo::setSesso(), comodo::generaNumeroCasuale(130, 180), new Carnivoro("Carne")), ruggito(comodo::generaNumeroCasuale(50, 110)), criniera(comodo::generaNumeroCasuale(0, 1) == 1 ? 1 : 0) {}
-
-Leone::Leone(int eta, const char sesso, float peso, std::string cibo, int rug, bool crin)
-        :Animal(setNome(), setDescrizione(), eta, sesso, peso, new Carnivoro(cibo)), ruggito(rug), criniera(crin){}
-
+    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 20), comodo::setSesso(), comodo::generaNumeroCasuale(130, 180), new Carnivoro("Carne"), 10), ruggito(comodo::generaNumeroCasuale(50, 110)), criniera(comodo::generaNumeroCasuale(0, 1) == 1 ? 1 : 0) {}
 
 std::string Leone::emettereVerso() const {
         return "Ruggito!";
 }
 
 const std::string Leone::setNome(){
-    static unsigned int num = 1;
+    static unsigned int num = 0;
+    num++;
     return "Leone " + std::to_string(num);
 }
 

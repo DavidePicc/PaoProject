@@ -5,7 +5,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
     QPixmap pixmap("assets/ZooCover.png"); // Carica l'immagine
 
     // Imposta la dimensione della finestra sulla dimensione dell'immagine
-    this->setFixedSize(pixmap.width(), pixmap.height()-50);
+    this->setFixedSize(pixmap.width(), pixmap.height());
 
     // Imposta l'immagine di sfondo
     QPalette palette;
@@ -32,13 +32,18 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
 
     QPushButton *nuovaPartita = new QPushButton("Nuova partita", this);
     QPushButton *caricaPartita = new QPushButton("Carica partita", this);
-    nuovaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}");
-    caricaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}");
+    nuovaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}"
+                                "QPushButton:pressed { background-color: #505050; }");
+    caricaPartita->setStyleSheet("QPushButton { font-size: 20px; font-weight: bold; background-color: black; color: white; height : 50px}"
+                                "QPushButton:pressed { background-color: #505050; }");
 
     buttonsLayout->addWidget(nuovaPartita);
     buttonsLayout->addWidget(caricaPartita);
 
     this->setLayout(mainLayout);
+
+    nuovaPartita->setCursor(Qt::PointingHandCursor);
+    caricaPartita->setCursor(Qt::PointingHandCursor);
 
     // Collegamento dei segnali dei bottoni ai rispettivi slot
     connect(nuovaPartita, &QPushButton::clicked, this, &MainMenu::handleNewGameButton);
@@ -47,7 +52,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
 
 
 
-
+//Bottone "Nuova partita"
 void MainMenu::handleNewGameButton() {
     GameWidget *gameWidget = new GameWidget();
     gameWidget->show();
@@ -55,11 +60,12 @@ void MainMenu::handleNewGameButton() {
     this->close(); // Chiudiamo il MainMenu
 }
 
+//Bottone "Carica partita"
 void MainMenu::handleLoadGameButton() {
     // Qui puoi gestire il caricamento di una partita esistente
     // Come esempio, creo semplicemente un nuovo GameWidget
-    GameWidget *gameWidget = new GameWidget();
-    gameWidget->show();
+    //GameWidget *gameWidget = new GameWidget();
+    //gameWidget->show();
 
-    this->close(); // Chiudiamo il MainMenu
+    //this->close(); // Chiudiamo il MainMenu
 }

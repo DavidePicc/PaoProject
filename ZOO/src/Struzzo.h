@@ -9,7 +9,6 @@ protected:
 
 public:
     Struzzo();
-    Struzzo(int eta, const char sesso, float peso, std::string cibo, float velocita);
 
     std::string emettereVerso() const override;
     static const std::string setNome();
