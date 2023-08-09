@@ -10,10 +10,17 @@ protected:
 public:
     Giraffa();
 
-    std::string emettereVerso() const override;
-    static const std::string setNome();
-    static std::string setDescrizione();
+    Giraffa(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+            float lungcollo, float altezza);
 
+    std::string emettereVerso() const override;
+
+    void setLunghezzaCollo(float lungcollo);
+    float getLunghezzaCollo() const;
+
+    void setAltezza(float altezza);
+    float getAltezza() const;
     // METODI
+    std::string SiAlza();
 };
 #endif
