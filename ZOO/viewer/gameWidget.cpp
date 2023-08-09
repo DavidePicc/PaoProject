@@ -298,7 +298,23 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
                                       QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 
         if (reply == QMessageBox::Save) {
-            // Codice per salvare la partita
+            QString nomePartita = QInputDialog::getText(nullptr, "Salvataggio Partita", "Inserisci il nome della partita:");
+
+            QFile file("saveFile/" + nomePartita +".xml");
+
+            //Sovrascrittura ?
+            if(file.exists()) {
+                QMessageBox::StandardButton reply;
+                reply = QMessageBox::question(nullptr, "File esistente", "Il file: " + nomePartita + " esiste già, vuoi sovrascriverlo ?", QMessageBox::Yes|QMessageBox::No);
+                if (reply == QMessageBox::No) 
+                    return;
+            }
+
+            if(DataManager::writeData(nomePartita.toStdString(), gameModel) == 1){
+                QMessageBox::information(nullptr, "Salvataggio completato", "Partita salvata correttamente!");
+            }else{
+                QMessageBox::information(nullptr, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");
+            }
         } else if (reply == QMessageBox::Discard) {
             this->close();
         }else {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>86</soldi>
+    <leoni>
+        <vita>100</vita>
+    </leoni>
+    <coccodrilli>
+        <vita>100</vita>
+    </coccodrilli>
+    <pavoni>
+        <vita>100</vita>
+    </pavoni>
+    <tartarughe>
+        <vita>100</vita>
+    </tartarughe>
+    <struzzi>
+        <vita>94</vita>
+        <nome>Struzzo 1</nome>
+        <nome>Struzzo 2</nome>
+        <nome>Struzzo 3</nome>
+    </struzzi>
+    <giraffe>
+        <vita>100</vita>
+    </giraffe>
+</ZOO>

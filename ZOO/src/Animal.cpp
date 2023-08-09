@@ -1,4 +1,5 @@
 #include <typeinfo>
+#include <iostream>
 #include "Animal.h"
 #include "generate.h"
 
@@ -13,7 +14,7 @@ std::string Animal::getName() const{
     return nome;
 }
 
-unsigned int Animal::getCosto(){
+unsigned int Animal::getCosto() const {
     return costo;
 }
 
@@ -46,10 +47,6 @@ const Alimentazione* Animal::getTipo() const {
     return tipo;
 }
 
-unsigned int Animal::getCosto() const {
-    return costo;
-}
-
 // Metodo per stampare le informazioni dell'animale
 void Animal::stampa() const {
     std::cout << "Nome: " << nome << std::endl;
@@ -57,11 +54,11 @@ void Animal::stampa() const {
     std::cout << "Età: " << eta << std::endl;
     std::cout << "Sesso: " << sesso << std::endl;
     std::cout << "Peso: " << peso << " kg" << std::endl;
-    std::cout << "Tipo di alimentazione: " << tipo->getNome() << std::endl;
+    std::cout << "Cibo preferito: " << tipo->getCiboPreferito() << std::endl;
     std::cout << "Costo: " << costo << std::endl;
 }
 
-std::ostream& operator<<(std::ostream& os, const Animal& animal) {
-    animal.stampa();
+std::ostream& Animal::operator<<(std::ostream& os) {
+    (*this).stampa();
     return os;
 }

@@ -24,7 +24,7 @@ public:
 
     //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
-    virtual ~Animal();
+    //virtual ~Animal();
 
     bool operator==(const Animal& other) const;
 
@@ -49,7 +49,7 @@ public:
 
     unsigned int getCosto() const;
 
-    std::ostream& operator<<(std::ostream& os, const Animal& animal);
+    std::ostream& operator<<(std::ostream& os);
 
     virtual void stampa() const;
     //end NEW

@@ -16,10 +16,14 @@
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QInputDialog>
+#include <QFile>
+
 
 #include "gameModel.h"
 #include "clock.h"
 #include "mainMenu.h"
+#include "../dataManager/dataManager.h"
 
 class GameWidget : public QWidget {
     Q_OBJECT

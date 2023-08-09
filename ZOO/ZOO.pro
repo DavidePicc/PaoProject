@@ -27,7 +27,8 @@ HEADERS += src/Animal.h \
            viewer/clock.h \
            viewer/gameWidget.h \
            viewer/mainMenu.h \
-           viewer/gameModel.h
+           viewer/gameModel.h \
+           dataManager/dataManager.h
 SOURCES += main.cpp \
            src/Animal.cpp \
            src/animaltype.cpp \
@@ -41,7 +42,8 @@ SOURCES += main.cpp \
            viewer/clock.cpp \
            viewer/gameWidget.cpp \
            viewer/mainMenu.cpp \
-           viewer/gameModel.cpp
+           viewer/gameModel.cpp \
+           dataManager/dataManager.cpp
 
 QT += widgets 
 QT += gui
