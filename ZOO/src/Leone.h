@@ -10,10 +10,17 @@ protected:
 
 public:
     Leone();
+     Leone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+          int rug, bool cri);
+
     std::string emettereVerso() const override;
 
-    //Da aggiungere all'UML
-    static const std::string setNome();
-    static std::string setDescrizione();
+    void setRuggito(int rug);
+    int getRuggito() const;
+
+    void setCriniera(bool cri);
+    bool hasCriniera() const;
+
+    
 };
 #endif
