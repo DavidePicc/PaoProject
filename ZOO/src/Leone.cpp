@@ -4,8 +4,28 @@
 Leone::Leone()
     : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 20), comodo::setSesso(), comodo::generaNumeroCasuale(130, 180), new Carnivoro("Carne"), 10), ruggito(comodo::generaNumeroCasuale(50, 110)), criniera(comodo::generaNumeroCasuale(0, 1) == 1 ? 1 : 0) {}
 
+Leone::Leone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+             int rug, bool cri)
+    : Animal(name, description, age, sex, weight, type, value), ruggito(rug), criniera(cri) {}
+
 std::string Leone::emettereVerso() const {
-        return "Ruggito!";
+    return "Ruggito!";
+}
+
+void Leone::setRuggito(int rug) {
+    ruggito = rug;
+}
+
+int Leone::getRuggito() const {
+    return ruggito;
+}
+
+void Leone::setCriniera(bool cri) {
+    criniera = cri;
+}
+
+bool Leone::hasCriniera() const {
+    return criniera;
 }
 
 const std::string Leone::setNome(){
