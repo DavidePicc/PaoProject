@@ -5,8 +5,26 @@
 Pavone::Pavone()
     :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3, 6), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   
 
-std::string Pavone::emettereVerso() const{
-    return "eeee-ow!\n";
+Pavone::Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+               float raggio)
+    : Animal(name, description, age, sex, weight, type, value), raggioRuota(raggio) {}
+
+std::string Pavone::emettereVerso() const {
+    return "eeee-ow!";
+}
+
+void Pavone::setRaggioRuota(float raggio) {
+    raggioRuota = raggio;
+}
+
+float Pavone::getRaggioRuota() const {
+    return raggioRuota;
+}
+
+std::string Pavone::SfoggiaRuota() const{
+    if((sex=='M' || sex=='m') && raggioRuota>0){
+        return "il pavone ha sfoggiato una ruota di raggio:" + raggioRuota;
+    }else{ return "il pavone non ha una ruota";}
 }
 
 const std::string Pavone::setNome(){
