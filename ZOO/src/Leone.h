@@ -15,6 +15,9 @@ public:
 
     std::string emettereVerso() const override;
 
+    static const std::string setNome();
+    static std::string setDescrizione();
+
     void setRuggito(int rug);
     int getRuggito() const;
 

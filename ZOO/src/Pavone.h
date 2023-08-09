@@ -9,10 +9,12 @@ protected:
 public:
     Pavone();
 
-    Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-           float raggio);
+    Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value, float raggio);
 
     std::string emettereVerso() const override;
+
+    static const std::string setNome();
+    static std::string setDescrizione();
 
     // Metodi setter e getter per raggioRuota
     void setRaggioRuota(float raggio);

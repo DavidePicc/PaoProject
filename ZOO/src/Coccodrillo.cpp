@@ -9,10 +9,6 @@ Coccodrillo::Coccodrillo(const std::string& name, std::string description, int a
                          float lunghezza, int numerodenti)
     : Animal(name, description, age, sex, weight, type, value), lunghezza(lunghezza), numero_denti(numerodenti) {}
 
-std::string Coccodrillo::emettereVerso() const {
-    return "Ruggito del coccodrillo";
-}
-
 void Coccodrillo::setLunghezza(float length) {
     lunghezza = length;
 }

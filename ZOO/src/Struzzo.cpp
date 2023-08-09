@@ -22,7 +22,7 @@ float Struzzo::getVelocitaMax() const {
 }
 
 std::string Struzzo::corre() const{
-    return "lo struzzo sta correndo ad una velocità di: " + velocitamax;
+    return "lo struzzo sta correndo ad una velocità di: " + std::to_string(velocitamax);
 }
 
 std::string Struzzo::nascondeTesta() const{

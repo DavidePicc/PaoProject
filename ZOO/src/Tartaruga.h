@@ -20,6 +20,8 @@ public:
 
     void setMisura(float X, float Y);
     Dim_Guscio getMisura() const;
+    float getMisuraX() const;
+    float getMisuraY() const;
 
     std::string siNasconde() const;
     

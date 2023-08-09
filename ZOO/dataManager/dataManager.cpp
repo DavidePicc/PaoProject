@@ -20,9 +20,14 @@ bool DataManager::writeData(const std::string nome, GameModel& gameModel) {
     xmlWriter.writeStartElement("ZOO");
 
     xmlWriter.writeTextElement("soldi", QString::number(gameModel.getSoldi()));
+    
+    xmlWriter.writeStartElement("clock");
+    xmlWriter.writeTextElement("ore", QString::number(gameModel.clockH()));
+    xmlWriter.writeTextElement("minuti", QString::number(gameModel.clockMin()));
+    xmlWriter.writeEndElement();
 
     if(writeDatiRecinto("leoni", gameModel.getLeoni(), &xmlWriter) == 0 || writeDatiRecinto("coccodrilli", gameModel.getCoccodrilli(), &xmlWriter) == 0 || writeDatiRecinto("pavoni", gameModel.getPavoni(), &xmlWriter) == 0 || writeDatiRecinto("tartarughe", gameModel.getTartarughe(), &xmlWriter) == 0 || writeDatiRecinto("struzzi", gameModel.getStruzzi(), &xmlWriter) == 0 || writeDatiRecinto("giraffe", gameModel.getGiraffe(), &xmlWriter) == 0){
-        file.remove();// Se errori, elimino tutto il file
+        //file.remove();// Se errori, elimino tutto il file
         return 0;
     }
 
@@ -39,16 +44,16 @@ bool DataManager::writeDatiRecinto(std::string animali, const DLrecinto& recinto
     xmlWriter->writeStartElement(QString::fromStdString(animali));
     xmlWriter->writeTextElement("vita", QString::number(recinto.getVita()));
     if(recinto.getSize() > 0){
+        xmlWriter->writeTextElement("descrizione", QString::fromStdString((*recinto[0]).getDescrizione()));
         for(size_t i = 0; i<recinto.getSize(); i++){
             xmlWriter->writeStartElement(QString::fromStdString((*recinto[i]).getName()));
             xmlWriter->writeTextElement("nome", QString::fromStdString((*recinto[i]).getName()));
-            xmlWriter->writeTextElement("descrizione", QString::fromStdString((*recinto[i]).getDescrizione()));
             xmlWriter->writeTextElement("eta", QString::number((*recinto[i]).getEta()));
             xmlWriter->writeTextElement("peso", QString::number((*recinto[i]).getPeso(), 'f'));
             xmlWriter->writeTextElement("cibo", QString::fromStdString((*recinto[i]).getTipo()->getCiboPreferito()));
 
             //Converto il puntatore in nel suo oggetto appropriato
-            if (std::dynamic_pointer_cast<Leone>(recinto[i])) {
+            /*if (std::dynamic_pointer_cast<Leone>(recinto[i])) {
                 writeDatiAnimale(*(std::dynamic_pointer_cast<Leone>(recinto[i])), xmlWriter);
             } else if (std::dynamic_pointer_cast<Coccodrillo>(recinto[i])) {
                 writeDatiAnimale(*(std::dynamic_pointer_cast<Coccodrillo>(recinto[i])), xmlWriter);
@@ -60,7 +65,7 @@ bool DataManager::writeDatiRecinto(std::string animali, const DLrecinto& recinto
                 writeDatiAnimale(*(std::dynamic_pointer_cast<Struzzo>(recinto[i])), xmlWriter);
             } else if (std::dynamic_pointer_cast<Giraffa>(recinto[i])) {
                 writeDatiAnimale(*(std::dynamic_pointer_cast<Giraffa>(recinto[i])), xmlWriter);
-            }
+            }*/
 
 
             xmlWriter->writeEndElement();
@@ -69,7 +74,7 @@ bool DataManager::writeDatiRecinto(std::string animali, const DLrecinto& recinto
                 return false;
         }
     }
-
+    
     xmlWriter->writeEndElement();
 
     if(xmlWriter->hasError())
@@ -78,29 +83,32 @@ bool DataManager::writeDatiRecinto(std::string animali, const DLrecinto& recinto
     return true;
 }
 
-bool DataManager::writeDatiAnimale(const Leone& leo, QXmlStreamWriter* xmlWriter){
-    //xmlWriter->writeTextElement("ruggito", QString::number(leo.getRuggito()));
-    //xmlWriter->writeTextElement("criniera", leo.getCriniera() ? "1" : "0");
+bool DataManager::writeDatiAnimale(const Leone& l, QXmlStreamWriter* xmlWriter){
+    xmlWriter->writeTextElement("ruggito", QString::number(l.getRuggito()));
+    xmlWriter->writeTextElement("criniera", l.hasCriniera() ? "1" : "0");
 }
 
-bool DataManager::writeDatiAnimale(const Coccodrillo&, QXmlStreamWriter* xmlWriter){
-
+bool DataManager::writeDatiAnimale(const Coccodrillo& c, QXmlStreamWriter* xmlWriter){
+    xmlWriter->writeTextElement("lunghezza", QString::number(c.getLunghezza(), 'f'));
+    xmlWriter->writeTextElement("numeroDenti", QString::number(c.getNumeroDenti()));
 }
 
-bool DataManager::writeDatiAnimale(const Pavone&, QXmlStreamWriter* xmlWriter){
-
+bool DataManager::writeDatiAnimale(const Pavone& p, QXmlStreamWriter* xmlWriter){
+    xmlWriter->writeTextElement("raggioRuota", QString::number(p.getRaggioRuota(), 'f'));
 }
 
-bool DataManager::writeDatiAnimale(const Tartaruga&, QXmlStreamWriter* xmlWriter){
-
+bool DataManager::writeDatiAnimale(const Tartaruga& t, QXmlStreamWriter* xmlWriter){
+    xmlWriter->writeTextElement("misuraGuscioX", QString::number(t.getMisuraX(), 'f'));
+    xmlWriter->writeTextElement("misuraGuscioY", QString::number(t.getMisuraY(), 'f'));
 }
 
-bool DataManager::writeDatiAnimale(const Struzzo&, QXmlStreamWriter* xmlWriter){
-
+bool DataManager::writeDatiAnimale(const Struzzo& s, QXmlStreamWriter* xmlWriter){
+    xmlWriter->writeTextElement("velocita", QString::number(s.getVelocitaMax(), 'f'));
 }
 
-bool DataManager::writeDatiAnimale(const Giraffa&, QXmlStreamWriter* xmlWriter){
-
+bool DataManager::writeDatiAnimale(const Giraffa& g, QXmlStreamWriter* xmlWriter){
+    xmlWriter->writeTextElement("lunghezzaCollo", QString::number(g.getLunghezzaCollo(), 'f'));
+    xmlWriter->writeTextElement("altezza", QString::number(g.getAltezza(), 'f'));
 }
 
 

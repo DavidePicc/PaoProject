@@ -25,8 +25,16 @@ Dim_Guscio Tartaruga::getMisura() const {
     return misura;
 }
 
+float Tartaruga::getMisuraX() const{
+    return misura.x;
+}
+
+float Tartaruga::getMisuraY() const{
+    return misura.y;
+}
+
 std::string Tartaruga::siNasconde() const{
-    return "La tartaruga si è nascosta dentro un guscio di:" + misura.x + " e " + misura.y ;
+    return "La tartaruga si è nascosta dentro un guscio di:" + std::to_string(misura.x) + " e " + std::to_string(misura.y) ;
 }
 
 const std::string Tartaruga::setNome(){

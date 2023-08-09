@@ -22,9 +22,9 @@ float Pavone::getRaggioRuota() const {
 }
 
 std::string Pavone::SfoggiaRuota() const{
-    if((sex=='M' || sex=='m') && raggioRuota>0){
-        return "il pavone ha sfoggiato una ruota di raggio:" + raggioRuota;
-    }else{ return "il pavone non ha una ruota";}
+    if((sesso=='M' || sesso=='m') && raggioRuota>0){
+        return "Il pavone ha sfoggiato una ruota di raggio:" + std::to_string(raggioRuota);
+    }else{ return "Il pavone non ha una ruota";}
 }
 
 const std::string Pavone::setNome(){

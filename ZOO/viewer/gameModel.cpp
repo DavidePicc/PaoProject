@@ -1,6 +1,6 @@
 #include "gameModel.h"
 
-GameModel::GameModel() : soldi(100) {}
+GameModel::GameModel() : soldi(100), clock() {}
 
 unsigned int GameModel::getSoldi() const {
     return soldi;
@@ -64,3 +64,15 @@ bool GameModel::enoughMoney(DLrecinto& recinto, unsigned int perc){
 void GameModel::updateSoldi() {
     soldi += (leoni.makeMoney()+ leoni.makeMoney() +  coccodrilli.makeMoney() + pavoni.makeMoney() + tartarughe.makeMoney() + struzzi.makeMoney() + giraffe.makeMoney())/20;
 }
+
+void GameModel::clockPausa(bool val){
+    clock.setPausa(val);
+}
+
+int GameModel::clockH() const{
+    return clock.getH();
+}
+
+int GameModel::clockMin() const{
+    return clock.getMin();
+} 

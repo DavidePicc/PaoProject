@@ -41,5 +41,5 @@ std::string Giraffa::setDescrizione(){
 }
 
 std::string Giraffa::SiAlza(){
-    return "La giraffa si è alzata e ha un altezza di:" + Altezza + "e un collo di:" + LunghezzaCollo;
+    return "La giraffa si è alzata e ha un altezza di:" + std::to_string(Altezza) + "e un collo di:" + std::to_string(LunghezzaCollo);
 }

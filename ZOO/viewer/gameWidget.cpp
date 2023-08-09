@@ -27,9 +27,8 @@
         createButton(200, 410, "struzzo", gameModel.getStruzzi());
         createButton(735, 445, "giraffa", gameModel.getGiraffe());
 
-        //Creo l'orologio
-        DigitalClock *clock = new DigitalClock(this);
-        clock->show();
+        //Mostro l'orologio
+        gameModel.clock.show();
 
         //Mostro i soldi
         QLabel *money = new QLabel(this);
@@ -293,6 +292,7 @@ void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
 //Funzione per fare in modo che schiacciando esc esca un menù
 void GameWidget::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_Escape) {
+        //gameModel.clockPausa(true);
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Menu di pausa", "Vuoi salvare la partita o tornare al menu principale?",
                                       QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
@@ -320,5 +320,6 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         }else {
             QWidget::keyPressEvent(event);
         }
+        //gameModel.clockPausa(false);
     }
 }
