@@ -8,8 +8,25 @@ Tartaruga::Tartaruga()
     misura.y = comodo::generaNumeroCasuale(60.0, 130.0);
 }
 
-std::string Tartaruga::emettereVerso() const{
-    return "Grugnito!\n";
+Tartaruga::Tartaruga(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+                     float X, float Y)
+    : Animal(name, description, age, sex, weight, type, value), misura({X, Y}) {}
+
+std::string Tartaruga::emettereVerso() const {
+    return "La tartaruga non emette versi";
+}
+
+void Tartaruga::setMisura(float X, float Y) {
+    misura.x = X;
+    misura.y = Y;
+}
+
+Dim_Guscio Tartaruga::getMisura() const {
+    return misura;
+}
+
+std::string Tartaruga::siNasconde() const{
+    return "La tartaruga si è nascosta dentro un guscio di:" + misura.x + " e " + misura.y ;
 }
 
 const std::string Tartaruga::setNome(){
