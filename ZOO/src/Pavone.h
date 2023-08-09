@@ -9,11 +9,16 @@ protected:
 public:
     Pavone();
 
+    Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+           float wheelRadius);
 
     std::string emettereVerso() const override;
-    static const std::string setNome();
-    static std::string setDescrizione();
 
-    // METODI
+    // Metodi setter e getter per raggioRuota
+    void setRaggioRuota(float wheelRadius);
+    float getRaggioRuota() const;
+
+    std::string SfoggiaRuota() const;
+
 };
 #endif
