@@ -10,10 +10,20 @@ protected:
 public:
     Struzzo();
 
+    Struzzo(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
+            float velo);
+
     std::string emettereVerso() const override;
+
+    void setVelocitaMax(float velo);
+    float getVelocitaMax() const;
+
+    std::string corre() const;
+    std::string nascondeTesta() const;
+    
     static const std::string setNome();
     static std::string setDescrizione();
-
+    
     // METODI
 };
 #endif
