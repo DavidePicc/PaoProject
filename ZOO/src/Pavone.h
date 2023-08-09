@@ -10,12 +10,12 @@ public:
     Pavone();
 
     Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-           float wheelRadius);
+           float raggio);
 
     std::string emettereVerso() const override;
 
     // Metodi setter e getter per raggioRuota
-    void setRaggioRuota(float wheelRadius);
+    void setRaggioRuota(float raggio);
     float getRaggioRuota() const;
 
     std::string SfoggiaRuota() const;
