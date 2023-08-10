@@ -302,7 +302,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         if (reply == QMessageBox::Save) {
             QString nomePartita = QInputDialog::getText(nullptr, "Salvataggio Partita", "Inserisci il nome della partita:");
 
-            QFile file("saveFile/" + nomePartita +".xml");
+            QFile file("savedFile/" + nomePartita + ".xml");
 
             //Sovrascrittura ?
             if(file.exists()) {
@@ -312,7 +312,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
                     return;
             }
 
-            if(DataManager::writeData(nomePartita.toStdString(), gameModel) == 1){
+            if(DataManager::writeData(nomePartita.toStdString(), gameModel) == true){
                 QMessageBox::information(nullptr, "Salvataggio completato", "Partita salvata correttamente!");
             }else{
                 QMessageBox::information(nullptr, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");

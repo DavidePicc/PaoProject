@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>84</soldi>
+    <clock/>
+    <leoni>
+        <vita>96</vita>
+        <descrizione>Il leone è un possente felino appartenente alla famiglia dei leoni e noto come il re della giungla. È uno dei più grandi carnivori terrestri esistenti e si distingue per la sua possente struttura fisica, la criniera caratteristica e l'imponente presenza.</descrizione>
+        <Leone 1>
+            <nome>Leone 1</nome>
+            <eta>9</eta>
+            <peso>165.000000</peso>
+            <cibo>Carne</cibo>
+        </Leone 1>
+        <Leone 2>
+            <nome>Leone 2</nome>
+            <eta>7</eta>
+            <peso>178.000000</peso>
+            <cibo>Carne</cibo>
+        </Leone 2>
+        <Leone 3>
+            <nome>Leone 3</nome>
+            <eta>12</eta>
+            <peso>164.000000</peso>
+            <cibo>Carne</cibo>
+        </Leone 3>
+        <Leone 4>
+            <nome>Leone 4</nome>
+            <eta>17</eta>
+            <peso>134.000000</peso>
+            <cibo>Carne</cibo>
+        </Leone 4>
+    </leoni>
+    <coccodrilli>
+        <vita>100</vita>
+    </coccodrilli>
+    <pavoni>
+        <vita>100</vita>
+    </pavoni>
+    <tartarughe>
+        <vita>100</vita>
+    </tartarughe>
+    <struzzi>
+        <vita>100</vita>
+    </struzzi>
+    <giraffe>
+        <vita>100</vita>
+    </giraffe>
+</ZOO>

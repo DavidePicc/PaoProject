@@ -3,8 +3,16 @@
 
 //Funzione per scrivere dati
 bool DataManager::writeData(const std::string nome, GameModel& gameModel) {
+    QDir dir("savedFile");
+    if(!dir.exists()){
+        if(!QDir().mkdir("savedFile")){
+            qWarning() << "Error creating directory at path:" << dir.absolutePath();
+            return false;
+        }
+    }
+
     //Creo percorso file
-    QString filePath = QString::fromStdString("saveFile/" + nome +".xml");
+    QString filePath = QString::fromStdString("savedFile/" + nome + ".xml");
     QFile file(filePath);
 
     if (!file.open(QIODevice::WriteOnly)) {
@@ -118,7 +126,7 @@ bool DataManager::writeDatiAnimale(const Giraffa& g, QXmlStreamWriter* xmlWriter
 
 //Funzione per leggere dati
 bool DataManager::readData(const std::string& nome, unsigned int& soldi, DLrecinto& leoni, DLrecinto& coccodrilli, DLrecinto& pavoni, DLrecinto& tartarughe, DLrecinto& struzzi, DLrecinto& giraffe) {
-    QString filePath = QString::fromStdString("../saveFile/" + nome + ".xml");
+    QString filePath = QString::fromStdString("savedFile/" + nome + ".xml");
     QFile file(filePath);
 
     if (!file.open(QIODevice::ReadOnly)) {

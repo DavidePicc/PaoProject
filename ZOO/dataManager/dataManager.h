@@ -8,6 +8,8 @@
 #include <QXmlStreamReader>
 #include <QDebug>
 #include <QMessageBox>
+#include <QDir>
+
 
 #include "../src/Container.h"
 #include "../viewer/gameModel.h"
