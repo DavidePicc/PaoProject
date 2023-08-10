@@ -21,7 +21,7 @@
 
 
 #include "gameModel.h"
-#include "clock.h"
+#include "digitalClock.h"
 #include "mainMenu.h"
 #include "../dataManager/dataManager.h"
 

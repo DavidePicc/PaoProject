@@ -1,5 +1,5 @@
-#ifndef CLOCK_H
-#define CLOCK_H
+#ifndef DIGITALCLOCK_H
+#define DIGITALCLOCK_H
 
 #include <QWidget>
 #include <QLabel>
@@ -7,6 +7,8 @@
 #include <QVBoxLayout>
 #include <QTimer>
 #include <QFont>
+
+#include "../src/clock.h"
 
 class DigitalClock : public QWidget
 {
@@ -16,11 +18,11 @@ public:
     DigitalClock(QWidget *parent = nullptr);
 
 private slots:
-    void addTime();
+    void updateDisplay();
 
 private:
     QLabel *label;
-    QTime time;
+    Clock clock;
 };
 
 #endif

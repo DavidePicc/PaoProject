@@ -1,4 +1,4 @@
-    #include "gameWidget.h"
+#include "gameWidget.h"
 
 GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {//Setto i soldi ad una quota fissa, 1000 per iniziare
     QPixmap pixmap("assets/map.jpg"); // Carica l'immagine

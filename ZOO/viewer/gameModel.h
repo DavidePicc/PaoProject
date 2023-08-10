@@ -9,7 +9,7 @@
 #include "../src/Struzzo.h"
 #include "../src/Tartaruga.h"
 #include "../src/Container.h"
-#include "clock.h"
+#include "digitalClock.h"
 
 class GameModel {
 private:

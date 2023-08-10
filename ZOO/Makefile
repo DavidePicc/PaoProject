@@ -62,11 +62,12 @@ SOURCES       = main.cpp \
 		src/Pavone.cpp \
 		src/Struzzo.cpp \
 		src/Tartaruga.cpp \
-		viewer/clock.cpp \
+		src/clock.cpp \
+		viewer/digitalClock.cpp \
 		viewer/gameWidget.cpp \
 		viewer/mainMenu.cpp \
 		viewer/gameModel.cpp \
-		dataManager/dataManager.cpp moc_clock.cpp \
+		dataManager/dataManager.cpp moc_digitalClock.cpp \
 		moc_gameWidget.cpp \
 		moc_mainMenu.cpp
 OBJECTS       = main.o \
@@ -80,11 +81,12 @@ OBJECTS       = main.o \
 		Struzzo.o \
 		Tartaruga.o \
 		clock.o \
+		digitalClock.o \
 		gameWidget.o \
 		mainMenu.o \
 		gameModel.o \
 		dataManager.o \
-		moc_clock.o \
+		moc_digitalClock.o \
 		moc_gameWidget.o \
 		moc_mainMenu.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
@@ -166,7 +168,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		src/Pavone.h \
 		src/Struzzo.h \
 		src/Tartaruga.h \
-		viewer/clock.h \
+		src/clock.h \
+		viewer/digitalClock.h \
 		viewer/gameWidget.h \
 		viewer/mainMenu.h \
 		viewer/gameModel.h \
@@ -180,7 +183,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		src/Pavone.cpp \
 		src/Struzzo.cpp \
 		src/Tartaruga.cpp \
-		viewer/clock.cpp \
+		src/clock.cpp \
+		viewer/digitalClock.cpp \
 		viewer/gameWidget.cpp \
 		viewer/mainMenu.cpp \
 		viewer/gameModel.cpp \
@@ -358,8 +362,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/Animal.h src/animaltype.h src/Coccodrillo.h src/Container.h src/generate.h src/Giraffa.h src/Leone.h src/Pavone.h src/Struzzo.h src/Tartaruga.h viewer/clock.h viewer/gameWidget.h viewer/mainMenu.h viewer/gameModel.h dataManager/dataManager.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp src/Animal.cpp src/animaltype.cpp src/Coccodrillo.cpp src/generate.cpp src/Giraffa.cpp src/Leone.cpp src/Pavone.cpp src/Struzzo.cpp src/Tartaruga.cpp viewer/clock.cpp viewer/gameWidget.cpp viewer/mainMenu.cpp viewer/gameModel.cpp dataManager/dataManager.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Animal.h src/animaltype.h src/Coccodrillo.h src/Container.h src/generate.h src/Giraffa.h src/Leone.h src/Pavone.h src/Struzzo.h src/Tartaruga.h src/clock.h viewer/digitalClock.h viewer/gameWidget.h viewer/mainMenu.h viewer/gameModel.h dataManager/dataManager.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/Animal.cpp src/animaltype.cpp src/Coccodrillo.cpp src/generate.cpp src/Giraffa.cpp src/Leone.cpp src/Pavone.cpp src/Struzzo.cpp src/Tartaruga.cpp src/clock.cpp viewer/digitalClock.cpp viewer/gameWidget.cpp viewer/mainMenu.cpp viewer/gameModel.cpp dataManager/dataManager.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -391,13 +395,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_clock.cpp moc_gameWidget.cpp moc_mainMenu.cpp
+compiler_moc_header_make_all: moc_digitalClock.cpp moc_gameWidget.cpp moc_mainMenu.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_clock.cpp moc_gameWidget.cpp moc_mainMenu.cpp
-moc_clock.cpp: viewer/clock.h \
+	-$(DEL_FILE) moc_digitalClock.cpp moc_gameWidget.cpp moc_mainMenu.cpp
+moc_digitalClock.cpp: viewer/digitalClock.h \
+		src/clock.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/student/Desktop/PaoProject/ZOO/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/student/Desktop/PaoProject/ZOO -I/home/student/Desktop/PaoProject/ZOO -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include viewer/clock.h -o moc_clock.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/student/Desktop/PaoProject/ZOO/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -I/home/student/Desktop/PaoProject/ZOO -I/home/student/Desktop/PaoProject/ZOO -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include viewer/digitalClock.h -o moc_digitalClock.cpp
 
 moc_gameWidget.cpp: viewer/gameWidget.h \
 		viewer/gameModel.h \
@@ -411,7 +416,6 @@ moc_gameWidget.cpp: viewer/gameWidget.h \
 		src/Tartaruga.h \
 		src/Container.h \
 		src/generate.h \
-		viewer/clock.h \
 		viewer/mainMenu.h \
 		dataManager/dataManager.h \
 		moc_predefs.h \
@@ -494,8 +498,12 @@ Tartaruga.o: src/Tartaruga.cpp src/Tartaruga.h \
 		src/generate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Tartaruga.o src/Tartaruga.cpp
 
-clock.o: viewer/clock.cpp viewer/clock.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clock.o viewer/clock.cpp
+clock.o: src/clock.cpp src/clock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clock.o src/clock.cpp
+
+digitalClock.o: viewer/digitalClock.cpp viewer/digitalClock.h \
+		src/clock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o digitalClock.o viewer/digitalClock.cpp
 
 gameWidget.o: viewer/gameWidget.cpp viewer/gameWidget.h \
 		viewer/gameModel.h \
@@ -509,7 +517,6 @@ gameWidget.o: viewer/gameWidget.cpp viewer/gameWidget.h \
 		src/Tartaruga.h \
 		src/Container.h \
 		src/generate.h \
-		viewer/clock.h \
 		viewer/mainMenu.h \
 		dataManager/dataManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gameWidget.o viewer/gameWidget.cpp
@@ -527,7 +534,6 @@ mainMenu.o: viewer/mainMenu.cpp viewer/mainMenu.h \
 		src/Tartaruga.h \
 		src/Container.h \
 		src/generate.h \
-		viewer/clock.h \
 		dataManager/dataManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainMenu.o viewer/mainMenu.cpp
 
@@ -548,11 +554,18 @@ dataManager.o: dataManager/dataManager.cpp dataManager/dataManager.h \
 		src/Container.h \
 		src/Animal.h \
 		src/animaltype.h \
-		src/generate.h
+		src/generate.h \
+		viewer/gameModel.h \
+		src/Coccodrillo.h \
+		src/Giraffa.h \
+		src/Leone.h \
+		src/Pavone.h \
+		src/Struzzo.h \
+		src/Tartaruga.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dataManager.o dataManager/dataManager.cpp
 
-moc_clock.o: moc_clock.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clock.o moc_clock.cpp
+moc_digitalClock.o: moc_digitalClock.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_digitalClock.o moc_digitalClock.cpp
 
 moc_gameWidget.o: moc_gameWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gameWidget.o moc_gameWidget.cpp

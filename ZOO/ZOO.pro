@@ -24,7 +24,8 @@ HEADERS += src/Animal.h \
            src/Pavone.h \
            src/Struzzo.h \
            src/Tartaruga.h \
-           viewer/clock.h \
+           src/clock.h \
+           viewer/digitalClock.h \
            viewer/gameWidget.h \
            viewer/mainMenu.h \
            viewer/gameModel.h \
@@ -39,7 +40,8 @@ SOURCES += main.cpp \
            src/Pavone.cpp \
            src/Struzzo.cpp \
            src/Tartaruga.cpp \
-           viewer/clock.cpp \
+           src/clock.cpp \
+           viewer/digitalClock.cpp \
            viewer/gameWidget.cpp \
            viewer/mainMenu.cpp \
            viewer/gameModel.cpp \
