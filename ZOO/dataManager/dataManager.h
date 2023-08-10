@@ -18,13 +18,13 @@ class DataManager {
 public:
     //Funzioni di scrittura
     static bool writeData(const std::string nome, GameModel& gameModel);
-    static bool writeDatiRecinto(std::string animali, const DLrecinto& recinto, QXmlStreamWriter* xmlWriter);
-    static bool writeDatiAnimale(const Leone&, QXmlStreamWriter* xmlWriter);
+    static bool writeDatiRecinto(const std::string animali, const DLrecinto& recinto, QXmlStreamWriter* xmlWriter);
+    /*static bool writeDatiAnimale(const Leone&, QXmlStreamWriter* xmlWriter);
     static bool writeDatiAnimale(const Coccodrillo&, QXmlStreamWriter* xmlWriter);
     static bool writeDatiAnimale(const Pavone&, QXmlStreamWriter* xmlWriter);
     static bool writeDatiAnimale(const Tartaruga&, QXmlStreamWriter* xmlWriter);
     static bool writeDatiAnimale(const Struzzo&, QXmlStreamWriter* xmlWriter);
-    static bool writeDatiAnimale(const Giraffa&, QXmlStreamWriter* xmlWriter);
+    static bool writeDatiAnimale(const Giraffa&, QXmlStreamWriter* xmlWriter);*/
     
     
     //Funzioni  di lettura

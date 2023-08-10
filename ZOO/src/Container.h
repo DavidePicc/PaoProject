@@ -103,9 +103,9 @@ public:
         return currentNode->data;
     }
 
-    Animal& getObject(unsigned int i) const{
+    /*Animal& getObject(unsigned int i) const{
         return *(*this)[i];
-    }
+    }*/
 
     void clear() {
         Node* currentNode = head;
@@ -118,16 +118,6 @@ public:
         tail = nullptr;
         size = 0;
     }
-
-    //Inutilizzata
-    /*std::string print() const {
-        Node* currentNode = head;
-        while (currentNode) {
-            std::cout << currentNode->data << " ";
-            currentNode = currentNode->next;
-        }
-        std::cout << std::endl;
-    }*/
 
     size_t getSize() const {
         return size;

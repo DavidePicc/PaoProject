@@ -28,6 +28,10 @@ DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent)
     this->move(600, 25);
 }
 
+QString DigitalClock::getTime() const{
+    return clock.getTimeString();
+}
+
 void DigitalClock::updateDisplay() 
 {
     clock.addTime();
