@@ -23,8 +23,6 @@ private:
     DLrecinto giraffe;
 
 public:
-    DigitalClock clock;
-
     GameModel();
     unsigned int getSoldi() const;
     DLrecinto& getLeoni();
@@ -37,9 +35,6 @@ public:
     void giveFood(DLrecinto& recinto, unsigned int perc);
     bool enoughMoney(DLrecinto& recinto, unsigned int perc);
     void updateSoldi();
-    void clockPausa(bool val);
-    int clockH() const;
-    int clockMin() const; 
 };
 
 #endif 

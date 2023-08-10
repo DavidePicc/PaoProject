@@ -13,11 +13,7 @@ class DigitalClock : public QWidget
     Q_OBJECT
 
 public:
-    DigitalClock(QWidget *parent = nullptr, int h=7, int min=0);
-    void setPausa(bool val);
-    void setTime(int h, int min);
-    int getH() const;
-    int getMin() const;
+    DigitalClock(QWidget *parent = nullptr);
 
 private slots:
     void addTime();
@@ -25,7 +21,6 @@ private slots:
 private:
     QLabel *label;
     QTime time;
-    bool paused; //Se = 1 il timer si ferma -> usato per pausa
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "clock.h"
 
-DigitalClock::DigitalClock(QWidget *parent, int h, int min) : QWidget(parent), time(QTime(h, min)), paused(0) //L'orario parte dalle 7:00 grazie all'ultimo parametro
+DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent), time(QTime(7, 0)) //L'orario parte dalle 7:00 grazie all'ultimo parametro
 {
     label = new QLabel(this);
 
@@ -26,30 +26,9 @@ DigitalClock::DigitalClock(QWidget *parent, int h, int min) : QWidget(parent), t
     this->move(600, 25);
 }
 
-
-void DigitalClock::setPausa(bool val){
-    paused = val;
-}
-
-void DigitalClock::setTime(int h, int min) {
-    time = QTime(h, min);
-}
-
-int DigitalClock::getH() const{
-    return time.hour();
-}
-
-int DigitalClock::getMin() const{
-    return time.minute();
-}
-
-
 void DigitalClock::addTime()
 {
-    if(!paused){
-        time = time.addSecs(120); //Aggiungo al gioco 120 secondi ogni secondo reale cosìcchè il tempo sia più fluido
-        QString text = time.toString("hh:mm");
-        label->setText(text);
-    }
+    time = time.addSecs(120); //Aggiungo al gioco 120 secondi ogni secondo reale cosìcchè il tempo sia più fluido
+    QString text = time.toString("hh:mm");
+    label->setText(text);
 }
-

@@ -1,52 +1,54 @@
     #include "gameWidget.h"
 
-    GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {//Setto i soldi ad una quota fissa, 1000 per iniziare
-        QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
+GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {//Setto i soldi ad una quota fissa, 1000 per iniziare
+    QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
 
-        // Crea una QLabel e imposta l'immagine
-        QLabel *label = new QLabel(this);
-        label->setPixmap(pixmap);
+    // Crea una QLabel e imposta l'immagine
+    QLabel *label = new QLabel(this);
+    label->setPixmap(pixmap);
 
-        // Imposta la dimensione della finestra sulla dimensione dell'immagine
-        this->setFixedSize(pixmap.width(), pixmap.height());
+    // Imposta la dimensione della finestra sulla dimensione dell'immagine
+    this->setFixedSize(pixmap.width(), pixmap.height());
 
-        // Ottieni le dimensioni dello schermo
-        QScreen *screen = QGuiApplication::primaryScreen();
-        QRect screenGeometry = screen->geometry();
-        int x = (screenGeometry.width() - this->width()) / 2;
-        int y = (screenGeometry.height() - this->height()) / 2;
+    // Ottieni le dimensioni dello schermo
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int x = (screenGeometry.width() - this->width()) / 2;
+    int y = (screenGeometry.height() - this->height()) / 2;
 
-        // Posiziona la finestra al centro dello schermo
-        this->move(x, y);
+    // Posiziona la finestra al centro dello schermo
+    this->move(x, y);
 
-        //Creo i bottoni nelle coordinate fisse
-        createButton(310, 30, "leone", gameModel.getLeoni());
-        createButton(660, 105, "coccodrillo", gameModel.getCoccodrilli());
-        createButton(245, 185, "pavone", gameModel.getPavoni());
-        createButton(528, 290, "tartaruga", gameModel.getTartarughe());
-        createButton(200, 410, "struzzo", gameModel.getStruzzi());
-        createButton(735, 445, "giraffa", gameModel.getGiraffe());
+    //Creo i bottoni nelle coordinate fisse
+    createButton(310, 30, "leone", gameModel.getLeoni());
+    createButton(660, 105, "coccodrillo", gameModel.getCoccodrilli());
+    createButton(245, 185, "pavone", gameModel.getPavoni());
+    createButton(528, 290, "tartaruga", gameModel.getTartarughe());
+    createButton(200, 410, "struzzo", gameModel.getStruzzi());
+    createButton(735, 445, "giraffa", gameModel.getGiraffe());
 
-        //Mostro l'orologio
-        gameModel.clock.show();
+    //Creo l'orologio
+    DigitalClock *clock = new DigitalClock(this);
+    clock->show();
 
-        //Mostro i soldi
-        QLabel *money = new QLabel(this);
-        money->setText("€ " + QString::number(gameModel.getSoldi())); // Aggiungi "€" prima del numero
-        money->move(50, 40);
-        money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px;");
-        money->show();
+    //Mostro i soldi
+    QLabel *money = new QLabel(this);
+    money->setText("€ " + QString::number(gameModel.getSoldi())); // Aggiungi "€" prima del numero
+    money->move(50, 40);
+    money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px;");
+    money->show();
 
-        //Per aggiornare i soldi ogni secondo tramite timer
-        QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, [this, money]() {
-            gameModel.updateSoldi();
+    //Per aggiornare i soldi ogni secondo tramite timer
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, [this, money]() {
+        gameModel.updateSoldi();
 
-            money->setText("€ " + QString::number(gameModel.getSoldi()));
-            money->adjustSize();
-        });
-        timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
-    }
+        money->setText("€ " + QString::number(gameModel.getSoldi()));
+        money->adjustSize();
+    });
+    timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
+}
+
 
 
 
