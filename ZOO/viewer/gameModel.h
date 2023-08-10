@@ -9,12 +9,10 @@
 #include "../src/Struzzo.h"
 #include "../src/Tartaruga.h"
 #include "../src/Container.h"
-#include "clock.h"
 
 class GameModel {
 private:
     unsigned int soldi;
-    //Clock clock;
     DLrecinto leoni;
     DLrecinto coccodrilli;
     DLrecinto pavoni;

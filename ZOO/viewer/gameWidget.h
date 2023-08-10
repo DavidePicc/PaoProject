@@ -29,6 +29,7 @@ class GameWidget : public QWidget {
     Q_OBJECT
 private:
     GameModel gameModel;
+    DigitalClock clock;
 
 public:
     GameWidget(QWidget *parent = nullptr);

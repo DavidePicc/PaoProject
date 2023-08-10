@@ -2,7 +2,7 @@
 
 
 //Funzione per scrivere dati
-bool DataManager::writeData(const std::string nome, GameModel& gameModel) {
+bool DataManager::writeData(const std::string nome, GameModel& gameModel, QString time) {
     QDir dir("savedFile");
     if(!dir.exists()){
         if(!QDir().mkdir("savedFile")){
@@ -30,12 +30,11 @@ bool DataManager::writeData(const std::string nome, GameModel& gameModel) {
     xmlWriter.writeTextElement("soldi", QString::number(gameModel.getSoldi()));
     
     xmlWriter.writeStartElement("clock");
-    //xmlWriter.writeTextElement("ore", QString::number(gameModel.clockH()));
-    //xmlWriter.writeTextElement("minuti", QString::number(gameModel.clockMin()));
+    xmlWriter.writeTextElement("Time", QString(time));
     xmlWriter.writeEndElement();
 
     if(writeDatiRecinto("leoni", gameModel.getLeoni(), &xmlWriter) == 0 || writeDatiRecinto("coccodrilli", gameModel.getCoccodrilli(), &xmlWriter) == 0 || writeDatiRecinto("pavoni", gameModel.getPavoni(), &xmlWriter) == 0 || writeDatiRecinto("tartarughe", gameModel.getTartarughe(), &xmlWriter) == 0 || writeDatiRecinto("struzzi", gameModel.getStruzzi(), &xmlWriter) == 0 || writeDatiRecinto("giraffe", gameModel.getGiraffe(), &xmlWriter) == 0){
-        //file.remove();// Se errori, elimino tutto il file
+        file.remove();// Se errori, elimino tutto il file
         return 0;
     }
 

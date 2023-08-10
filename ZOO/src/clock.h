@@ -6,6 +6,7 @@
 class Clock {
 public:
     Clock();
+    Clock(int h, int m);
     void addTime();
     QString getTimeString() const;
 

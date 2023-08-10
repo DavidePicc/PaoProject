@@ -1,70 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ZOO>
-    <soldi>114</soldi>
-    <clock/>
+    <soldi>144</soldi>
+    <clock>
+        <Time>07:54</Time>
+    </clock>
     <leoni>
-        <vita>90</vita>
+        <vita>86</vita>
         <descrizione>Il leone è un possente felino appartenente alla famiglia dei leoni e noto come il re della giungla. È uno dei più grandi carnivori terrestri esistenti e si distingue per la sua possente struttura fisica, la criniera caratteristica e l'imponente presenza.</descrizione>
         <Leone 1>
             <nome>Leone 1</nome>
-            <eta>11</eta>
-            <peso>131.000000</peso>
+            <eta>5</eta>
+            <peso>143.000000</peso>
             <cibo>Carne</cibo>
-            <ruggito>86</ruggito>
+            <ruggito>59</ruggito>
             <criniera>0</criniera>
         </Leone 1>
         <Leone 2>
             <nome>Leone 2</nome>
-            <eta>12</eta>
-            <peso>153.000000</peso>
+            <eta>14</eta>
+            <peso>155.000000</peso>
             <cibo>Carne</cibo>
-            <ruggito>106</ruggito>
+            <ruggito>109</ruggito>
             <criniera>0</criniera>
         </Leone 2>
         <Leone 3>
             <nome>Leone 3</nome>
-            <eta>12</eta>
-            <peso>161.000000</peso>
+            <eta>11</eta>
+            <peso>149.000000</peso>
             <cibo>Carne</cibo>
-            <ruggito>60</ruggito>
+            <ruggito>89</ruggito>
             <criniera>0</criniera>
         </Leone 3>
     </leoni>
     <coccodrilli>
-        <vita>100</vita>
+        <vita>96</vita>
+        <descrizione>Il coccodrillo è un rettile appartenente all'ordine dei Crocodylia. È un animale di grandi dimensioni, con un corpo allungato e muscoloso, zampe corte e una lunga coda. Si caratterizza per la presenza di una testa larga e piatta, dotata di mascelle forti e denti affilati. I coccodrilli hanno una pelle dura e squamosa, di solito di colore verde-oliva o marrone, che può variare a seconda delle specie.</descrizione>
+        <Coccodrillo 1>
+            <nome>Coccodrillo 1</nome>
+            <eta>65</eta>
+            <peso>510.000000</peso>
+            <cibo>Carne</cibo>
+        </Coccodrillo 1>
     </coccodrilli>
     <pavoni>
         <vita>100</vita>
     </pavoni>
     <tartarughe>
-        <vita>100</vita>
+        <vita>88</vita>
+        <descrizione>Le testuggini delle Galapagos sono le tartarughe terrestri più grandi al mondo, con una lunghezza del carapace che si aggira attorno ai 150 centimetri ed un peso che può raggiungere i 300 kg. </descrizione>
+        <Tartaruga 1>
+            <nome>Tartaruga 1</nome>
+            <eta>77</eta>
+            <peso>26.000000</peso>
+            <cibo>Erba</cibo>
+            <misuraGuscioX>87.759338</misuraGuscioX>
+            <misuraGuscioY>114.551865</misuraGuscioY>
+        </Tartaruga 1>
+        <Tartaruga 2>
+            <nome>Tartaruga 2</nome>
+            <eta>19</eta>
+            <peso>12.000000</peso>
+            <cibo>Erba</cibo>
+            <misuraGuscioX>62.936985</misuraGuscioX>
+            <misuraGuscioY>74.925568</misuraGuscioY>
+        </Tartaruga 2>
+        <Tartaruga 3>
+            <nome>Tartaruga 3</nome>
+            <eta>82</eta>
+            <peso>16.000000</peso>
+            <cibo>Erba</cibo>
+            <misuraGuscioX>65.223854</misuraGuscioX>
+            <misuraGuscioY>114.389687</misuraGuscioY>
+        </Tartaruga 3>
     </tartarughe>
     <struzzi>
-        <vita>92</vita>
+        <vita>95</vita>
         <descrizione>Lo struzzo comune semplicemente struzzo, è una grande specie di uccello incapace di volare originario delle vaste savane dell'Africa.</descrizione>
         <Struzzo 1>
             <nome>Struzzo 1</nome>
-            <eta>50</eta>
-            <peso>78.000000</peso>
+            <eta>57</eta>
+            <peso>105.000000</peso>
             <cibo>Erba</cibo>
-            <velocita>47.000000</velocita>
+            <velocita>44.000000</velocita>
         </Struzzo 1>
         <Struzzo 2>
             <nome>Struzzo 2</nome>
-            <eta>42</eta>
-            <peso>74.000000</peso>
+            <eta>55</eta>
+            <peso>125.000000</peso>
             <cibo>Erba</cibo>
-            <velocita>66.000000</velocita>
+            <velocita>46.000000</velocita>
         </Struzzo 2>
-        <Struzzo 3>
-            <nome>Struzzo 3</nome>
-            <eta>41</eta>
-            <peso>92.000000</peso>
-            <cibo>Erba</cibo>
-            <velocita>57.000000</velocita>
-        </Struzzo 3>
     </struzzi>
     <giraffe>
-        <vita>100</vita>
+        <vita>96</vita>
+        <descrizione>La giraffa è un genere di mammifero artiodattilo. Originaria dell'Africa, è il più alto animale terrestre, nonché il più grande ruminante esistente.</descrizione>
+        <Giraffa 1>
+            <nome>Giraffa 1</nome>
+            <eta>13</eta>
+            <peso>743.000000</peso>
+            <cibo>Foglie</cibo>
+            <lunghezzaCollo>2.216259</lunghezzaCollo>
+            <altezza>5.518246</altezza>
+        </Giraffa 1>
     </giraffe>
 </ZOO>

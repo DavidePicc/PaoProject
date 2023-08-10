@@ -17,7 +17,7 @@
 class DataManager {
 public:
     //Funzioni di scrittura
-    static bool writeData(const std::string nome, GameModel& gameModel);
+    static bool writeData(const std::string nome, GameModel& gameModel, QString time);
     static bool writeDatiRecinto(const std::string animali, const DLrecinto& recinto, QXmlStreamWriter* xmlWriter);
     /*static bool writeDatiAnimale(const Leone&, QXmlStreamWriter* xmlWriter);
     static bool writeDatiAnimale(const Coccodrillo&, QXmlStreamWriter* xmlWriter);

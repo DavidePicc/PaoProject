@@ -1,9 +1,6 @@
 #include "digitalClock.h"
 
-#include "digitalClock.h"
-
-DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent) 
-{
+DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent){
     label = new QLabel(this);
 
     QFont font;

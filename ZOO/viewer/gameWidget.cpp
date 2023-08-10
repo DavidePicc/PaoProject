@@ -1,6 +1,6 @@
 #include "gameWidget.h"
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {//Setto i soldi ad una quota fissa, 1000 per iniziare
+GameWidget::GameWidget(QWidget *parent) : QWidget(parent), clock(this) {//Setto i soldi ad una quota fissa, 1000 per iniziare
     QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
 
     // Crea una QLabel e imposta l'immagine
@@ -28,8 +28,9 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent) {//Setto i soldi ad un
     createButton(735, 445, "giraffa", gameModel.getGiraffe());
 
     //Creo l'orologio
-    DigitalClock *clock = new DigitalClock(this);
-    clock->show();
+    //DigitalClock *clock = new DigitalClock(this);
+    clock.show();
+    clock.raise();
 
     //Mostro i soldi
     QLabel *money = new QLabel(this);
@@ -312,7 +313,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
                     return;
             }
 
-            if(DataManager::writeData(nomePartita.toStdString(), gameModel) == true){
+            if(DataManager::writeData(nomePartita.toStdString(), gameModel, clock.getTime()) == true){
                 QMessageBox::information(nullptr, "Salvataggio completato", "Partita salvata correttamente!");
             }else{
                 QMessageBox::information(nullptr, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");
