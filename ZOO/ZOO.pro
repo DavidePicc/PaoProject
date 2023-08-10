@@ -5,6 +5,7 @@
 TEMPLATE = app
 TARGET = ZOO
 INCLUDEPATH += .
+OBJECTS_DIR = ./build
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.

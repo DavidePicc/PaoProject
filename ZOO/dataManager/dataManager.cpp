@@ -52,6 +52,8 @@ bool DataManager::writeDatiRecinto(std::string animali, const DLrecinto& recinto
             xmlWriter->writeTextElement("peso", QString::number((*recinto[i]).getPeso(), 'f'));
             xmlWriter->writeTextElement("cibo", QString::fromStdString((*recinto[i]).getTipo()->getCiboPreferito()));
 
+            //writeDatiAnimale(recinto.getObject(i), xmlWriter);
+
             //Converto il puntatore in nel suo oggetto appropriato
             /*if (std::dynamic_pointer_cast<Leone>(recinto[i])) {
                 writeDatiAnimale(*(std::dynamic_pointer_cast<Leone>(recinto[i])), xmlWriter);

@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = ZOO1.0.0
-DISTDIR = /home/student/Desktop/PaoProject/ZOO/.tmp/ZOO1.0.0
+DISTDIR = /home/student/Desktop/PaoProject/ZOO/build/ZOO1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath-link,/usr/lib/x86_64-linux-gnu
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt6Widgets.so /usr/lib/x86_64-linux-gnu/libQt6Gui.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Core.so -lpthread -lGLX -lOpenGL   
@@ -48,7 +48,7 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = ./
+OBJECTS_DIR   = build/
 
 ####### Files
 
@@ -70,25 +70,25 @@ SOURCES       = main.cpp \
 		dataManager/dataManager.cpp moc_digitalClock.cpp \
 		moc_gameWidget.cpp \
 		moc_mainMenu.cpp
-OBJECTS       = main.o \
-		Animal.o \
-		animaltype.o \
-		Coccodrillo.o \
-		generate.o \
-		Giraffa.o \
-		Leone.o \
-		Pavone.o \
-		Struzzo.o \
-		Tartaruga.o \
-		clock.o \
-		digitalClock.o \
-		gameWidget.o \
-		mainMenu.o \
-		gameModel.o \
-		dataManager.o \
-		moc_digitalClock.o \
-		moc_gameWidget.o \
-		moc_mainMenu.o
+OBJECTS       = build/main.o \
+		build/Animal.o \
+		build/animaltype.o \
+		build/Coccodrillo.o \
+		build/generate.o \
+		build/Giraffa.o \
+		build/Leone.o \
+		build/Pavone.o \
+		build/Struzzo.o \
+		build/Tartaruga.o \
+		build/clock.o \
+		build/digitalClock.o \
+		build/gameWidget.o \
+		build/mainMenu.o \
+		build/gameModel.o \
+		build/dataManager.o \
+		build/moc_digitalClock.o \
+		build/moc_gameWidget.o \
+		build/moc_mainMenu.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/common/linux.conf \
@@ -416,6 +416,8 @@ moc_gameWidget.cpp: viewer/gameWidget.h \
 		src/Tartaruga.h \
 		src/Container.h \
 		src/generate.h \
+		viewer/digitalClock.h \
+		src/clock.h \
 		viewer/mainMenu.h \
 		dataManager/dataManager.h \
 		moc_predefs.h \
@@ -443,69 +445,69 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-main.o: main.cpp src/Coccodrillo.h \
+build/main.o: main.cpp src/Coccodrillo.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/Leone.h \
 		src/Pavone.h \
 		viewer/mainMenu.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/main.o main.cpp
 
-Animal.o: src/Animal.cpp src/Animal.h \
+build/Animal.o: src/Animal.cpp src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Animal.o src/Animal.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Animal.o src/Animal.cpp
 
-animaltype.o: src/animaltype.cpp src/animaltype.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animaltype.o src/animaltype.cpp
+build/animaltype.o: src/animaltype.cpp src/animaltype.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/animaltype.o src/animaltype.cpp
 
-Coccodrillo.o: src/Coccodrillo.cpp src/Coccodrillo.h \
+build/Coccodrillo.o: src/Coccodrillo.cpp src/Coccodrillo.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Coccodrillo.o src/Coccodrillo.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Coccodrillo.o src/Coccodrillo.cpp
 
-generate.o: src/generate.cpp src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o generate.o src/generate.cpp
+build/generate.o: src/generate.cpp src/generate.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/generate.o src/generate.cpp
 
-Giraffa.o: src/Giraffa.cpp src/Giraffa.h \
+build/Giraffa.o: src/Giraffa.cpp src/Giraffa.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Giraffa.o src/Giraffa.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Giraffa.o src/Giraffa.cpp
 
-Leone.o: src/Leone.cpp src/Leone.h \
+build/Leone.o: src/Leone.cpp src/Leone.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Leone.o src/Leone.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Leone.o src/Leone.cpp
 
-Pavone.o: src/Pavone.cpp src/Pavone.h \
+build/Pavone.o: src/Pavone.cpp src/Pavone.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Pavone.o src/Pavone.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Pavone.o src/Pavone.cpp
 
-Struzzo.o: src/Struzzo.cpp src/Struzzo.h \
+build/Struzzo.o: src/Struzzo.cpp src/Struzzo.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Struzzo.o src/Struzzo.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Struzzo.o src/Struzzo.cpp
 
-Tartaruga.o: src/Tartaruga.cpp src/Tartaruga.h \
+build/Tartaruga.o: src/Tartaruga.cpp src/Tartaruga.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Tartaruga.o src/Tartaruga.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/Tartaruga.o src/Tartaruga.cpp
 
-clock.o: src/clock.cpp src/clock.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clock.o src/clock.cpp
+build/clock.o: src/clock.cpp src/clock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/clock.o src/clock.cpp
 
-digitalClock.o: viewer/digitalClock.cpp viewer/digitalClock.h \
+build/digitalClock.o: viewer/digitalClock.cpp viewer/digitalClock.h \
 		src/clock.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o digitalClock.o viewer/digitalClock.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/digitalClock.o viewer/digitalClock.cpp
 
-gameWidget.o: viewer/gameWidget.cpp viewer/gameWidget.h \
+build/gameWidget.o: viewer/gameWidget.cpp viewer/gameWidget.h \
 		viewer/gameModel.h \
 		src/Animal.h \
 		src/animaltype.h \
@@ -517,11 +519,13 @@ gameWidget.o: viewer/gameWidget.cpp viewer/gameWidget.h \
 		src/Tartaruga.h \
 		src/Container.h \
 		src/generate.h \
+		viewer/digitalClock.h \
+		src/clock.h \
 		viewer/mainMenu.h \
 		dataManager/dataManager.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gameWidget.o viewer/gameWidget.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/gameWidget.o viewer/gameWidget.cpp
 
-mainMenu.o: viewer/mainMenu.cpp viewer/mainMenu.h \
+build/mainMenu.o: viewer/mainMenu.cpp viewer/mainMenu.h \
 		viewer/gameWidget.h \
 		viewer/gameModel.h \
 		src/Animal.h \
@@ -534,10 +538,12 @@ mainMenu.o: viewer/mainMenu.cpp viewer/mainMenu.h \
 		src/Tartaruga.h \
 		src/Container.h \
 		src/generate.h \
+		viewer/digitalClock.h \
+		src/clock.h \
 		dataManager/dataManager.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainMenu.o viewer/mainMenu.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/mainMenu.o viewer/mainMenu.cpp
 
-gameModel.o: viewer/gameModel.cpp viewer/gameModel.h \
+build/gameModel.o: viewer/gameModel.cpp viewer/gameModel.h \
 		src/Animal.h \
 		src/animaltype.h \
 		src/Coccodrillo.h \
@@ -547,10 +553,12 @@ gameModel.o: viewer/gameModel.cpp viewer/gameModel.h \
 		src/Struzzo.h \
 		src/Tartaruga.h \
 		src/Container.h \
-		src/generate.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gameModel.o viewer/gameModel.cpp
+		src/generate.h \
+		viewer/digitalClock.h \
+		src/clock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/gameModel.o viewer/gameModel.cpp
 
-dataManager.o: dataManager/dataManager.cpp dataManager/dataManager.h \
+build/dataManager.o: dataManager/dataManager.cpp dataManager/dataManager.h \
 		src/Container.h \
 		src/Animal.h \
 		src/animaltype.h \
@@ -561,17 +569,19 @@ dataManager.o: dataManager/dataManager.cpp dataManager/dataManager.h \
 		src/Leone.h \
 		src/Pavone.h \
 		src/Struzzo.h \
-		src/Tartaruga.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dataManager.o dataManager/dataManager.cpp
+		src/Tartaruga.h \
+		viewer/digitalClock.h \
+		src/clock.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/dataManager.o dataManager/dataManager.cpp
 
-moc_digitalClock.o: moc_digitalClock.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_digitalClock.o moc_digitalClock.cpp
+build/moc_digitalClock.o: moc_digitalClock.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_digitalClock.o moc_digitalClock.cpp
 
-moc_gameWidget.o: moc_gameWidget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gameWidget.o moc_gameWidget.cpp
+build/moc_gameWidget.o: moc_gameWidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_gameWidget.o moc_gameWidget.cpp
 
-moc_mainMenu.o: moc_mainMenu.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainMenu.o moc_mainMenu.cpp
+build/moc_mainMenu.o: moc_mainMenu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_mainMenu.o moc_mainMenu.cpp
 
 ####### Install
 

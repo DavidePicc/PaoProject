@@ -103,6 +103,10 @@ public:
         return currentNode->data;
     }
 
+    Animal& getObject(unsigned int i) const{
+        return *(*this)[i];
+    }
+
     void clear() {
         Node* currentNode = head;
         while (currentNode) {
