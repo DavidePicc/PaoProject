@@ -185,81 +185,89 @@ std::cout << "G\n";
         costo = xmlReader.readElementText().toInt();
         xmlReader.readNext();
         xmlReader.readNext();
-        nome = xmlReader.readElementText().toStdString();
-        xmlReader.readNext();
-        eta = xmlReader.readElementText().toInt();
-        xmlReader.readNext();
-        sesso = xmlReader.readElementText().toStdString()[0];
-        xmlReader.readNext();
-        peso = xmlReader.readElementText().toFloat();
-        xmlReader.readNext();
-        cibo = xmlReader.readElementText().toStdString();
-        xmlReader.readNext();
-        std::cout << "I\n";
+        while(!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == QString::fromStdString(animali))){
+            //xmlReader.readNext();
+            nome = xmlReader.readElementText().toStdString();
+            xmlReader.readNext();
+            eta = xmlReader.readElementText().toInt();
+            xmlReader.readNext();
+            sesso = xmlReader.readElementText().toStdString()[0];
+            xmlReader.readNext();
+            peso = xmlReader.readElementText().toFloat();
+            xmlReader.readNext();
+            cibo = xmlReader.readElementText().toStdString();
+            xmlReader.readNext();
+            std::cout << "I\n";
+
+            if (animali == "leoni") {
+                if(vuoto)
+                    gameModel.getLeoni().setVita(vita);
+                else{
+                    unsigned int ruggito = xmlReader.readElementText().toInt();
+                    xmlReader.readNext();
+                    bool criniera = (xmlReader.readElementText().toLower() == "true");
+                    const Alimentazione* tipo = new Carnivoro(cibo);
+
+                    gameModel.getLeoni().insert(std::make_shared<Leone>(nome, descrizione, eta, sesso, peso, tipo, costo, ruggito, criniera));
+                }
+            } else if (animali == "coccodrillo") {
+                if(vuoto)
+                    gameModel.getCoccodrilli().setVita(vita);
+                else{
+                    float lunghezza = xmlReader.readElementText().toFloat();
+                    xmlReader.readNext();
+                    int denti = xmlReader.readElementText().toInt();
+                    const Alimentazione* tipo = new Carnivoro(cibo);
+
+                    gameModel.getCoccodrilli().insert(std::make_shared<Coccodrillo>(nome, descrizione, eta, sesso, peso, tipo, costo, lunghezza, denti));
+                }
+            } else if (animali == "pavoni") {
+                if(vuoto)
+                    gameModel.getPavoni().setVita(vita);
+                else{
+                    float ruota = xmlReader.readElementText().toFloat();
+                    xmlReader.readNext();
+                    const Alimentazione* tipo = new Onnivoro(cibo);
+
+                    gameModel.getPavoni().insert(std::make_shared<Pavone>(nome, descrizione, eta, sesso, peso, tipo, costo, ruota));
+                }
+            } else if (animali == "tartarughe") {
+                if(vuoto)
+                    gameModel.getTartarughe().setVita(vita);
+                else{
+                    float guscioX = xmlReader.readElementText().toFloat();
+                    xmlReader.readNext();
+                    float guscioY = xmlReader.readElementText().toFloat();
+                    const Alimentazione* tipo = new Erbivoro(cibo);
+
+                    gameModel.getTartarughe().insert(std::make_shared<Tartaruga>(nome, descrizione, eta, sesso, peso, tipo, costo, guscioX, guscioY));
+                }
+            } else if (animali == "struzzi") {
+                if(vuoto)
+                    gameModel.getStruzzi().setVita(vita);
+                else{
+                    float velocita = xmlReader.readElementText().toFloat();
+                    const Alimentazione* tipo = new Onnivoro(cibo);
+
+                    gameModel.getStruzzi().insert(std::make_shared<Struzzo>(nome, descrizione, eta, sesso, peso, tipo, costo, velocita));
+                }
+            } else if (animali == "giraffe") {
+                if(vuoto)
+                    gameModel.getGiraffe().setVita(vita);
+                else{
+                    float collo = xmlReader.readElementText().toFloat();
+                    xmlReader.readNext();
+                    float altezza = xmlReader.readElementText().toFloat();
+                    const Alimentazione* tipo = new Erbivoro(cibo);
+
+                    gameModel.getGiraffe().insert(std::make_shared<Giraffa>(nome, descrizione, eta, sesso, peso, tipo, costo, collo, altezza));
+                }
+            }
+            xmlReader.readNext();
+            
+        }
+        
     }
 
-    if (animali == "leoni") {
-        if(vuoto)
-            gameModel.getLeoni().setVita(vita);
-        else{
-            unsigned int ruggito = xmlReader.readElementText().toInt();
-            xmlReader.readNext();
-            bool criniera = (xmlReader.readElementText().toLower() == "true");
-            const Alimentazione* tipo = new Carnivoro(cibo);
-
-            gameModel.getLeoni().insert(std::make_shared<Leone>(nome, descrizione, eta, sesso, peso, tipo, costo, ruggito, criniera));
-        }
-    } else if (animali == "coccodrillo") {
-        if(vuoto)
-            gameModel.getCoccodrilli().setVita(vita);
-        else{
-            float lunghezza = xmlReader.readElementText().toFloat();
-            xmlReader.readNext();
-            int denti = xmlReader.readElementText().toInt();
-            const Alimentazione* tipo = new Carnivoro(cibo);
-
-            gameModel.getCoccodrilli().insert(std::make_shared<Coccodrillo>(nome, descrizione, eta, sesso, peso, tipo, costo, lunghezza, denti));
-        }
-    } else if (animali == "pavoni") {
-        if(vuoto)
-            gameModel.getPavoni().setVita(vita);
-        else{
-            float ruota = xmlReader.readElementText().toFloat();
-            xmlReader.readNext();
-            const Alimentazione* tipo = new Onnivoro(cibo);
-
-            gameModel.getPavoni().insert(std::make_shared<Pavone>(nome, descrizione, eta, sesso, peso, tipo, costo, ruota));
-        }
-    } else if (animali == "tartarughe") {
-        if(vuoto)
-            gameModel.getTartarughe().setVita(vita);
-        else{
-            float guscioX = xmlReader.readElementText().toFloat();
-            xmlReader.readNext();
-            float guscioY = xmlReader.readElementText().toFloat();
-            const Alimentazione* tipo = new Erbivoro(cibo);
-
-            gameModel.getTartarughe().insert(std::make_shared<Tartaruga>(nome, descrizione, eta, sesso, peso, tipo, costo, guscioX, guscioY));
-        }
-    } else if (animali == "struzzi") {
-        if(vuoto)
-            gameModel.getStruzzi().setVita(vita);
-        else{
-            float velocita = xmlReader.readElementText().toFloat();
-            const Alimentazione* tipo = new Onnivoro(cibo);
-
-            gameModel.getStruzzi().insert(std::make_shared<Struzzo>(nome, descrizione, eta, sesso, peso, tipo, costo, velocita));
-        }
-    } else if (animali == "giraffe") {
-        if(vuoto)
-            gameModel.getGiraffe().setVita(vita);
-        else{
-            float collo = xmlReader.readElementText().toFloat();
-            xmlReader.readNext();
-            float altezza = xmlReader.readElementText().toFloat();
-            const Alimentazione* tipo = new Erbivoro(cibo);
-
-            gameModel.getGiraffe().insert(std::make_shared<Giraffa>(nome, descrizione, eta, sesso, peso, tipo, costo, collo, altezza));
-        }
-    }
+    
 }
