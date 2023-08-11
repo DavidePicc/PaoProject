@@ -9,6 +9,7 @@ public:
     Clock(int h, int m);
     void addTime();
     QString getTimeString() const;
+    void setTime(const QTime& newTime);
 
 private:
     QTime time;

@@ -32,10 +32,14 @@ private:
     DigitalClock clock;
 
 public:
-    GameWidget(QWidget *parent = nullptr);
+    GameWidget();
+    GameWidget(std::string filename);
+    void visualizer();
     QPushButton* createButton(int x, int y, std::string animale, DLrecinto& recinto);
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar);
     void keyPressEvent(QKeyEvent *event) override;
+
+    friend void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
 
 public slots:
     void animalDetails(Animal& a);

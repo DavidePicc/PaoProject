@@ -29,9 +29,12 @@ QString DigitalClock::getTime() const{
     return clock.getTimeString();
 }
 
-void DigitalClock::updateDisplay() 
-{
+void DigitalClock::updateDisplay(){
     clock.addTime();
     QString text = clock.getTimeString();
     label->setText(text);
+}
+
+void DigitalClock::setTime(const QTime& newTime){
+    clock.setTime(newTime);
 }

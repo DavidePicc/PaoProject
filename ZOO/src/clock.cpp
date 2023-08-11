@@ -11,3 +11,7 @@ void Clock::addTime() {
 QString Clock::getTimeString() const {
     return time.toString("hh:mm");
 }
+
+void Clock::setTime(const QTime& newTime) {
+    time = newTime;
+}

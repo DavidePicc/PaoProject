@@ -45,6 +45,8 @@ public:
 
     float getPeso() const;
 
+    char getSex() const;
+
     const Alimentazione* getTipo() const;
 
     unsigned int getCosto() const;

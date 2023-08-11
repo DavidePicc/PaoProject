@@ -9,6 +9,8 @@
 #include "../src/Struzzo.h"
 #include "../src/Tartaruga.h"
 #include "../src/Container.h"
+#include "../dataManager/dataManager.h"
+
 
 class GameModel {
 private:
@@ -22,6 +24,7 @@ private:
 
 public:
     GameModel();
+    void setSoldi(unsigned int i);
     unsigned int getSoldi() const;
     DLrecinto& getLeoni();
     DLrecinto& getCoccodrilli();
@@ -33,6 +36,7 @@ public:
     void giveFood(DLrecinto& recinto, unsigned int perc);
     bool enoughMoney(DLrecinto& recinto, unsigned int perc);
     void updateSoldi();
+
 };
 
 #endif 

@@ -1,6 +1,7 @@
 #include "dataManager.h"
+#include "../viewer/gameModel.h"
 
-
+//SCRITTURA
 //Funzione per scrivere dati
 bool DataManager::writeData(const std::string nome, GameModel& gameModel, QString time) {
     QDir dir("savedFile");
@@ -52,10 +53,12 @@ bool DataManager::writeDatiRecinto(const std::string animali, const DLrecinto& r
     xmlWriter->writeTextElement("vita", QString::number(recinto.getVita()));
     if(recinto.getSize() > 0){
         xmlWriter->writeTextElement("descrizione", QString::fromStdString((*recinto[0]).getDescrizione()));
+        xmlWriter->writeTextElement("costo", QString::number((*recinto[0]).getCosto()));
         for(size_t i = 0; i<recinto.getSize(); i++){
             xmlWriter->writeStartElement(QString::fromStdString((*recinto[i]).getName()));
             xmlWriter->writeTextElement("nome", QString::fromStdString((*recinto[i]).getName()));
             xmlWriter->writeTextElement("eta", QString::number((*recinto[i]).getEta()));
+            xmlWriter->writeTextElement("sesso", QString((*recinto[i]).getSex()));
             xmlWriter->writeTextElement("peso", QString::number((*recinto[i]).getPeso(), 'f'));
             xmlWriter->writeTextElement("cibo", QString::fromStdString((*recinto[i]).getTipo()->getCiboPreferito()));
 
@@ -67,7 +70,7 @@ bool DataManager::writeDatiRecinto(const std::string animali, const DLrecinto& r
                 xmlWriter->writeTextElement("criniera", (*(std::dynamic_pointer_cast<Leone>(recinto[i]))).hasCriniera() ? "1" : "0");
             } else if (animali == "coccodrillo") {
                 xmlWriter->writeTextElement("lunghezza", QString::number((*(std::dynamic_pointer_cast<Coccodrillo>(recinto[i]))).getLunghezza(), 'f'));
-                xmlWriter->writeTextElement("numeroDenti", QString::number((*(std::dynamic_pointer_cast<Coccodrillo>(recinto[i]))).getNumeroDenti(), 'f'));
+                xmlWriter->writeTextElement("numeroDenti", QString::number((*(std::dynamic_pointer_cast<Coccodrillo>(recinto[i]))).getNumeroDenti()));
             } else if (animali == "pavoni") {
                 xmlWriter->writeTextElement("raggioRuota", QString::number((*(std::dynamic_pointer_cast<Pavone>(recinto[i]))).getRaggioRuota(), 'f'));
             } else if (animali == "tartarughe") {
@@ -96,91 +99,167 @@ bool DataManager::writeDatiRecinto(const std::string animali, const DLrecinto& r
     return true;
 }
 
-/*bool DataManager::writeDatiAnimale(const Leone& l, QXmlStreamWriter* xmlWriter){
-    xmlWriter->writeTextElement("ruggito", QString::number(l.getRuggito()));
-    xmlWriter->writeTextElement("criniera", l.hasCriniera() ? "1" : "0");
-}
+#include <iostream>/////////////////////////////////
 
-bool DataManager::writeDatiAnimale(const Coccodrillo& c, QXmlStreamWriter* xmlWriter){
-    xmlWriter->writeTextElement("lunghezza", QString::number(c.getLunghezza(), 'f'));
-    xmlWriter->writeTextElement("numeroDenti", QString::number(c.getNumeroDenti()));
-}
-
-bool DataManager::writeDatiAnimale(const Pavone& p, QXmlStreamWriter* xmlWriter){
-    xmlWriter->writeTextElement("raggioRuota", QString::number(p.getRaggioRuota(), 'f'));
-}
-
-bool DataManager::writeDatiAnimale(const Tartaruga& t, QXmlStreamWriter* xmlWriter){
-    xmlWriter->writeTextElement("misuraGuscioX", QString::number(t.getMisuraX(), 'f'));
-    xmlWriter->writeTextElement("misuraGuscioY", QString::number(t.getMisuraY(), 'f'));
-}
-
-bool DataManager::writeDatiAnimale(const Struzzo& s, QXmlStreamWriter* xmlWriter){
-    xmlWriter->writeTextElement("velocita", QString::number(s.getVelocitaMax(), 'f'));
-}
-
-bool DataManager::writeDatiAnimale(const Giraffa& g, QXmlStreamWriter* xmlWriter){
-    xmlWriter->writeTextElement("lunghezzaCollo", QString::number(g.getLunghezzaCollo(), 'f'));
-    xmlWriter->writeTextElement("altezza", QString::number(g.getAltezza(), 'f'));
-}*/
-
-
-
-
+//LETTURA
 //Funzione per leggere dati
-bool DataManager::readData(const std::string& nome, unsigned int& soldi, DLrecinto& leoni, DLrecinto& coccodrilli, DLrecinto& pavoni, DLrecinto& tartarughe, DLrecinto& struzzi, DLrecinto& giraffe) {
-    QString filePath = QString::fromStdString("savedFile/" + nome + ".xml");
+bool DataManager::readData(const std::string& nome, GameModel& gameModel, QString& time) {
+    QString filePath = QString::fromStdString("savedFile/" + nome);
     QFile file(filePath);
 
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning() << "Non è possibile aprire il file per la lettura:" << filePath;
+        qWarning() << "Errore:" << file.errorString();
         return false;
     }
 
     QXmlStreamReader xmlReader(&file);
 
-    while (!xmlReader.atEnd()) {
-        if (xmlReader.readNextStartElement()) {
-            if (xmlReader.name() == QString::fromStdString("ZOO")) {
-                while (xmlReader.readNextStartElement()) {
-                    if (xmlReader.name() == QString::fromStdString("soldi")) {
-                        soldi = xmlReader.readElementText().toUInt();
-                    } else {
-                        // Chiamata alla tua funzione readDatiRecinto
-                        DLrecinto recinto;
-                        if(readDatiRecinto(xmlReader.name().toString().toStdString(), recinto, &xmlReader)){
-                            // qui assegna recinto alla variabile corrispondente in base al nome
-                        } else {
-                            file.close();
-                            return false;
-                        }
-                    }
-                }
+    std::cout << "A\n";
+
+    while (!xmlReader.atEnd() && !xmlReader.hasError()) {
+        QXmlStreamReader::TokenType token = xmlReader.readNext();
+        
+        if (token == QXmlStreamReader::StartDocument) {
+            continue;
+        }
+
+        if (token == QXmlStreamReader::StartElement) {
+            if (xmlReader.name() == QStringLiteral("ZOO")) {
+                readZOO(xmlReader, gameModel, time);
+                std::cout << "B\n";
             }
         }
-    }
-
-    if (xmlReader.hasError()) {
-        qWarning() << "Errore durante la lettura del file XML:" << xmlReader.errorString();
     }
 
     file.close();
+
+    if (xmlReader.hasError()) {
+        qWarning() << "Errore nella lettura del file XML:" << xmlReader.errorString();
+        return false;
+    }
+
     return true;
 }
-//Funzione di aiuto per leggere dati di un singolo recinto
-bool DataManager::readDatiRecinto(const std::string& animali, DLrecinto& recinto, QXmlStreamReader* xmlReader){
-    if (xmlReader->name() == QString::fromStdString(animali)) {
-        while (xmlReader->readNextStartElement()) {
-            if (xmlReader->name() == QString::fromStdString("vita")) {
-                recinto.setVita(xmlReader->readElementText().toInt());
-            } else {
-                // Qui dovresti leggere le altre informazioni dell'animale, come eta, peso, ecc.
-            }
 
-            if(xmlReader->hasError()){
-                return false;
+void DataManager::readZOO(QXmlStreamReader& xmlReader, GameModel& gameModel, QString& time) {
+    while (!(xmlReader.tokenType() == QXmlStreamReader::EndElement && xmlReader.name() == QStringLiteral("ZOO"))) { //Finchè non arrivo alla fine di ZOO
+        if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
+            if (xmlReader.name() == QStringLiteral("soldi")) {
+                std::cout << "C - " << xmlReader.readElementText().toInt() << " \n";
+                gameModel.setSoldi(xmlReader.readElementText().toInt());
+            } else if (xmlReader.name() == QStringLiteral("Time")) {
+                std::cout << "D " << xmlReader.readElementText().toStdString() << "\n";
+                time = xmlReader.readElementText();
+            } else if(xmlReader.name() == QStringLiteral("leoni") || xmlReader.name() == QStringLiteral("coccodrilli") || xmlReader.name() == QStringLiteral("pavoni") || xmlReader.name() == QStringLiteral("tartarughe") || xmlReader.name() == QStringLiteral("struzzi") || xmlReader.name() == QStringLiteral("giraffe")) {
+                std::cout << "E\n";
+                readDatiRecinto(xmlReader, gameModel, xmlReader.name().toString().toStdString());
+                std::cout << "F\n";
             }
         }
+        xmlReader.readNext();
     }
-    return true;
+}
+
+void DataManager::readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali) {
+    bool vuoto = false;
+    std::string nome, cibo, descrizione;
+    char sesso;
+    unsigned int costo;
+    int eta;
+    float peso;
+
+    //Leggo la vita
+    xmlReader.readNext();
+    unsigned int vita = xmlReader.readElementText().toInt();
+    xmlReader.readNext();
+std::cout << "G\n";
+    //Se non c'è neanche un animale ritorno
+    if(xmlReader.tokenType() == QXmlStreamReader::EndElement)
+        vuoto = true;
+    else{
+        std::cout << "H\n";
+        //Prendo gli attributi comuni a tutti gli animali, poi dentro all'if prendo gli attrbuti specifici
+        descrizione = xmlReader.readElementText().toStdString();
+        xmlReader.readNext();
+        costo = xmlReader.readElementText().toInt();
+        xmlReader.readNext();
+        xmlReader.readNext();
+        nome = xmlReader.readElementText().toStdString();
+        xmlReader.readNext();
+        eta = xmlReader.readElementText().toInt();
+        xmlReader.readNext();
+        sesso = xmlReader.readElementText().toStdString()[0];
+        xmlReader.readNext();
+        peso = xmlReader.readElementText().toFloat();
+        xmlReader.readNext();
+        cibo = xmlReader.readElementText().toStdString();
+        xmlReader.readNext();
+        std::cout << "I\n";
+    }
+
+    if (animali == "leoni") {
+        if(vuoto)
+            gameModel.getLeoni().setVita(vita);
+        else{
+            unsigned int ruggito = xmlReader.readElementText().toInt();
+            xmlReader.readNext();
+            bool criniera = (xmlReader.readElementText().toLower() == "true");
+            const Alimentazione* tipo = new Carnivoro(cibo);
+
+            gameModel.getLeoni().insert(std::make_shared<Leone>(nome, descrizione, eta, sesso, peso, tipo, costo, ruggito, criniera));
+        }
+    } else if (animali == "coccodrillo") {
+        if(vuoto)
+            gameModel.getCoccodrilli().setVita(vita);
+        else{
+            float lunghezza = xmlReader.readElementText().toFloat();
+            xmlReader.readNext();
+            int denti = xmlReader.readElementText().toInt();
+            const Alimentazione* tipo = new Carnivoro(cibo);
+
+            gameModel.getCoccodrilli().insert(std::make_shared<Coccodrillo>(nome, descrizione, eta, sesso, peso, tipo, costo, lunghezza, denti));
+        }
+    } else if (animali == "pavoni") {
+        if(vuoto)
+            gameModel.getPavoni().setVita(vita);
+        else{
+            float ruota = xmlReader.readElementText().toFloat();
+            xmlReader.readNext();
+            const Alimentazione* tipo = new Onnivoro(cibo);
+
+            gameModel.getPavoni().insert(std::make_shared<Pavone>(nome, descrizione, eta, sesso, peso, tipo, costo, ruota));
+        }
+    } else if (animali == "tartarughe") {
+        if(vuoto)
+            gameModel.getTartarughe().setVita(vita);
+        else{
+            float guscioX = xmlReader.readElementText().toFloat();
+            xmlReader.readNext();
+            float guscioY = xmlReader.readElementText().toFloat();
+            const Alimentazione* tipo = new Erbivoro(cibo);
+
+            gameModel.getTartarughe().insert(std::make_shared<Tartaruga>(nome, descrizione, eta, sesso, peso, tipo, costo, guscioX, guscioY));
+        }
+    } else if (animali == "struzzi") {
+        if(vuoto)
+            gameModel.getStruzzi().setVita(vita);
+        else{
+            float velocita = xmlReader.readElementText().toFloat();
+            const Alimentazione* tipo = new Onnivoro(cibo);
+
+            gameModel.getStruzzi().insert(std::make_shared<Struzzo>(nome, descrizione, eta, sesso, peso, tipo, costo, velocita));
+        }
+    } else if (animali == "giraffe") {
+        if(vuoto)
+            gameModel.getGiraffe().setVita(vita);
+        else{
+            float collo = xmlReader.readElementText().toFloat();
+            xmlReader.readNext();
+            float altezza = xmlReader.readElementText().toFloat();
+            const Alimentazione* tipo = new Erbivoro(cibo);
+
+            gameModel.getGiraffe().insert(std::make_shared<Giraffa>(nome, descrizione, eta, sesso, peso, tipo, costo, collo, altezza));
+        }
+    }
 }

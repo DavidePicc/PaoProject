@@ -14,6 +14,8 @@
 #include "../src/Container.h"
 #include "../viewer/gameModel.h"
 
+class GameModel;
+
 class DataManager {
 public:
     //Funzioni di scrittura
@@ -28,8 +30,9 @@ public:
     
     
     //Funzioni  di lettura
-    static bool readData(const std::string& nome, unsigned int& soldi, DLrecinto& leoni, DLrecinto& coccodrilli, DLrecinto& pavoni, DLrecinto& tartarughe, DLrecinto& struzzi, DLrecinto& giraffe);
-    static bool readDatiRecinto(const std::string& animali, DLrecinto& recinto, QXmlStreamReader* xmlReader);
+    static bool readData(const std::string& nome, GameModel& gameModel, QString& time);
+    static void readZOO(QXmlStreamReader& xmlReader, GameModel& gameModel, QString& time);
+    static void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
 };
 
 #endif // DATAMANAGER_H

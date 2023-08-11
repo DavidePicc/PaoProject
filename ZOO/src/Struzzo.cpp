@@ -3,7 +3,7 @@
 #include "generate.h"
 
 Struzzo::Struzzo()
-    :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 60), comodo::setSesso(), comodo::generaNumeroCasuale(70, 130), new Erbivoro("Erba"), 8), velocitamax(comodo::generaNumeroCasuale(30, 70)) {}
+    :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 60), comodo::setSesso(), comodo::generaNumeroCasuale(70, 130), new Onnivoro("Erba"), 8), velocitamax(comodo::generaNumeroCasuale(30, 70)) {}
 
 Struzzo::Struzzo(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
                  float velo)

@@ -1,6 +1,11 @@
+#include "../dataManager/dataManager.h"
 #include "gameModel.h"
 
 GameModel::GameModel() : soldi(100) {}
+
+void GameModel::setSoldi(unsigned int i){
+    soldi = i;
+}
 
 unsigned int GameModel::getSoldi() const {
     return soldi;

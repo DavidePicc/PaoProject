@@ -8,8 +8,11 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QPixmap>
+#include <QDir>
+#include <QFileInfoList>
+#include <QDialog>
 
-
+#include "gameWidget.h"
 
 class MainMenu : public QWidget {
     Q_OBJECT

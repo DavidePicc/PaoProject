@@ -1,5 +1,4 @@
 #include "mainMenu.h"
-#include "gameWidget.h"
 
 MainMenu::MainMenu(QWidget *parent) : QWidget(parent) {
     QPixmap pixmap("assets/ZooCover.png"); // Carica l'immagine
@@ -62,10 +61,63 @@ void MainMenu::handleNewGameButton() {
 
 //Bottone "Carica partita"
 void MainMenu::handleLoadGameButton() {
-    // Qui puoi gestire il caricamento di una partita esistente
-    // Come esempio, creo semplicemente un nuovo GameWidget
-    //GameWidget *gameWidget = new GameWidget();
-    //gameWidget->show();
+    QDir directory("savedFile");
 
-    //this->close(); // Chiudiamo il MainMenu
+    if(directory.entryInfoList(QDir::Files).count() == 0){
+        QDialog dialog;
+        dialog.setWindowTitle("Avviso");
+
+        QVBoxLayout *layout = new QVBoxLayout(&dialog);
+
+        QLabel *label = new QLabel("Non sono presenti file di salvataggio");
+        label->setAlignment(Qt::AlignCenter);
+        
+        // Imposta lo stile CSS per il QLabel
+        label->setStyleSheet("font-size: 18px; font-weight: bold;");
+        
+        layout->addWidget(label);
+
+        dialog.setLayout(layout);
+        dialog.exec();
+    }else{
+        QDialog dialog;
+        dialog.setWindowTitle("File Salvati");
+
+        QVBoxLayout *layout = new QVBoxLayout(&dialog);
+
+        // Aggiungi una label
+        QLabel *chooseLabel = new QLabel("Scegli tra le seguenti partite", &dialog);
+        chooseLabel->setAlignment(Qt::AlignCenter);
+        chooseLabel->setStyleSheet("font-size: 18px; font-weight: bold;");
+        layout->addWidget(chooseLabel);
+
+        //Inizializzo valore per chiudere mainWindow
+        bool buttonClicked = false;
+
+        //Guardo quanti file sono presenti nella cartella dei file salvati
+        QDir directory("savedFile");
+        QStringList savedFile = directory.entryList(QStringList() << "*.xml", QDir::Files);
+
+        foreach (QString filename, savedFile) {
+            QPushButton *fileButton = new QPushButton(filename); // Mostra il nome del file
+            
+            // Connetti il segnale clicked del bottone a una slot o a una lambda function per gestire il click sul file
+            QObject::connect(fileButton, &QPushButton::clicked, [&, filename]() {
+                GameWidget *gameWidget = new GameWidget(filename.toStdString());//Perchè filename è QString
+                gameWidget->show();
+                buttonClicked = true;
+                dialog.accept();
+            });
+
+            layout->addWidget(fileButton);
+        }
+
+        dialog.setLayout(layout);
+        dialog.resize(300, 200);
+        dialog.exec();
+        
+        if (buttonClicked)
+            // Chiude MainWindow dopo un breve ritardo
+            QTimer::singleShot(0, this, &QWidget::close);
+    }
 }

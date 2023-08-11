@@ -5,8 +5,7 @@
 Coccodrillo::Coccodrillo()
     : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100, 800), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
 
-Coccodrillo::Coccodrillo(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-                         float lunghezza, int numerodenti)
+Coccodrillo::Coccodrillo(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value, float lunghezza, int numerodenti)
     : Animal(name, description, age, sex, weight, type, value), lunghezza(lunghezza), numero_denti(numerodenti) {}
 
 void Coccodrillo::setLunghezza(float length) {

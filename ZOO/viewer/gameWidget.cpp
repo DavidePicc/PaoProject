@@ -1,6 +1,26 @@
 #include "gameWidget.h"
+#include <iostream>
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent), clock(this) {//Setto i soldi ad una quota fissa, 1000 per iniziare
+//Nuova partita
+GameWidget::GameWidget() : gameModel(), clock(this) {
+    visualizer();
+}
+
+//Carica partita
+GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
+    QString ora;
+    std::cout << "1\n";
+    if(DataManager::readData(filename, gameModel, ora) == true){
+        std::cout << "2\n";
+        clock.setTime(QTime::fromString(ora, "hh:mm"));
+        std::cout << "3\n";
+        visualizer();
+    }
+    else
+        qDebug() << "Errore nel caricamento della partita";
+}
+
+void GameWidget::visualizer(){
     QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
 
     // Crea una QLabel e imposta l'immagine
@@ -28,7 +48,6 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent), clock(this) {//Setto 
     createButton(735, 445, "giraffa", gameModel.getGiraffe());
 
     //Creo l'orologio
-    //DigitalClock *clock = new DigitalClock(this);
     clock.show();
     clock.raise();
 
@@ -53,139 +72,139 @@ GameWidget::GameWidget(QWidget *parent) : QWidget(parent), clock(this) {//Setto 
 
 
 
-    QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
-        QString var = "assets/" + QString::fromStdString(animale) + ".png";
-        QPixmap pixmap(var);
-        QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
+QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
+    QString var = "assets/" + QString::fromStdString(animale) + ".png";
+    QPixmap pixmap(var);
+    QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
 
-        //Creo il bottone
-        QPushButton *button = new QPushButton(this);
-        button->setIcon(ButtonIcon);
-        button->setIconSize(QSize(80,100));
-        button->setToolTip(QString::fromStdString(animale));//Se mi fermo sopra con il mouse vedo il nome dell'animale
-        button->setCursor(Qt::PointingHandCursor);
-        button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
-        button->move(x, y);
+    //Creo il bottone
+    QPushButton *button = new QPushButton(this);
+    button->setIcon(ButtonIcon);
+    button->setIconSize(QSize(80,100));
+    button->setToolTip(QString::fromStdString(animale));//Se mi fermo sopra con il mouse vedo il nome dell'animale
+    button->setCursor(Qt::PointingHandCursor);
+    button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
+    button->move(x, y);
 
-        // Crea una QProgressBar
-        QProgressBar *healthBar = new QProgressBar;
-        healthBar->setRange(0, 100); 
-        healthBar->setValue(recinto.getVita()); // Imposta il valore della salute
-        healthBar->setStyleSheet("QProgressBar { border: 1px solid black; border-radius: 0px; text-align: center; height: 15px; }"
-                                "QProgressBar::chunk { background-color: #FF4D4D; width: 15px; }"); // Imposta lo stile, incluso il colore rosso
+    // Crea una QProgressBar
+    QProgressBar *healthBar = new QProgressBar;
+    healthBar->setRange(0, 100); 
+    healthBar->setValue(recinto.getVita()); // Imposta il valore della salute
+    healthBar->setStyleSheet("QProgressBar { border: 1px solid black; border-radius: 0px; text-align: center; height: 15px; }"
+                            "QProgressBar::chunk { background-color: #FF4D4D; width: 15px; }"); // Imposta lo stile, incluso il colore rosso
 
-        //Label numero animali
-        QLabel* numAnimali = new QLabel("Numero animali: " + QString::number(recinto.getSize()));
-        numAnimali->setStyleSheet("QLabel{font-size: 15px; font-weight: bold; text-align: center;}");
+    //Label numero animali
+    QLabel* numAnimali = new QLabel("Numero animali: " + QString::number(recinto.getSize()));
+    numAnimali->setStyleSheet("QLabel{font-size: 15px; font-weight: bold; text-align: center;}");
 
-        //Per aggiornare la vita ogni 2 secondi tramite timer
-        QTimer *timer = new QTimer(this);
-        // Connessione del timer alla slot di aggiornamento
-        connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {
-            recinto.riduciVita();
-            healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
+    //Per aggiornare la vita ogni 2 secondi tramite timer
+    QTimer *timer = new QTimer(this);
+    // Connessione del timer alla slot di aggiornamento
+    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {
+        recinto.riduciVita();
+        healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
 
-            if(recinto.getVita() == 0 && recinto.getSize() > 0)
-                recinto.remove();
+        if(recinto.getVita() == 0 && recinto.getSize() > 0)
+            recinto.remove();
 
-            numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
-            //numAnimali->adjustSize();
-        });
-        // Avvia il timer per aggiornarsi ogni 2 secondi
-        timer->start(2000);
-
-
-        // Crea un QVBoxLayout
-        QVBoxLayout *layout = new QVBoxLayout;
-
-        // Aggiungi il bottone e la barra di progresso al layout
-        layout->addWidget(numAnimali);
-        layout->addWidget(button);
-        layout->addWidget(healthBar);
-
-        // Crea un QWidget come contenitore
-        QWidget *container = new QWidget(this);
-        container->setLayout(layout); // Imposta il layout del widget contenitore
-        container->move(x, y); // Sposta il contenitore
+        numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
+        //numAnimali->adjustSize();
+    });
+    // Avvia il timer per aggiornarsi ogni 2 secondi
+    timer->start(2000);
 
 
-        // Connetti il segnale clicked() di button al tuo slot seeAnimals()
-        connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {this-> seeAnimals(recinto, healthBar);});
+    // Crea un QVBoxLayout
+    QVBoxLayout *layout = new QVBoxLayout;
 
-        return button;
+    // Aggiungi il bottone e la barra di progresso al layout
+    layout->addWidget(numAnimali);
+    layout->addWidget(button);
+    layout->addWidget(healthBar);
+
+    // Crea un QWidget come contenitore
+    QWidget *container = new QWidget(this);
+    container->setLayout(layout); // Imposta il layout del widget contenitore
+    container->move(x, y); // Sposta il contenitore
+
+
+    // Connetti il segnale clicked() di button al tuo slot seeAnimals()
+    connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {this-> seeAnimals(recinto, healthBar);});
+
+    return button;
+}
+
+// definizione di seeAnimals
+void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Recinto con " + QString::number(recinto.getSize()) + (recinto.getSize() == 1 ? " animale" : " animali"));
+
+    //Aggiungo bottone Aggiungi animale
+    QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
+    addButton->setStyleSheet("color: black; background-color: #D3D3D3;");
+    addButton->setFixedHeight(50);
+    addButton->setCursor(Qt::PointingHandCursor);
+
+    //Aggiungo bottone Sfama
+    QPushButton *foodButton = new QPushButton("Sfama", dialog);
+    foodButton->setStyleSheet("color: black; background-color: #D3D3D3;");
+    foodButton->setFixedHeight(50);
+    foodButton->setCursor(Qt::PointingHandCursor);
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout(); // Crea un nuovo layout orizzontale
+    buttonLayout->addWidget(addButton); // Aggiunge il primo bottone al layout orizzontale
+    buttonLayout->addWidget(foodButton); // Aggiunge il secondo bottone al layout orizzontale
+    
+
+    // Crea un widget per contenere i pulsanti
+    QWidget *buttonWidget = new QWidget(dialog);
+
+    // Crea un layout per i pulsanti
+    QVBoxLayout *buttonLayout2 = new QVBoxLayout(buttonWidget);
+
+    if(recinto.getSize() == 0){
+        QLabel *emptyLabel = new QLabel("Gabbia vuota", dialog);
+        emptyLabel->setStyleSheet("QLabel { font: bold 20px;}");
+        emptyLabel->setAlignment(Qt::AlignCenter);
+        buttonLayout2->addWidget(emptyLabel);
+    }else{
+        for(unsigned int i=0; i<recinto.getSize(); i++){
+            QPushButton *button = new QPushButton(QString::fromStdString((*recinto[i]).getName()), buttonWidget);
+            buttonLayout2->addWidget(button);
+            connect(button, &QPushButton::clicked, [this, &recinto, i](){ this->animalDetails(*recinto[i]); });
+        }
     }
 
-    // definizione di seeAnimals
-    void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
-        QDialog *dialog = new QDialog(this);
-        dialog->setWindowTitle("Recinto con " + QString::number(recinto.getSize()) + (recinto.getSize() == 1 ? " animale" : " animali"));
+    // Crea un QScrollArea
+    QScrollArea *scrollArea = new QScrollArea(dialog);
+    scrollArea->setWidget(buttonWidget); // Imposta buttonWidget come widget figlio di scrollArea
+    scrollArea->setWidgetResizable(true); // Permette al widget figlio di ridimensionarsi con scrollArea
 
-        //Aggiungo bottone Aggiungi animale
-        QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
-        addButton->setStyleSheet("color: black; background-color: #D3D3D3;");
-        addButton->setFixedHeight(50);
-        addButton->setCursor(Qt::PointingHandCursor);
-
-        //Aggiungo bottone Sfama
-        QPushButton *foodButton = new QPushButton("Sfama", dialog);
-        foodButton->setStyleSheet("color: black; background-color: #D3D3D3;");
-        foodButton->setFixedHeight(50);
-        foodButton->setCursor(Qt::PointingHandCursor);
-
-        QHBoxLayout *buttonLayout = new QHBoxLayout(); // Crea un nuovo layout orizzontale
-        buttonLayout->addWidget(addButton); // Aggiunge il primo bottone al layout orizzontale
-        buttonLayout->addWidget(foodButton); // Aggiunge il secondo bottone al layout orizzontale
-        
-
-        // Crea un widget per contenere i pulsanti
-        QWidget *buttonWidget = new QWidget(dialog);
-
-        // Crea un layout per i pulsanti
-        QVBoxLayout *buttonLayout2 = new QVBoxLayout(buttonWidget);
-
-        if(recinto.getSize() == 0){
-            QLabel *emptyLabel = new QLabel("Gabbia vuota", dialog);
-            emptyLabel->setStyleSheet("QLabel { font: bold 20px;}");
-            emptyLabel->setAlignment(Qt::AlignCenter);
-            buttonLayout2->addWidget(emptyLabel);
-        }else{
-            for(unsigned int i=0; i<recinto.getSize(); i++){
-                QPushButton *button = new QPushButton(QString::fromStdString((*recinto[i]).getName()), buttonWidget);
-                buttonLayout2->addWidget(button);
-                connect(button, &QPushButton::clicked, [this, &recinto, i](){ this->animalDetails(*recinto[i]); });
-            }
-        }
-
-        // Crea un QScrollArea
-        QScrollArea *scrollArea = new QScrollArea(dialog);
-        scrollArea->setWidget(buttonWidget); // Imposta buttonWidget come widget figlio di scrollArea
-        scrollArea->setWidgetResizable(true); // Permette al widget figlio di ridimensionarsi con scrollArea
-
-        QVBoxLayout *layout = new QVBoxLayout(dialog);
-        layout->addWidget(scrollArea);
-        layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
-        
-        // Controllo sull'attributo "soldi"
-        if (gameModel.getSoldi() <= 0) {
-            addButton->setEnabled(false); // Disabilita il pulsante addButton
-            addButton->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
-        }
-
-        connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
-            this->gameModel.addAnimal(recinto); 
-            this->seeAnimals(recinto, healthBar); 
-            dialog->accept(); // chiude la finestra di dialogo attuale
-        });
-
-        
-
-        connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
-            this->foodSlot(recinto, healthBar); 
-            dialog->accept(); // chiude la finestra di dialogo attuale
-            this->seeAnimals(recinto, healthBar); 
-        });        
-        dialog->exec();
+    QVBoxLayout *layout = new QVBoxLayout(dialog);
+    layout->addWidget(scrollArea);
+    layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
+    
+    // Controllo sull'attributo "soldi"
+    if (gameModel.getSoldi() <= 0) {
+        addButton->setEnabled(false); // Disabilita il pulsante addButton
+        addButton->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
     }
+
+    connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
+        this->gameModel.addAnimal(recinto); 
+        this->seeAnimals(recinto, healthBar); 
+        dialog->accept(); // chiude la finestra di dialogo attuale
+    });
+
+    
+
+    connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
+        this->foodSlot(recinto, healthBar); 
+        dialog->accept(); // chiude la finestra di dialogo attuale
+        this->seeAnimals(recinto, healthBar); 
+    });        
+    dialog->exec();
+}
 
 
 

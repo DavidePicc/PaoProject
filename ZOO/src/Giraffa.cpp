@@ -6,8 +6,7 @@ Giraffa::Giraffa()
     : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 25), comodo::setSesso(), comodo::generaNumeroCasuale(700, 1500), new Erbivoro("Foglie"), 7), LunghezzaCollo(comodo::generaNumeroCasuale(2.0, 2.5)), Altezza(comodo::generaNumeroCasuale(4.0, 6.0)) {}
 
 
-Giraffa::Giraffa(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-                 float lungcollo, float altezza)
+Giraffa::Giraffa(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value, float lungcollo, float altezza)
     : Animal(name, description, age, sex, weight, type, value), LunghezzaCollo(lungcollo), Altezza(altezza) {}
 
 std::string Giraffa::emettereVerso() const {

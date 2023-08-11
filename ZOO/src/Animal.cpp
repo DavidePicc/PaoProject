@@ -43,6 +43,10 @@ float Animal::getPeso() const {
     return peso;
 }
 
+char Animal::getSex() const{
+    return sesso;
+}
+
 const Alimentazione* Animal::getTipo() const {
     return tipo;
 }
