@@ -1,5 +1,21 @@
 # PaoProject - ZOO
 
+## To do:
+### IMPORTANTI
+- Caricamento
+- Visitor
+- Ricerca
+
+### MENO IMPORTANTI
+- Adattamento finestra / splitter
+- Fermare orologio quando si preme exit
+
+### DUBBI
+Dal file <i>"specifiche"</i>:  
+6) consentire la creazione (✓), la modifica (???) e la cancellazione (✓) degli oggetti della gerarchia  
+7) Nel container ricerca in base a qualche criterio;
+	Lista collegata singolarmente o doppiamente ?
+
 
 ## UML
 ![Schema UML](https://github.com/DavidePicc/PaoProject/blob/main/prova.drawio.svg)
