@@ -57,6 +57,10 @@ void GameModel::addAnimal(DLrecinto& recinto) {
     soldi -= (*a).getCosto();
 }
 
+void GameModel::addAnimal(DLrecinto& recinto, std::shared_ptr<Animal> a) {
+    recinto.insert(a);
+}
+
 void GameModel::giveFood(DLrecinto& recinto, unsigned int perc) {
     soldi -= recinto.moneyTo(perc);
     recinto.setVita(perc);

@@ -5,9 +5,8 @@
 Pavone::Pavone()
     :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3, 6), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   
 
-Pavone::Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-               float raggio)
-    : Animal(name, description, age, sex, weight, type, value), raggioRuota(raggio) {}
+Pavone::Pavone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float raggio)
+    : Animal(name, setDescrizione(), age, sex, weight, type, 2), raggioRuota(raggio) {}
 
 std::string Pavone::emettereVerso() const {
     return "eeee-ow!";

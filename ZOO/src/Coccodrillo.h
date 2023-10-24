@@ -10,8 +10,7 @@ protected:
 
 public:
     Coccodrillo();
-    Coccodrillo(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-                float lunghezza, int numerodenti);
+    Coccodrillo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lunghezza, int numerodenti);
     
     std::string emettereVerso() const override;
 

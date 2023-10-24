@@ -5,9 +5,8 @@
 Struzzo::Struzzo()
     :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 60), comodo::setSesso(), comodo::generaNumeroCasuale(70, 130), new Onnivoro("Erba"), 8), velocitamax(comodo::generaNumeroCasuale(30, 70)) {}
 
-Struzzo::Struzzo(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-                 float velo)
-    : Animal(name, description, age, sex, weight, type, value), velocitamax(velo) {}
+Struzzo::Struzzo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float velo)
+    : Animal(name, setDescrizione(), age, sex, weight, type, 8), velocitamax(velo) {}
 
 std::string Struzzo::emettereVerso() const {
     return "Grugnito!";

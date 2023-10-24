@@ -8,8 +8,7 @@ protected:
 
 public:
     Pavone();
-
-    Pavone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value, float raggio);
+    Pavone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float raggio);
 
     std::string emettereVerso() const override;
 

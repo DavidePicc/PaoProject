@@ -33,6 +33,7 @@ public:
     DLrecinto& getStruzzi();
     DLrecinto& getGiraffe();
     void addAnimal(DLrecinto& recinto);
+    void addAnimal(DLrecinto& recinto, std::shared_ptr<Animal> a);
     void giveFood(DLrecinto& recinto, unsigned int perc);
     bool enoughMoney(DLrecinto& recinto, unsigned int perc);
     void updateSoldi();

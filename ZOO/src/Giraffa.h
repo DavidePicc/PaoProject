@@ -9,8 +9,7 @@ protected:
 
 public:
     Giraffa();
-
-    Giraffa(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value, float lungcollo, float altezza);
+    Giraffa(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lungcollo, float altezza);
 
     std::string emettereVerso() const override;
 

@@ -10,8 +10,7 @@ protected:
 
 public:
     Leone();
-     Leone(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-          int rug, bool cri);
+    Leone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, int rug, bool cri);
 
     std::string emettereVerso() const override;
 

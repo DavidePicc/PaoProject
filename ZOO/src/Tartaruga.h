@@ -14,9 +14,7 @@ private:
 
 public:
     Tartaruga();
-
-    Tartaruga(const std::string& name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value,
-              float X, float Y);
+    Tartaruga(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float X, float Y);
 
     void setMisura(float X, float Y);
     Dim_Guscio getMisura() const;

@@ -16,6 +16,12 @@ GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
     }
     else
         qDebug() << "Errore nel caricamento della partita";
+
+    //DA ELIMINARE
+    std::cout << "Size: " << gameModel.getLeoni().getSize() << "\t\tVita: " << gameModel.getLeoni().getVita();
+    std:: cout << "\nLeone 1 ? \t" << gameModel.getLeoni().find("Leone 1") << std::endl;
+    std::cout << "Operator[1] \t" << gameModel.getLeoni().operator[](1) << std::endl;
+    std::cout << "Money to 100: "  << gameModel.getLeoni().moneyTo(100) << "\tMake money: " << gameModel.getLeoni().makeMoney() << std::endl;
 }
 
 void GameWidget::visualizer(){
