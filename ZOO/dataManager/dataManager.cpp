@@ -114,8 +114,6 @@ bool DataManager::readData(const std::string& nome, GameModel& gameModel, QStrin
 
     QXmlStreamReader xmlReader(&file);
 
-std::cout << "A\n";//////////////////////////////
-
     while (!xmlReader.atEnd() && !xmlReader.hasError()) {
         QXmlStreamReader::TokenType token = xmlReader.readNext();
         
@@ -127,8 +125,6 @@ std::cout << "A\n";//////////////////////////////
             readZOO(xmlReader, gameModel, time);
             break;
         }
-                
-std::cout << "B\n";//////////////////////////////////////////////////////
     }
 
     file.close();
@@ -148,9 +144,7 @@ void DataManager::readZOO(QXmlStreamReader& xmlReader, GameModel& gameModel, QSt
 
     jumpTo(xmlReader, "clock");
     time = xmlReader.readElementText();
-    
-    std::cout << "A1\n";/////////////////////
-    
+        
     readDatiRecinto(xmlReader, gameModel, "leoni");
     readDatiRecinto(xmlReader, gameModel, "coccodrilli");
     readDatiRecinto(xmlReader, gameModel, "pavoni");
@@ -161,7 +155,6 @@ void DataManager::readZOO(QXmlStreamReader& xmlReader, GameModel& gameModel, QSt
 }
 
 void DataManager::readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali) {
-    bool vuoto = false;
     std::string nome, cibo, descrizione;
     char sesso;
     unsigned int costo;
@@ -174,21 +167,6 @@ void DataManager::readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameMo
     //Mi posiziono e leggo la vita
     jumpTo(xmlReader, "vita");
     unsigned int vita = xmlReader.readElementText().toInt();
-    
-    {//DA ELIMINARE
-        std::cout << "Vita di " << animali << ": " << vita <<std::endl;
-    }
-    
-
-std::cout << "G\n";
-
-    //Mi posiziono e leggo il numero di animali
-    jumpTo(xmlReader, "numero");
-    
-    //DA ELIMINARE
-    unsigned int numero = 0;
-    numero = xmlReader.readElementText().toInt();
-    std::cout << "Numero di " << animali << ": " << numero <<std::endl;
 
     //Setto la vita del recinto indipendentemente da quanti animali ci sono
     if (animali == "leoni")
@@ -204,13 +182,15 @@ std::cout << "G\n";
     else if (animali == "giraffe")
         gameModel.getGiraffe().setVita(vita);
 
-    //Se 0 animali non devo aggiungerne
-    if(numero <= 0)//if(xmlReader.readElementText().toInt() <= 0)
-        return;
-    
-    //xmlReader.readNext();
+    //Mi posiziono e leggo il numero di animali
+    jumpTo(xmlReader, "numero");
+    unsigned int numero = 0;
+    numero = xmlReader.readElementText().toInt();
 
-std::cout << "H\n";
+    //Se 0 animali non devo aggiungerne
+    if(numero <= 0)
+        return;
+
     //Prendo gli attributi comuni a tutti gli animali, poi dentro all'if prendo gli attrbuti specifici
     for (unsigned int i = 0; i < numero; i++) {
         QString currentAnimalTag = QString::fromStdString(animali + std::to_string(i));
@@ -230,12 +210,6 @@ std::cout << "H\n";
 
         jumpTo(xmlReader, "cibo");
         cibo = xmlReader.readElementText().toStdString();
-
-        {//DA ELIMINARE
-            std::cout << "Tag: " << currentAnimalTag.toStdString() << " Nome: " << nome << " Eta: " << eta << " S: " << sesso << " Peso: " << peso << " Cibo: " << cibo <<std::endl;
-        }
-
-std::cout << "I\n";
 
         if (animali == "leoni") {
             unsigned int ruggito = xmlReader.readElementText().toInt();
@@ -272,9 +246,7 @@ std::cout << "I\n";
 
             gameModel.getGiraffe().insert(std::make_shared<Giraffa>(nome, descrizione, eta, sesso, peso, tipo, costo, collo, altezza));
         }
-        xmlReader.readNext();
     }
-    xmlReader.readNext();
 }    
 
 

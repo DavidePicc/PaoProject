@@ -9,11 +9,9 @@ GameWidget::GameWidget() : gameModel(), clock(this) {
 //Carica partita
 GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
     QString ora;
-    std::cout << "1\n";
+
     if(DataManager::readData(filename, gameModel, ora) == true){
-        std::cout << "2\n";
         clock.setTime(QTime::fromString(ora, "hh:mm"));
-        std::cout << "3\n";
         visualizer();
     }
     else
