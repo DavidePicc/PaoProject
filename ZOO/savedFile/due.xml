@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>156</soldi>
+    <clock>07:34</clock>
+    <leoni>
+        <vita>85</vita>
+        <numero>3</numero>
+        <leoni0>
+            <nome>Leone 1</nome>
+            <eta>7</eta>
+            <sesso>M</sesso>
+            <peso>130.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>101</ruggito>
+            <criniera>0</criniera>
+        </leoni0>
+        <leoni1>
+            <nome>Leone 2</nome>
+            <eta>16</eta>
+            <sesso>M</sesso>
+            <peso>144.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>76</ruggito>
+            <criniera>0</criniera>
+        </leoni1>
+        <leoni2>
+            <nome>Leone 3</nome>
+            <eta>12</eta>
+            <sesso>M</sesso>
+            <peso>144.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>67</ruggito>
+            <criniera>0</criniera>
+        </leoni2>
+    </leoni>
+    <coccodrilli>
+        <vita>100</vita>
+        <numero>0</numero>
+    </coccodrilli>
+    <pavoni>
+        <vita>94</vita>
+        <numero>1</numero>
+        <pavoni0>
+            <nome>Pavone 1</nome>
+            <eta>11</eta>
+            <sesso>M</sesso>
+            <peso>4.000000</peso>
+            <cibo>Frutta</cibo>
+            <raggioRuota>42.000000</raggioRuota>
+        </pavoni0>
+    </pavoni>
+    <tartarughe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </tartarughe>
+    <struzzi>
+        <vita>100</vita>
+        <numero>0</numero>
+    </struzzi>
+    <giraffe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </giraffe>
+</ZOO>

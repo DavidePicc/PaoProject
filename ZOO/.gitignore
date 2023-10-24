@@ -1,0 +1,9 @@
+#Ignora i file oggetto
+*.o
+
+#Tutti i file della cartella build
+build/
+
+#Tutti i file generati
+.qmake*
+moc*

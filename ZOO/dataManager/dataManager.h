@@ -33,6 +33,9 @@ public:
     static bool readData(const std::string& nome, GameModel& gameModel, QString& time);
     static void readZOO(QXmlStreamReader& xmlReader, GameModel& gameModel, QString& time);
     static void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
+    
+    //Funzione per saltare righe fino ad un determinato attributo
+    static void jumpTo(QXmlStreamReader& xmlReader, std::string tag);
 };
 
 #endif // DATAMANAGER_H
