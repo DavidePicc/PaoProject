@@ -126,13 +126,16 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
     container->show();//mostra il layout con barra e numero animali
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
-    connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {this-> seeAnimals(recinto, healthBar);});
-}
+    connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
+        emptyLabel->clear();//pulizia della label per nuovo seeanimal NON VA
+        this->seeAnimals(recinto, healthBar, recinto.getSize());});
+    }
 
 // definizione di seeAnimals
-void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
-    
-    emptyLabel->clear();//pulizia della label per nuovo seeanimal NON VA (questo ti chiedo)
+void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
+
+//    emptyLabel->clear();//pulizia della label per nuovo seeAnimal ma NON VA
+
 
     QWidget *dialog = new QWidget(emptyLabel);
 
@@ -191,20 +194,35 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
         addButton->setEnabled(false); // Disabilita il pulsante addButton
         addButton->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
     }
-
+    
+    //Evento aggiungi animale
     connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
         this->gameModel.addAnimal(recinto); 
-        this->seeAnimals(recinto, healthBar); 
-        //dialog->accept(); // chiude la finestra di dialogo attuale
+        dialog->close(); // chiude la finestra di dialogo attuale
+        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
     });
 
+    //Evento sfama
     connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
         this->foodSlot(recinto, healthBar); 
-        //dialog->accept(); // chiude la finestra di dialogo attuale
-        this->seeAnimals(recinto, healthBar); 
+        dialog->close(); // chiude la finestra di dialogo attuale        
+        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
     });        
 
     dialog->show();
+
+/*  Da decommentare solo quando risolto problema sovrapposizioni
+
+    //Per aggiornare la lista nel caso di rimozione animali
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, [this, &recinto, dialog, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
+        if(recinto.getSize() != numAnimali){
+            dialog->close(); // chiude la finestra di dialogo attuale
+            this->seeAnimals(recinto, healthBar, recinto.getSize()); 
+        }
+    });
+    timer->start(1000);    // Avvia il timer per aggiornarsi ogni 1 secondo
+*/
 }
 
 
@@ -268,7 +286,7 @@ void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
     }
 
     if (gameModel.enoughMoney(recinto, 50)) {
-        button2->setEnabled(false); // Disabilita il pulsante 2
+        button2->setEnabled(false); // Disabilita il pulsante 3
         button2->setToolTip("Non hai abbastanza soldi per questa opzione"); // Imposta un messaggio di aiuto
     }
 

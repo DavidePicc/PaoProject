@@ -51,7 +51,7 @@ public:
     GameWidget(std::string filename);
     void visualizer();
     void createButton(int x, int y, std::string animale, DLrecinto& recinto);
-    void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar);
+    void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar, size_t numAnimali);
     void keyPressEvent(QKeyEvent *event) override;
 
     friend void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
