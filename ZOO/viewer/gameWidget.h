@@ -25,17 +25,32 @@
 #include "mainMenu.h"
 #include "../dataManager/dataManager.h"
 
+//SPLITTER
+#include <QSplitter>
+
 class GameWidget : public QWidget {
     Q_OBJECT
 private:
     GameModel gameModel;
     DigitalClock clock;
 
+    //BOX
+    // Crea la finestra principale
+    QWidget *mainWidget = new QWidget(this);//serve il this!
+    QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);
+
+    // Crea un widget a destra vuoto
+    QLabel *emptyLabel = new QLabel(mainWidget);
+    
+    // Crea un widget a sinistra per l'immagine di sfondo
+    QLabel *backgroundLabel = new QLabel(mainWidget);
+    //BOX
+
 public:
     GameWidget();
     GameWidget(std::string filename);
     void visualizer();
-    QPushButton* createButton(int x, int y, std::string animale, DLrecinto& recinto);
+    void createButton(int x, int y, std::string animale, DLrecinto& recinto);
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar);
     void keyPressEvent(QKeyEvent *event) override;
 

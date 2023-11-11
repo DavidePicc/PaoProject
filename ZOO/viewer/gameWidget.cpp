@@ -2,47 +2,41 @@
 #include <iostream>
 
 //Nuova partita
-GameWidget::GameWidget() : gameModel(), clock(this) {
+GameWidget::GameWidget() : gameModel(), clock(this) {   
     visualizer();
 }
 
 //Carica partita
 GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
     QString ora;
-
     if(DataManager::readData(filename, gameModel, ora) == true){
         clock.setTime(QTime::fromString(ora, "hh:mm"));
         visualizer();
     }
     else
         qDebug() << "Errore nel caricamento della partita";
-
-    //DA ELIMINARE
-    std::cout << "Size: " << gameModel.getLeoni().getSize() << "\t\tVita: " << gameModel.getLeoni().getVita();
-    std:: cout << "\nLeone 1 ? \t" << gameModel.getLeoni().find("Leone 1") << std::endl;
-    std::cout << "Operator[1] \t" << gameModel.getLeoni().operator[](1) << std::endl;
-    std::cout << "Money to 100: "  << gameModel.getLeoni().moneyTo(100) << "\tMake money: " << gameModel.getLeoni().makeMoney() << std::endl;
 }
 
 void GameWidget::visualizer(){
-    QPixmap pixmap("assets/map.jpg"); // Carica l'immagine
+    QPixmap pixmap("assets/map.jpg"); // Carica l'immagine di sfondo
+    backgroundLabel->setPixmap(pixmap);
+    mainLayout->addWidget(backgroundLabel);
 
-    // Crea una QLabel e imposta l'immagine
-    QLabel *label = new QLabel(this);
-    label->setPixmap(pixmap);
+    // Imposta il layout nella finestra principale
+    mainLayout->addWidget(emptyLabel);
 
-    // Imposta la dimensione della finestra sulla dimensione dell'immagine
-    this->setFixedSize(pixmap.width(), pixmap.height());
+    // Imposta la dimensione della finestra principale(mainWidget)
+    emptyLabel->setFixedSize(250, pixmap.height()); 
+    this->setFixedSize(pixmap.width()+250, pixmap.height());
 
     // Ottieni le dimensioni dello schermo
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     int x = (screenGeometry.width() - this->width()) / 2;
     int y = (screenGeometry.height() - this->height()) / 2;
-
     // Posiziona la finestra al centro dello schermo
     this->move(x, y);
-
+	
     //Creo i bottoni nelle coordinate fisse
     createButton(310, 30, "leone", gameModel.getLeoni());
     createButton(660, 105, "coccodrillo", gameModel.getCoccodrilli());
@@ -71,24 +65,26 @@ void GameWidget::visualizer(){
         money->adjustSize();
     });
     timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
+    
+    this->show();
+    mainWidget->show();
 }
 
 
-
-
-QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
+void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
     QString var = "assets/" + QString::fromStdString(animale) + ".png";
     QPixmap pixmap(var);
     QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
 
     //Creo il bottone
-    QPushButton *button = new QPushButton(this);
+    QPushButton *button = new QPushButton(backgroundLabel);
     button->setIcon(ButtonIcon);
     button->setIconSize(QSize(80,100));
     button->setToolTip(QString::fromStdString(animale));//Se mi fermo sopra con il mouse vedo il nome dell'animale
     button->setCursor(Qt::PointingHandCursor);
     button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
     button->move(x, y);
+    button->show();
 
     // Crea una QProgressBar
     QProgressBar *healthBar = new QProgressBar;
@@ -97,14 +93,13 @@ QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecin
     healthBar->setStyleSheet("QProgressBar { border: 1px solid black; border-radius: 0px; text-align: center; height: 15px; }"
                             "QProgressBar::chunk { background-color: #FF4D4D; width: 15px; }"); // Imposta lo stile, incluso il colore rosso
 
-    //Label numero animali
+    //Creo label numero animali
     QLabel* numAnimali = new QLabel("Numero animali: " + QString::number(recinto.getSize()));
     numAnimali->setStyleSheet("QLabel{font-size: 15px; font-weight: bold; text-align: center;}");
 
     //Per aggiornare la vita ogni 2 secondi tramite timer
     QTimer *timer = new QTimer(this);
-    // Connessione del timer alla slot di aggiornamento
-    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {
+    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
         recinto.riduciVita();
         healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
 
@@ -112,10 +107,8 @@ QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecin
             recinto.remove();
 
         numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
-        //numAnimali->adjustSize();
     });
-    // Avvia il timer per aggiornarsi ogni 2 secondi
-    timer->start(2000);
+    timer->start(2000);    // Avvia il timer per aggiornarsi ogni 2 secondi
 
 
     // Crea un QVBoxLayout
@@ -127,21 +120,21 @@ QPushButton* GameWidget::createButton(int x, int y, std::string animale, DLrecin
     layout->addWidget(healthBar);
 
     // Crea un QWidget come contenitore
-    QWidget *container = new QWidget(this);
+    QWidget *container = new QWidget(backgroundLabel);
     container->setLayout(layout); // Imposta il layout del widget contenitore
     container->move(x, y); // Sposta il contenitore
-
+    container->show();//mostra il layout con barra e numero animali
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {this-> seeAnimals(recinto, healthBar);});
-
-    return button;
 }
 
 // definizione di seeAnimals
 void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
-    QDialog *dialog = new QDialog(this);
-    dialog->setWindowTitle("Recinto con " + QString::number(recinto.getSize()) + (recinto.getSize() == 1 ? " animale" : " animali"));
+    
+    emptyLabel->clear();//pulizia della label per nuovo seeanimal NON VA (questo ti chiedo)
+
+    QWidget *dialog = new QWidget(emptyLabel);
 
     //Aggiungo bottone Aggiungi animale
     QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
@@ -155,11 +148,11 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     foodButton->setFixedHeight(50);
     foodButton->setCursor(Qt::PointingHandCursor);
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout(); // Crea un nuovo layout orizzontale
+    // Crea un nuovo layout orizzontale
+    QHBoxLayout *buttonLayout = new QHBoxLayout(); 
     buttonLayout->addWidget(addButton); // Aggiunge il primo bottone al layout orizzontale
     buttonLayout->addWidget(foodButton); // Aggiunge il secondo bottone al layout orizzontale
     
-
     // Crea un widget per contenere i pulsanti
     QWidget *buttonWidget = new QWidget(dialog);
 
@@ -184,7 +177,12 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     scrollArea->setWidget(buttonWidget); // Imposta buttonWidget come widget figlio di scrollArea
     scrollArea->setWidgetResizable(true); // Permette al widget figlio di ridimensionarsi con scrollArea
 
+    //Creo label titolo
+    QLabel *titolo = new QLabel("Recinto con " + QString::number(recinto.getSize()) + (recinto.getSize() == 1 ? " animale" : " animali"));
+    titolo->setStyleSheet("QLabel{font-size: 20px; font-weight: bold; text-align: center;}");
+
     QVBoxLayout *layout = new QVBoxLayout(dialog);
+    layout->addWidget(titolo);
     layout->addWidget(scrollArea);
     layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
     
@@ -197,19 +195,17 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
         this->gameModel.addAnimal(recinto); 
         this->seeAnimals(recinto, healthBar); 
-        dialog->accept(); // chiude la finestra di dialogo attuale
+        //dialog->accept(); // chiude la finestra di dialogo attuale
     });
-
-    
 
     connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
         this->foodSlot(recinto, healthBar); 
-        dialog->accept(); // chiude la finestra di dialogo attuale
+        //dialog->accept(); // chiude la finestra di dialogo attuale
         this->seeAnimals(recinto, healthBar); 
     });        
-    dialog->exec();
-}
 
+    dialog->show();
+}
 
 
 void GameWidget::animalDetails(Animal& a){
@@ -231,7 +227,6 @@ void GameWidget::animalDetails(Animal& a){
     dialog->setLayout(layout);
     dialog->exec();
 }
-
 
 
 void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
