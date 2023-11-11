@@ -25,26 +25,16 @@
 #include "mainMenu.h"
 #include "../dataManager/dataManager.h"
 
-//SPLITTER
-#include <QSplitter>
-
 class GameWidget : public QWidget {
     Q_OBJECT
 private:
     GameModel gameModel;
     DigitalClock clock;
 
-    //BOX
-    // Crea la finestra principale
-    QWidget *mainWidget = new QWidget(this);//serve il this!
-    QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);
-
-    // Crea un widget a destra vuoto
-    QLabel *emptyLabel = new QLabel(mainWidget);
-    
-    // Crea un widget a sinistra per l'immagine di sfondo
-    QLabel *backgroundLabel = new QLabel(mainWidget);
-    //BOX
+    QWidget *mainWidget = new QWidget(this);                //Finestra principale
+    QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);  //Layout principale
+    QLabel *emptyLabel = new QLabel(mainWidget);            // Crea un widget a destra vuoto per le liste dei recinti
+    QLabel *backgroundLabel = new QLabel(mainWidget);       // Crea un widget a sinistra per la mappa
 
 public:
     GameWidget();

@@ -10,7 +10,6 @@ GameWidget::GameWidget() : gameModel(), clock(this) {
 GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
     QString ora;
     if(DataManager::readData(filename, gameModel, ora) == true){
-        clock.setTime(QTime::fromString(ora, "hh:mm"));
         visualizer();
     }
     else
@@ -209,6 +208,18 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     });        
 
     dialog->show();
+
+/*
+    //Per aggiornare la lista nel caso di rimozione animali
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, [this, &recinto, dialog, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
+        if(dialog->isVisible() && recinto.getSize() != numAnimali){
+            dialog->close(); // chiude la finestra di dialogo attuale
+            this->seeAnimals(recinto, healthBar, recinto.getSize()); 
+        }
+    });
+    timer->start(1000);    // Avvia il timer per aggiornarsi ogni 1 secondo
+*/
 }
 
 

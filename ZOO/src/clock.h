@@ -1,18 +1,18 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-#include <QTime>
+#include <QDateTime>
 
 class Clock {
 public:
     Clock();
-    Clock(int h, int m);
+    Clock(const QDateTime& newDateTime);
     void addTime();
-    QString getTimeString() const;
-    void setTime(const QTime& newTime);
+    QString getDateTimeString() const;
+    void setDateTime(const QDateTime& newDateTime);
 
 private:
-    QTime time;
+    QDateTime dateTime;
 };
 
 #endif

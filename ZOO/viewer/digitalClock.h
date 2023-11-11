@@ -17,7 +17,7 @@ class DigitalClock : public QWidget
 public:
     DigitalClock(QWidget *parent = nullptr);
     QString getTime() const;
-    void setTime(const QTime& newTime);
+    void setTime(const QDateTime& newDateTime);
 
 private slots:
     void updateDisplay();

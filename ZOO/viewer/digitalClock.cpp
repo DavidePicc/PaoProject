@@ -20,21 +20,21 @@ DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent){
     updateDisplay();  // Aggiorna subito l'orologio all'avvio
 
     setWindowTitle("Digital Clock");
-    resize(150, 60);  // Potrebbe essere necessario regolare la dimensione in base al tuo font
+    resize(280, 60);
 
-    this->move(600, 25);
+    this->move(600, 30);
 }
 
 QString DigitalClock::getTime() const{
-    return clock.getTimeString();
+    return clock.getDateTimeString();
 }
 
 void DigitalClock::updateDisplay(){
     clock.addTime();
-    QString text = clock.getTimeString();
+    QString text = clock.getDateTimeString();
     label->setText(text);
 }
 
-void DigitalClock::setTime(const QTime& newTime){
-    clock.setTime(newTime);
+void DigitalClock::setTime(const QDateTime& newDateTime){
+    clock.setDateTime(newDateTime);
 }

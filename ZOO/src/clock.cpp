@@ -1,17 +1,17 @@
 #include "clock.h"
 
-Clock::Clock() : time(QTime(7, 0)) {}
+Clock::Clock() : dateTime(QDateTime::currentDateTime()) {}
 
-Clock::Clock(int h, int m) : time(QTime(h, m)) {}
+Clock::Clock(const QDateTime& newDateTime) : dateTime(newDateTime) {}
 
 void Clock::addTime() {
-    time = time.addSecs(120);
+    dateTime = dateTime.addSecs(120);
 }
 
-QString Clock::getTimeString() const {
-    return time.toString("hh:mm");
+QString Clock::getDateTimeString() const {
+    return dateTime.toString("dd - MM - yyyy  hh:mm");
 }
 
-void Clock::setTime(const QTime& newTime) {
-    time = newTime;
+void Clock::setDateTime(const QDateTime& newDateTime) {
+    dateTime = newDateTime;
 }
