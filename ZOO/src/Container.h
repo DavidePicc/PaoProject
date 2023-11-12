@@ -50,8 +50,8 @@ public:
         }
         return false;
     }
-    
-    std::shared_ptr<Animal> find(const std::string& string) const {//ricerca in base al nome visto che è unico
+    //cambiato
+    std::shared_ptr<Animal> findAnimal(const std::string& string) const {//ricerca in base al nome visto che è unico
         Node* currentNode = head;
         while (currentNode) {
             if(currentNode->data->getName() == string) {

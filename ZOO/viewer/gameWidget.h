@@ -36,6 +36,8 @@ private:
     QLabel *emptyLabel = new QLabel(mainWidget);            // Crea un widget a destra vuoto per le liste dei recinti
     QLabel *backgroundLabel = new QLabel(mainWidget);       // Crea un widget a sinistra per la mappa
 
+    // BARRA RICERCA
+    QLineEdit *searchLineEdit = new QLineEdit(emptyLabel);
 public:
     GameWidget();
     GameWidget(std::string filename);
@@ -44,11 +46,17 @@ public:
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar, size_t numAnimali);
     void keyPressEvent(QKeyEvent *event) override;
 
+    // BARRA RICERCA
+    //void eseguiRicerca(DLrecinto& recinto); 
+
     friend void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
 
 public slots:
     void animalDetails(Animal& a);
     void foodSlot(DLrecinto& recinto, QProgressBar *healthBar);
+
+    void eseguiRicerca(const DLrecinto& recinto);
+
 };
 
 #endif 
