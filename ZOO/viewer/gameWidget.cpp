@@ -64,7 +64,7 @@ void GameWidget::visualizer(){
         money->adjustSize();
     });
     timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
-    
+
     this->show();
     mainWidget->show();
 }
@@ -128,6 +128,16 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
         emptyLabel->clear();//pulizia della label per nuovo seeanimal NON VA
         this->seeAnimals(recinto, healthBar, recinto.getSize());});
+
+      //BARRA RICERCA
+         searchLineEdit->setPlaceholderText("Cerca per nome");
+        // Connessione del segnale returnPressed() alla tua funzione di ricerca
+        //connect(searchLineEdit, &QLineEdit::returnPressed, this, &GameWidget::eseguiRicerca(recinto));
+        connect(searchLineEdit, &QLineEdit::returnPressed, [=]() {eseguiRicerca(recinto);});
+
+        // Aggiungere il layout della barra di ricerca
+        searchLineEdit->show();
+       //BARRA RICERCA
     }
 
 //DA MIGLIORARE: non si aggiorna se muore animale
@@ -136,6 +146,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     qDeleteAll(emptyLabel->children());
 
     QWidget *dialog = new QWidget(emptyLabel);
+    
 
     //Aggiungo bottone Aggiungi animale
     QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
@@ -205,7 +216,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
         this->foodSlot(recinto, healthBar); 
         dialog->close(); // chiude la finestra di dialogo attuale        
         this->seeAnimals(recinto, healthBar, recinto.getSize()); 
-    });        
+    });     
 
     dialog->show();
 
@@ -324,6 +335,20 @@ void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
 
     dialog->exec();
 }
+
+//BARRA RICERCA
+// Definizione della funzione di ricerca
+void GameWidget::eseguiRicerca(const DLrecinto& recinto) {
+    QString testoRicerca = searchLineEdit->text();
+    std::shared_ptr<Animal> risultatoRicerca = recinto.findAnimal(testoRicerca.toStdString());
+
+    if (risultatoRicerca) {
+        animalDetails(*risultatoRicerca);
+    } else {
+        QMessageBox::information(this, "Animale non trovato", "L'animale cercato non è stato trovato.");
+    }
+}   
+//BARRA RICERCA
 
 //Funzione per fare in modo che schiacciando esc esca un menù
 void GameWidget::keyPressEvent(QKeyEvent *event){
