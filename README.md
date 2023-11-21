@@ -2,12 +2,12 @@
 
 ## To do:
 ### IMPORTANTI
-- Caricamento
+- Caricamento (FATTO)
 - Visitor
-- Ricerca
+- Ricerca (FATTO?)
 
 ### MENO IMPORTANTI
-- Adattamento finestra / splitter
+- Adattamento finestra / splitter (FATTO?)
 - Fermare orologio quando si preme exit
 
 ### DUBBI
