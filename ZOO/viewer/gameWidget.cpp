@@ -126,27 +126,17 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
-        emptyLabel->clear();//pulizia della label per nuovo seeanimal NON VA
         this->seeAnimals(recinto, healthBar, recinto.getSize());});
-
-      //BARRA RICERCA
-         searchLineEdit->setPlaceholderText("Cerca per nome");
-        // Connessione del segnale returnPressed() alla tua funzione di ricerca
-        //connect(searchLineEdit, &QLineEdit::returnPressed, this, &GameWidget::eseguiRicerca(recinto));
-        connect(searchLineEdit, &QLineEdit::returnPressed, [=]() {eseguiRicerca(recinto);});
-
-        // Aggiungere il layout della barra di ricerca
-        searchLineEdit->show();
-       //BARRA RICERCA
     }
 
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
 void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
-    qDeleteAll(emptyLabel->children());
+    qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
 
     QWidget *dialog = new QWidget(emptyLabel);
     
+    //QUI era la searchline
 
     //Aggiungo bottone Aggiungi animale
     QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
@@ -219,6 +209,19 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     });     
 
     dialog->show();
+
+    //BARRA RICERCA
+        QLineEdit *searchLineEdit = new QLineEdit(emptyLabel); //non cambia se metto dentro dialog o searchline
+        searchLineEdit->setPlaceholderText("Cerca per nome dentro al recinto");
+        // Connessione del segnale returnPressed()
+        connect(searchLineEdit, &QLineEdit::returnPressed, [this, &recinto, searchLineEdit]() {
+        QString testoRicerca = searchLineEdit->text(); 
+        eseguiRicerca(recinto, testoRicerca);
+        });
+
+        searchLineEdit->move(0,0);//da sistemare la posizione
+        searchLineEdit->show();
+    //BARRA RICERCA
 
 /*
     //Per aggiornare la lista nel caso di rimozione animali
@@ -337,15 +340,15 @@ void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
 }
 
 //BARRA RICERCA
-// Definizione della funzione di ricerca
-void GameWidget::eseguiRicerca(const DLrecinto& recinto) {
-    QString testoRicerca = searchLineEdit->text();
+//funzione di ricerca
+void GameWidget::eseguiRicerca(DLrecinto& recinto, QString testoRicerca) {
+    
     std::shared_ptr<Animal> risultatoRicerca = recinto.findAnimal(testoRicerca.toStdString());
 
     if (risultatoRicerca) {
         animalDetails(*risultatoRicerca);
     } else {
-        QMessageBox::information(this, "Animale non trovato", "L'animale cercato non è stato trovato.");
+        QMessageBox::information(this, "Animale non trovato nel recinto", "L'animale cercato non è stato trovato.");
     }
 }   
 //BARRA RICERCA
@@ -381,6 +384,6 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         }else {
             QWidget::keyPressEvent(event);
         }
-        //gameModel.clockPausa(false);
+        //gameModel.clockPausa(false); //STOP DELL'OROLOGIO
     }
 }

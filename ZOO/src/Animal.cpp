@@ -7,7 +7,7 @@ Animal::Animal(const std::string name, std::string description, int age, const c
     : nome(name), descrizione(description), eta(age), sesso(sex), peso(weight), tipo(type), costo(value) {}
 
 bool Animal::operator==(const Animal& other) const{
-    return (typeid(*this) == typeid(other)) ? 1 : 0;
+    return ((*this) == (other)) ? 1 : 0;
 }
 
 std::string Animal::getName() const{
