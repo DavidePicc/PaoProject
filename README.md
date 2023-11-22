@@ -3,7 +3,8 @@
 ## To do:
 ### IMPORTANTI
 - Caricamento (FATTO)
-- Visitor
+- Visitor( funzione che stampa a schermo con bottoni personalizzati in base all'animale)
+- funzione del bottone EMETTI VERSO(con suono?)(stampa la funzione emetti verso di ogni animale sennò scrive "non fa versi")
 - Ricerca (FATTO?)
 
 ### MENO IMPORTANTI
