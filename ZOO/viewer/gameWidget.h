@@ -43,6 +43,9 @@ public:
     void createButton(int x, int y, std::string animale, DLrecinto& recinto);
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar, size_t numAnimali);
     void keyPressEvent(QKeyEvent *event) override;
+    
+    void reFresh(DLrecinto& recinto, QProgressBar* healthBar, size_t numAnimali);
+    QTimer *timer = new QTimer(this);
 
     // BARRA RICERCA
     void eseguiRicerca(DLrecinto& recinto, QString testoRicerca);
