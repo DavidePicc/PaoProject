@@ -47,5 +47,5 @@ SOURCES += main.cpp \
            viewer/gameWidget.cpp \
            viewer/mainMenu.cpp
            
-           QT += widgets 
-           QT += gui
+QT += widgets 
+QT += gui
