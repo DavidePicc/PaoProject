@@ -71,7 +71,7 @@ void GameWidget::visualizer(){
 
 
 void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
-    QString var = "assets/" + QString::fromStdString(animale) + ".png";
+    QString var = "assets/" + QString::fromStdString(animale) + "/" + QString::fromStdString(animale) + ".png";
     QPixmap pixmap(var);
     QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
 
@@ -223,130 +223,6 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
 
 }
 
-
-void GameWidget::animalDetails(Animal& a){
-    if(dynamic_cast<Coccodrillo*>(&a)) {
-        // ...
-    } else if(dynamic_cast<Giraffa*>(&a)) {
-        // ...
-    } else if(dynamic_cast<Leone*>(&a)) {
-        leoneDetails(dynamic_cast<Leone&>(a));
-    } else if(dynamic_cast<Pavone*>(&a)) {
-        // ...
-    } else if(dynamic_cast<Struzzo*>(&a)) {
-        // ...
-    } else if(dynamic_cast<Tartaruga*>(&a)) {
-        // ...
-    } else {
-        qDebug() << "Il tipo di animale scelto NON esiste\n";
-    }
-}
-
-void GameWidget::leoneDetails(Leone& l) {
-    //Creazione della finestra di dialogo
-    QDialog *dialog = new QDialog(this);
-    dialog->setWindowTitle(QString::fromStdString(l.getName()));
-
-    // Imposta lo stile CSS per la finestra di dialogo
-    dialog->setStyleSheet("QDialog { background-color: #ffb366;}"
-                          "QPushButton { background-color: #ffd0a8; }");
-
-    // Aggiungi il pulsante per emettere il verso
-    QPushButton *bottoneVerso = new QPushButton("Emettere verso", dialog);
-    // Connessione al verso... (Da eliminare)
-
-    //Creazione immagine leone maschio o femmina
-    QLabel *fotoLeo = new QLabel();// Crea un QLabel
-    QPixmap image;
-    
-    if(l.getSex() == 'M')
-        image.load("assets/leone/leoneMaschio.jpg");
-    else
-        image.load("assets/leone/leoneFemmina.jpg");
-
-    fotoLeo->setPixmap(image);// Imposta l'immagine nel QLabel
-    fotoLeo->setScaledContents(true);
-    fotoLeo->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
-
-    // Layout fatto con grid
-    QGridLayout *layout = new QGridLayout;
-    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
-    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
-    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
-
-    //Aggiunta vari layout
-    //(0, 0)
-    layout->addWidget(fotoLeo, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
-
-    //(0, 1)
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(l.getName()) + 
-                            "\nSesso:\t\t" +  QString(l.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(l.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(l.getCosto()) + 
-                            "\nRuggito:\t\t" +  QString::number(l.getRuggito()) + " dB"
-                            "\nCibo preferito:\t" +  QString::fromStdString(l.getTipo()->getCiboPreferito())
-                               );
-    
-    QVBoxLayout *verticalLayout = new QVBoxLayout;
-    verticalLayout->addWidget(info);
-    verticalLayout->addWidget(bottoneVerso);
-
-    layout->addLayout(verticalLayout, 0, 1, 1, 1);
-
-    //(1, 0)
-    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(l.getDescrizione()));
-    
-    descrizione->setWordWrap(true);
-    descrizione->setMaximumWidth(200);
-    descrizione->setFixedHeight(200);
-
-    layout->addWidget(descrizione, 1, 0, 1, 1);
-
-    //(1, 1)
-    QLabel *habitat = new QLabel();
-    QPixmap habitatImg("assets/leone/leoneHabitat.jpg");
-
-    habitat->setPixmap(habitatImg);
-    habitat->setScaledContents(true);
-    habitat->setFixedSize(200, 150);
-
-    QLabel *descrizioneHabitat = new QLabel("Savana: l'habitat del leone");
-
-    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
-    verticalLayout1->addWidget(habitat);
-    verticalLayout1->addWidget(descrizioneHabitat);
-
-    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
-
-    // Imposta il layout della finestra di dialogo
-    dialog->setLayout(layout);
-
-    // Mostra la finestra di dialogo
-    dialog->exec();
-}
-
-
-
-
-
-void GameWidget::coccodrilloDetails(Coccodrillo& c){
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
     QDialog *dialog = new QDialog(this);
     dialog->setWindowTitle("Sfama");
@@ -474,4 +350,132 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         }
         //gameModel.clockPausa(false); //STOP DELL'OROLOGIO
     }
+}
+
+
+
+//VISITOR
+void GameWidget::animalDetails(Animal& a){
+    if(dynamic_cast<Coccodrillo*>(&a)) {
+        details(dynamic_cast<Coccodrillo&>(a));
+    } else if(dynamic_cast<Giraffa*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Leone*>(&a)) {
+        details(dynamic_cast<Leone&>(a));
+    } else if(dynamic_cast<Pavone*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Struzzo*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Tartaruga*>(&a)) {
+        // ...
+    } else {
+        qDebug() << "Il tipo di animale scelto NON esiste\n";
+    }
+}
+
+void GameWidget::details(Leone& l) {
+    //Creazione della finestra di dialogo
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(l.getName()));
+
+    // Imposta lo stile CSS per la finestra di dialogo
+    dialog->setStyleSheet("QDialog { background-color: #ffb366;}"
+                          "QPushButton { background-color: #ffd0a8; }");
+
+    // Aggiungi il pulsante per emettere il verso
+    QPushButton *bottoneVerso = new QPushButton("Emettere verso", dialog);
+    // Connessione al verso... (Da eliminare)
+
+    //Creazione immagine leone maschio o femmina
+    QLabel *fotoLeo = new QLabel();// Crea un QLabel
+    QPixmap image;
+    
+    if(l.getSex() == 'M')
+        image.load("assets/leone/leoneMaschio.jpg");
+    else
+        image.load("assets/leone/leoneFemmina.jpg");
+
+    fotoLeo->setPixmap(image);// Imposta l'immagine nel QLabel
+    fotoLeo->setScaledContents(true);
+    fotoLeo->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //Aggiunta vari layout
+    //(0, 0)
+    layout->addWidget(fotoLeo, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(l.getName()) + 
+                            "\nSesso:\t\t" +  QString(l.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(l.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(l.getCosto()) + 
+                            "\nRuggito:\t\t" +  QString::number(l.getRuggito()) + " dB"
+                            "\nCibo preferito:\t" +  QString::fromStdString(l.getTipo()->getCiboPreferito())
+                               );
+    
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(info);
+    verticalLayout->addWidget(bottoneVerso);
+
+    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(l.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(200);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 1, 0, 1, 1);
+
+    //(1, 1)
+    QLabel *habitat = new QLabel();
+    QPixmap habitatImg("assets/leone/leoneHabitat.jpg");
+
+    habitat->setPixmap(habitatImg);
+    habitat->setScaledContents(true);
+    habitat->setFixedSize(200, 150);
+
+    QLabel *descrizioneHabitat = new QLabel("Savana: l'habitat del leone");
+
+    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
+    verticalLayout1->addWidget(habitat);
+    verticalLayout1->addWidget(descrizioneHabitat);
+
+    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+
+    // Imposta il layout della finestra di dialogo
+    dialog->setLayout(layout);
+
+    // Mostra la finestra di dialogo
+    dialog->exec();
+}
+
+
+void GameWidget::details(Coccodrillo& c){
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(c.getName()));
+
+    dialog->exec();
+}
+
+void GameWidget::details(Giraffa& g){
+
+}
+
+void GameWidget::details(Pavone& p){
+
+}
+
+void GameWidget::details(Struzzo& s){
+
+}
+
+void GameWidget::details(Tartaruga& t){
+
 }

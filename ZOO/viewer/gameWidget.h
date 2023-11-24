@@ -50,8 +50,12 @@ public:
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar, size_t numAnimali);
     void keyPressEvent(QKeyEvent *event) override;
     
-    void leoneDetails(Leone& l);
-    void coccodrilloDetails(Coccodrillo& c);
+    void details(Leone& l);
+    void details(Coccodrillo& c);
+    void details(Giraffa& g);
+    void details(Pavone& p);
+    void details(Struzzo& s);
+    void details(Tartaruga& t);
     
     void eseguiRicerca(DLrecinto& recinto, QString testoRicerca);
     friend void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
