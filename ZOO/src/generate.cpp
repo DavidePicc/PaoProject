@@ -3,6 +3,6 @@
 
 namespace comodo{
     char setSesso(){
-        return generaNumeroCasuale<int>(0, 1)==0 ? 'M' : 'F';
+        return generaNumeroCasuale(0, 10) < 5 ? 'M' : 'F';
     }
 }

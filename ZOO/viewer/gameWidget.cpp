@@ -35,7 +35,7 @@ void GameWidget::visualizer(){
     int y = (screenGeometry.height() - this->height()) / 2;
     // Posiziona la finestra al centro dello schermo
     this->move(x, y);
-	
+    
     //Creo i bottoni nelle coordinate fisse
     createButton(310, 30, "leone", gameModel.getLeoni());
     createButton(660, 105, "coccodrillo", gameModel.getCoccodrilli());
@@ -126,29 +126,27 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
-        this->reFresh(recinto, healthBar, recinto.getSize());});
+        this->seeAnimals(recinto, healthBar, recinto.getSize());});
 }
 
-void GameWidget::reFresh(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
-    //REFRESH DEGLI ANIMALI PRESENTI INTEMPO REALE
-    //QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, [this, &recinto, healthBar]() {
-        this->seeAnimals(recinto, healthBar, recinto.getSize());
-    });
-    timer->start(1000); //ogni 5 secondi
-}
- 
+
 
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
 void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
-
-
     qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
 
     QWidget *dialog = new QWidget(emptyLabel);
     
-    //QUI era la searchline
+    //BARRA RICERCA
+    QLineEdit *searchLineEdit = new QLineEdit(emptyLabel); //non cambia se metto dentro dialog o searchline
+    searchLineEdit->setPlaceholderText("Ricerca per nome");
+
+    // Connessione del segnale returnPressed()
+    connect(searchLineEdit, &QLineEdit::returnPressed, [this, &recinto, searchLineEdit]() {
+    QString testoRicerca = searchLineEdit->text(); 
+    eseguiRicerca(recinto, testoRicerca);
+    });
 
     //Aggiungo bottone Aggiungi animale
     QPushButton *addButton = new QPushButton("Aggiungi Animale", dialog);
@@ -199,6 +197,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     layout->addWidget(titolo);
     layout->addWidget(scrollArea);
     layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
+    layout->addWidget(searchLineEdit);
     
     // Controllo sull'attributo "soldi"
     if (gameModel.getSoldi() <= 0) {
@@ -222,41 +221,130 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
 
     dialog->show();
 
-    //BARRA RICERCA
-        QLineEdit *searchLineEdit = new QLineEdit(emptyLabel); //non cambia se metto dentro dialog o searchline
-        searchLineEdit->setPlaceholderText("Cerca per nome dentro al recinto");
-        // Connessione del segnale returnPressed()
-        connect(searchLineEdit, &QLineEdit::returnPressed, [this, &recinto, searchLineEdit]() {
-        QString testoRicerca = searchLineEdit->text(); 
-        eseguiRicerca(recinto, testoRicerca);
-        });
-
-        searchLineEdit->move(0,0);//da sistemare la posizione
-        searchLineEdit->show();
-    //BARRA RICERCA
- 
 }
 
 
 void GameWidget::animalDetails(Animal& a){
+    if(dynamic_cast<Coccodrillo*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Giraffa*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Leone*>(&a)) {
+        leoneDetails(dynamic_cast<Leone&>(a));
+    } else if(dynamic_cast<Pavone*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Struzzo*>(&a)) {
+        // ...
+    } else if(dynamic_cast<Tartaruga*>(&a)) {
+        // ...
+    } else {
+        qDebug() << "Il tipo di animale scelto NON esiste\n";
+    }
+}
+
+void GameWidget::leoneDetails(Leone& l) {
+    //Creazione della finestra di dialogo
     QDialog *dialog = new QDialog(this);
-    dialog->setWindowTitle("Dettagli di " + QString::fromStdString(a.getName()));
+    dialog->setWindowTitle(QString::fromStdString(l.getName()));
 
-    QLabel *nameLabel = new QLabel(QString::fromStdString(a.getName()), dialog);
-    //QLabel *descriptionLabel = new QLabel(QString::fromStdString(a.setDescrizione()), dialog);
-    // Aggiungi qui altri QLabel per mostrare altre proprietà dell'animale...
+    // Imposta lo stile CSS per la finestra di dialogo
+    dialog->setStyleSheet("QDialog { background-color: #ffb366;}"
+                          "QPushButton { background-color: #ffd0a8; }");
 
-    //Bottone per emettere il verso ?
+    // Aggiungi il pulsante per emettere il verso
     QPushButton *bottoneVerso = new QPushButton("Emettere verso", dialog);
-    //Connessione al verso
+    // Connessione al verso... (Da eliminare)
 
-    QVBoxLayout *layout = new QVBoxLayout(dialog);
-    layout->addWidget(nameLabel);
-    layout->addWidget(bottoneVerso);
+    //Creazione immagine leone maschio o femmina
+    QLabel *fotoLeo = new QLabel();// Crea un QLabel
+    QPixmap image;
+    
+    if(l.getSex() == 'M')
+        image.load("assets/leone/leoneMaschio.jpg");
+    else
+        image.load("assets/leone/leoneFemmina.jpg");
 
+    fotoLeo->setPixmap(image);// Imposta l'immagine nel QLabel
+    fotoLeo->setScaledContents(true);
+    fotoLeo->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //Aggiunta vari layout
+    //(0, 0)
+    layout->addWidget(fotoLeo, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(l.getName()) + 
+                            "\nSesso:\t\t" +  QString(l.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(l.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(l.getCosto()) + 
+                            "\nRuggito:\t\t" +  QString::number(l.getRuggito()) + " dB"
+                            "\nCibo preferito:\t" +  QString::fromStdString(l.getTipo()->getCiboPreferito())
+                               );
+    
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(info);
+    verticalLayout->addWidget(bottoneVerso);
+
+    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(l.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(200);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 1, 0, 1, 1);
+
+    //(1, 1)
+    QLabel *habitat = new QLabel();
+    QPixmap habitatImg("assets/leone/leoneHabitat.jpg");
+
+    habitat->setPixmap(habitatImg);
+    habitat->setScaledContents(true);
+    habitat->setFixedSize(200, 150);
+
+    QLabel *descrizioneHabitat = new QLabel("Savana: l'habitat del leone");
+
+    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
+    verticalLayout1->addWidget(habitat);
+    verticalLayout1->addWidget(descrizioneHabitat);
+
+    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+
+    // Imposta il layout della finestra di dialogo
     dialog->setLayout(layout);
+
+    // Mostra la finestra di dialogo
     dialog->exec();
 }
+
+
+
+
+
+void GameWidget::coccodrilloDetails(Coccodrillo& c){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {
@@ -352,7 +440,6 @@ void GameWidget::eseguiRicerca(DLrecinto& recinto, QString testoRicerca) {
         QMessageBox::information(this, "Animale non trovato nel recinto", "L'animale cercato non è stato trovato.");
     }
 }   
-//BARRA RICERCA
 
 //Funzione per fare in modo che schiacciando esc esca un menù
 void GameWidget::keyPressEvent(QKeyEvent *event){
@@ -360,7 +447,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         //gameModel.clockPausa(true);
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Menu di pausa", "Vuoi salvare la partita o tornare al menu principale?",
-                                      QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+                                    QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 
         if (reply == QMessageBox::Save) {
             QString nomePartita = QInputDialog::getText(nullptr, "Salvataggio Partita", "Inserisci il nome della partita:");
