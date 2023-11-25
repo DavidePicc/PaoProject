@@ -39,6 +39,6 @@ std::string Coccodrillo::setDescrizione(){
 }
 
 std::string Coccodrillo::ApreBocca(){
-    return "il coccodrillo ha aperto la bocca e sfoggia una dentatura di:" + numero_denti;
+    return "Il coccodrillo " + this->getName() + " ha aperto la bocca e sfoggia una dentatura di:" + std::to_string(numero_denti) + " denti";
 }
 

@@ -461,6 +461,109 @@ void GameWidget::details(Coccodrillo& c){
     QDialog *dialog = new QDialog(this);
     dialog->setWindowTitle(QString::fromStdString(c.getName()));
 
+    // Imposta lo stile CSS per la finestra di dialogo
+    dialog->setStyleSheet("QDialog { background-color: #666600;}"
+                          "QPushButton { background-color: #999900; }");
+
+    // Aggiungi il pulsante per emettere il verso
+    QPushButton *bottoneDenti = new QPushButton("Dettagli denti", dialog);
+    
+    connect(bottoneDenti, &QPushButton::clicked, [&] (){
+        QDialog *dialogDenti = new QDialog(this);
+
+        dialogDenti->setStyleSheet("QDialog { background-color: #666600;}");
+
+        QLabel *fotoDenti = new QLabel();// Crea un QLabel
+        QPixmap image("assets/coccodrillo/coccodrilloDenti.jpg");
+
+        fotoDenti->setPixmap(image);// Imposta l'immagine nel QLabel
+        fotoDenti->setScaledContents(true);
+        fotoDenti->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+        QLabel *denti = new QLabel(QString::fromStdString(c.ApreBocca()));
+        denti->setWordWrap(true);
+        denti->setMaximumWidth(500);
+        denti->setFixedHeight(200);
+
+        QHBoxLayout *layoutDenti = new QHBoxLayout;
+        layoutDenti->addWidget(fotoDenti);
+        layoutDenti->addWidget(denti);
+
+        layoutDenti->setSpacing(70);  // Spaziamento orizzontale tra i widget
+        layoutDenti->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+        dialogDenti->setLayout(layoutDenti);
+
+        dialogDenti->exec();
+    });
+
+    //Creazione immagine leone maschio o femmina
+    QLabel *fotoCocco = new QLabel();// Crea un QLabel
+    QPixmap image;
+    
+    if(c.getSex() == 'M')
+        image.load("assets/coccodrillo/coccodrilloMaschio.jpg");
+    else
+        image.load("assets/coccodrillo/coccodrilloFemmina.jpg");
+
+    fotoCocco->setPixmap(image);// Imposta l'immagine nel QLabel
+    fotoCocco->setScaledContents(true);
+    fotoCocco->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //Aggiunta vari layout
+    //(0, 0)
+    layout->addWidget(fotoCocco, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(c.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(600);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(c.getName()) + 
+                            "\nSesso:\t\t" +  QString(c.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(c.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(c.getCosto()) + 
+                            "\nCibo preferito:\t" +  QString::fromStdString(c.getTipo()->getCiboPreferito()) + 
+                            "\nLunghezza:\t" + QString::number(c.getLunghezza()) + " mt"
+                               );
+    
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(info);
+    verticalLayout->addWidget(bottoneDenti);
+
+    layout->addLayout(verticalLayout, 1, 0, 1, 1);
+
+    //(1, 1)
+    QLabel *habitat = new QLabel();
+    QPixmap habitatImg("assets/coccodrillo/coccodrilloHabitat.jpg");
+
+    habitat->setPixmap(habitatImg);
+    habitat->setScaledContents(true);
+    habitat->setFixedSize(200, 150);
+
+    QLabel *descrizioneHabitat = new QLabel("Palude: l'habitat del coccodrillo");
+
+    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
+    verticalLayout1->addWidget(habitat);
+    verticalLayout1->addSpacing(10);
+    verticalLayout1->addWidget(descrizioneHabitat);
+
+    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+
+    // Imposta il layout della finestra di dialogo
+    dialog->setLayout(layout);
+
     dialog->exec();
 }
 
