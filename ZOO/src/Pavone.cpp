@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Pavone.h"
 #include "generate.h"
 
@@ -7,10 +6,6 @@ Pavone::Pavone()
 
 Pavone::Pavone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float raggio)
     : Animal(name, setDescrizione(), age, sex, weight, type, 2), raggioRuota(raggio) {}
-
-std::string Pavone::emettereVerso() const {
-    return "eeee-ow!";
-}
 
 void Pavone::setRaggioRuota(float raggio) {
     raggioRuota = raggio;
@@ -21,9 +16,14 @@ float Pavone::getRaggioRuota() const {
 }
 
 std::string Pavone::SfoggiaRuota() const{
-    if((sesso=='M' || sesso=='m') && raggioRuota>0){
-        return "Il pavone ha sfoggiato una ruota di raggio:" + std::to_string(raggioRuota);
-    }else{ return "Il pavone non ha una ruota";}
+    if((sesso=='M' || sesso=='m') && raggioRuota > 0){
+        std::ostringstream oss;
+        oss << std::fixed << std::setprecision(2); // Imposta il formato a due cifre decimali
+        oss << "Il pavone ha sfoggiato una ruota di raggio: " << raggioRuota << " cm\n";
+        return oss.str();
+    }
+    else 
+        return "Il pavone non ha una ruota in quanto femmina";
 }
 
 const std::string Pavone::setNome(){

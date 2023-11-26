@@ -11,9 +11,6 @@ Tartaruga::Tartaruga()
 Tartaruga::Tartaruga(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float X, float Y)
     : Animal(name, setDescrizione(), age, sex, weight, type, 4), misura({X, Y}) {}
 
-std::string Tartaruga::emettereVerso() const {
-    return "La tartaruga non emette versi";
-}
 
 void Tartaruga::setMisura(float X, float Y) {
     misura.x = X;

@@ -363,7 +363,7 @@ void GameWidget::animalDetails(Animal& a){
     } else if(dynamic_cast<Leone*>(&a)) {
         details(dynamic_cast<Leone&>(a));
     } else if(dynamic_cast<Pavone*>(&a)) {
-        // ...
+        details(dynamic_cast<Pavone&>(a));
     } else if(dynamic_cast<Struzzo*>(&a)) {
         // ...
     } else if(dynamic_cast<Tartaruga*>(&a)) {
@@ -373,6 +373,9 @@ void GameWidget::animalDetails(Animal& a){
     }
 }
 
+
+
+//LEONE
 void GameWidget::details(Leone& l) {
     //Creazione della finestra di dialogo
     QDialog *dialog = new QDialog(this);
@@ -383,8 +386,36 @@ void GameWidget::details(Leone& l) {
                           "QPushButton { background-color: #ffd0a8; }");
 
     // Aggiungi il pulsante per emettere il verso
-    QPushButton *bottoneVerso = new QPushButton("Emettere verso", dialog);
-    // Connessione al verso... (Da eliminare)
+    QPushButton *bottoneRuggito = new QPushButton("Ruggito !", dialog);
+    
+    connect(bottoneRuggito, &QPushButton::clicked, [&] (){
+        QDialog *dialogRuggito = new QDialog(this);
+
+        dialogRuggito->setStyleSheet("QDialog { background-color: #ffb366;}");
+
+        QLabel *fotoRuggito = new QLabel();// Crea un QLabel
+        QPixmap image("assets/leone/leoneRuggito.jpg");
+
+        fotoRuggito->setPixmap(image);// Imposta l'immagine nel QLabel
+        fotoRuggito->setScaledContents(true);
+        fotoRuggito->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+        QLabel *ruggito = new QLabel(QString::fromStdString(l.getDescrizioneRuggito()));
+        ruggito->setWordWrap(true);
+        ruggito->setMaximumWidth(500);
+        ruggito->setFixedHeight(200);
+
+        QHBoxLayout *layoutRuggito = new QHBoxLayout;
+        layoutRuggito->addWidget(ruggito);
+        layoutRuggito->addWidget(fotoRuggito);
+
+        layoutRuggito->setSpacing(70);  // Spaziamento orizzontale tra i widget
+        layoutRuggito->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+        dialogRuggito->setLayout(layoutRuggito);
+
+        dialogRuggito->exec();
+    });
 
     //Creazione immagine leone maschio o femmina
     QLabel *fotoLeo = new QLabel();// Crea un QLabel
@@ -420,7 +451,7 @@ void GameWidget::details(Leone& l) {
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(info);
-    verticalLayout->addWidget(bottoneVerso);
+    verticalLayout->addWidget(bottoneRuggito);
 
     layout->addLayout(verticalLayout, 0, 1, 1, 1);
 
@@ -457,6 +488,8 @@ void GameWidget::details(Leone& l) {
 }
 
 
+
+//COCCODRILLO
 void GameWidget::details(Coccodrillo& c){
     QDialog *dialog = new QDialog(this);
     dialog->setWindowTitle(QString::fromStdString(c.getName()));
@@ -530,15 +563,17 @@ void GameWidget::details(Coccodrillo& c){
     layout->addWidget(descrizione, 0, 1, 1, 1);
 
     //(1, 0)
+    QLabel *desc = new QLabel("<b>Attributi coccodrillo</b>");
     QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(c.getName()) + 
                             "\nSesso:\t\t" +  QString(c.getSex()) +
                             "\nPeso: \t\t" +  QString::number(c.getPeso()) + " kg"
                             "\nCosto: \t\t" +  QString::number(c.getCosto()) + 
                             "\nCibo preferito:\t" +  QString::fromStdString(c.getTipo()->getCiboPreferito()) + 
-                            "\nLunghezza:\t" + QString::number(c.getLunghezza()) + " mt"
+                            "\nLunghezza:\t" + QString::number(c.getLunghezza(), 'f', 2) + " mt\n"
                                );
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(desc);
     verticalLayout->addWidget(info);
     verticalLayout->addWidget(bottoneDenti);
 
@@ -567,18 +602,132 @@ void GameWidget::details(Coccodrillo& c){
     dialog->exec();
 }
 
+
+
+//GIRAFFA
 void GameWidget::details(Giraffa& g){
 
 }
 
-void GameWidget::details(Pavone& p){
 
+
+//PAVONE
+void GameWidget::details(Pavone& p){
+    //Creazione della finestra di dialogo
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(p.getName()));
+
+    // Imposta lo stile CSS per la finestra di dialogo
+    dialog->setStyleSheet("QDialog { background-color: #99b3ff;}"
+                          "QPushButton {"
+                                        "    border-radius: 5px;"
+                                        "    padding: 10px;"
+                                        "    background-color: #8f94a3;"  // Colore di sfondo
+                                        "    color: white;"               // Colore del testo
+                                        "}" );
+
+    // Aggiungi il pulsante per fare la ruota
+    QPushButton *bottoneRuota = new QPushButton("Ruota", dialog);
+    
+    connect(bottoneRuota, &QPushButton::clicked, [&] (){
+        QDialog *dialogRuota = new QDialog(this);
+
+        dialogRuota->setStyleSheet("QDialog { background-color: #99b3ff;}");
+
+        QLabel *fotoRuota = new QLabel();// Crea un QLabel
+        QPixmap image;
+        
+        if(p.getSex() == 'M' || p.getSex() == 'm')
+            image.load("assets/pavone/pavoneRuota.jpeg");
+        else
+            image.load("assets/pavone/pavoneRuotaFemmina.jpg");
+        
+
+        fotoRuota->setPixmap(image);// Imposta l'immagine nel QLabel
+        fotoRuota->setScaledContents(true);
+        fotoRuota->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+        QLabel *ruota = new QLabel(QString::fromStdString(p.SfoggiaRuota()));
+        ruota->setWordWrap(true);
+        ruota->setMaximumWidth(500);
+        ruota->setFixedHeight(200);
+
+        QHBoxLayout *layoutRuota = new QHBoxLayout;
+        layoutRuota->addWidget(ruota);
+        layoutRuota->addWidget(fotoRuota);
+
+        layoutRuota->setSpacing(70);  // Spaziamento orizzontale tra i widget
+        layoutRuota->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+        dialogRuota->setLayout(layoutRuota);
+
+        dialogRuota->exec();
+    });
+
+    //Creazione immagine leone maschio o femmina
+    QLabel *fotoPavone = new QLabel();// Crea un QLabel
+    QPixmap image;
+    
+    if(p.getSex() == 'M')
+        image.load("assets/pavone/pavoneMaschio.jpg");
+    else
+        image.load("assets/pavone/pavoneFemmina.jpg");
+
+    fotoPavone->setPixmap(image);// Imposta l'immagine nel QLabel
+    fotoPavone->setScaledContents(true);
+    fotoPavone->setFixedSize(200, 150);// Imposta manualmente le dimensioni della QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //Aggiunta vari layout
+    //(0, 0)
+    layout->addWidget(fotoPavone, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(p.getName()) + 
+                            "\nSesso:\t\t" +  QString(p.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(p.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(p.getCosto()) + 
+                            "\nRaggio ruota: \t" + QString::number(p.getRaggioRuota(), 'f', 2) +
+                            "\nCibo preferito:\t" +  QString::fromStdString(p.getTipo()->getCiboPreferito())
+                               );
+
+    layout->addWidget(info, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(p.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(200);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 1, 0, 1, 1);
+
+    //(1, 1)
+    layout->addWidget(bottoneRuota, 1, 1, 1, 1);
+
+
+    // Imposta il layout della finestra di dialogo
+    dialog->setLayout(layout);
+
+    // Mostra la finestra di dialogo
+    dialog->exec();
 }
 
+
+
+//STRUZZO
 void GameWidget::details(Struzzo& s){
 
 }
 
+
+
+//TARTARUGA
 void GameWidget::details(Tartaruga& t){
 
 }

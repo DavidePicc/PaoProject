@@ -8,10 +8,7 @@ Giraffa::Giraffa()
 
 Giraffa::Giraffa(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lungcollo, float altezza)
     : Animal(name, setDescrizione(), age, sex, weight, type, 7), LunghezzaCollo(lungcollo), Altezza(altezza) {}
-
-std::string Giraffa::emettereVerso() const {
-    return "Belato!";
-}
+    
 
 void Giraffa::setLunghezzaCollo(float lungcollo) {
     LunghezzaCollo = lungcollo;

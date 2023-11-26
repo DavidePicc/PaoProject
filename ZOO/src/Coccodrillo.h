@@ -12,8 +12,6 @@ public:
     Coccodrillo();
     Coccodrillo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lunghezza, int numerodenti);
     
-    std::string emettereVerso() const override;
-
     // Metodi setter e getter per lunghezza e numero denti
     void setLunghezza(float lunghezza);
     float getLunghezza() const;

@@ -67,7 +67,6 @@ bool DataManager::writeDatiRecinto(const std::string animali, const DLrecinto& r
             //Converto il puntatore in nel suo oggetto appropriato
             if (animali == "leoni") {
                 xmlWriter->writeTextElement("ruggito", QString::number((*(std::dynamic_pointer_cast<Leone>(recinto[i]))).getRuggito()));
-                xmlWriter->writeTextElement("criniera", (*(std::dynamic_pointer_cast<Leone>(recinto[i]))).hasCriniera() ? "1" : "0");
             } else if (animali == "coccodrilli") {
                 xmlWriter->writeTextElement("lunghezza", QString::number((*(std::dynamic_pointer_cast<Coccodrillo>(recinto[i]))).getLunghezza(), 'f'));
                 xmlWriter->writeTextElement("numeroDenti", QString::number((*(std::dynamic_pointer_cast<Coccodrillo>(recinto[i]))).getNumeroDenti()));
@@ -212,10 +211,9 @@ void DataManager::readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameMo
 
         if (animali == "leoni") {
             unsigned int ruggito = xmlReader.readElementText().toInt();
-            bool criniera = (xmlReader.readElementText().toStdString() == "1");
             const Alimentazione* tipo = new Carnivoro(cibo);
 
-            gameModel.addAnimal(gameModel.getLeoni(), std::make_shared<Leone>(nome, eta, sesso, peso, tipo, ruggito, criniera));
+            gameModel.addAnimal(gameModel.getLeoni(), std::make_shared<Leone>(nome, eta, sesso, peso, tipo, ruggito));
         } else if (animali == "coccodrilli") {
             float lunghezza = xmlReader.readElementText().toFloat();
             int denti = xmlReader.readElementText().toInt();

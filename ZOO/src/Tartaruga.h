@@ -23,7 +23,6 @@ public:
 
     std::string siNasconde() const;
     
-    std::string emettereVerso() const override;
     static const std::string setNome();
     static std::string setDescrizione();
 

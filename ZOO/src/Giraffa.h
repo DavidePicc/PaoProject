@@ -11,8 +11,6 @@ public:
     Giraffa();
     Giraffa(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lungcollo, float altezza);
 
-    std::string emettereVerso() const override;
-
     static const std::string setNome();
     static std::string setDescrizione();
 

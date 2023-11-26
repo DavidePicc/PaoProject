@@ -1,5 +1,9 @@
 #ifndef PAVONE_H
 #define PAVONE_H
+
+#include <iostream>
+#include <iomanip>
+
 #include "Animal.h"
 
 class Pavone : public Animal {
@@ -9,8 +13,6 @@ protected:
 public:
     Pavone();
     Pavone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float raggio);
-
-    std::string emettereVerso() const override;
 
     static const std::string setNome();
     static std::string setDescrizione();

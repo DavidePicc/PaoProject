@@ -8,9 +8,6 @@ Struzzo::Struzzo()
 Struzzo::Struzzo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float velo)
     : Animal(name, setDescrizione(), age, sex, weight, type, 8), velocitamax(velo) {}
 
-std::string Struzzo::emettereVerso() const {
-    return "Grugnito!";
-}
 
 void Struzzo::setVelocitaMax(float velo) {
     velocitamax = velo;

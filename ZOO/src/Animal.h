@@ -16,21 +16,14 @@ protected:
     
 
 public:    
-    //Costruttore vuoto
-    Animal();
-
     //Costruttore con parametri
     Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value);
-
-    //Animal(const std::string name, std::string description, int age, const char sex, float weight, std::string cibo_preferito);
 
     //virtual ~Animal();
 
     bool operator==(const Animal& other) const;
 
     std::string getName() const; 
-
-    virtual std::string  emettereVerso() const = 0;
 
     // start NEW
     void setDescrizione(const std::string& description);

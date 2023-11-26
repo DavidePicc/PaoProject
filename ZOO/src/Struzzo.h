@@ -11,8 +11,6 @@ public:
     Struzzo();
     Struzzo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float velo);
 
-    std::string emettereVerso() const override;
-
     void setVelocitaMax(float velo);
     float getVelocitaMax() const;
 

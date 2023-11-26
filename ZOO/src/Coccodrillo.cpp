@@ -24,10 +24,6 @@ int Coccodrillo::getNumeroDenti() const {
     return numero_denti;
 }
 
-std::string Coccodrillo::emettereVerso() const{
-    return "Grrrr!";
-}
-
 const std::string Coccodrillo::setNome(){
     static unsigned int num = 0;
     num ++;

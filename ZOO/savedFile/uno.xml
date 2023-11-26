@@ -1,108 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ZOO>
-    <soldi>106</soldi>
-    <clock>11 - 11 - 2023  16:41</clock>
+    <soldi>140</soldi>
+    <clock>26 - 11 - 2023  20:11</clock>
     <leoni>
-        <vita>96</vita>
-        <numero>2</numero>
+        <vita>89</vita>
+        <numero>1</numero>
         <leoni0>
             <nome>Leone 1</nome>
-            <eta>10</eta>
+            <eta>9</eta>
             <sesso>M</sesso>
-            <peso>157.000000</peso>
+            <peso>170.000000</peso>
             <cibo>Carne</cibo>
-            <ruggito>77</ruggito>
-            <criniera>0</criniera>
+            <ruggito>87</ruggito>
         </leoni0>
-        <leoni1>
-            <nome>Leone 2</nome>
-            <eta>7</eta>
-            <sesso>M</sesso>
-            <peso>137.000000</peso>
-            <cibo>Carne</cibo>
-            <ruggito>50</ruggito>
-            <criniera>0</criniera>
-        </leoni1>
     </leoni>
     <coccodrilli>
         <vita>90</vita>
-        <numero>4</numero>
+        <numero>2</numero>
         <coccodrilli0>
             <nome>Coccodrillo 1</nome>
-            <eta>58</eta>
+            <eta>41</eta>
             <sesso>M</sesso>
-            <peso>435.000000</peso>
+            <peso>629.000000</peso>
             <cibo>Carne</cibo>
-            <lunghezza>3.746681</lunghezza>
-            <numeroDenti>65</numeroDenti>
+            <lunghezza>3.045050</lunghezza>
+            <numeroDenti>63</numeroDenti>
         </coccodrilli0>
         <coccodrilli1>
             <nome>Coccodrillo 2</nome>
-            <eta>52</eta>
-            <sesso>M</sesso>
-            <peso>151.000000</peso>
+            <eta>56</eta>
+            <sesso>F</sesso>
+            <peso>401.000000</peso>
             <cibo>Carne</cibo>
-            <lunghezza>3.006943</lunghezza>
-            <numeroDenti>68</numeroDenti>
+            <lunghezza>2.901476</lunghezza>
+            <numeroDenti>61</numeroDenti>
         </coccodrilli1>
-        <coccodrilli2>
-            <nome>Coccodrillo 3</nome>
-            <eta>86</eta>
-            <sesso>M</sesso>
-            <peso>612.000000</peso>
-            <cibo>Carne</cibo>
-            <lunghezza>3.519218</lunghezza>
-            <numeroDenti>67</numeroDenti>
-        </coccodrilli2>
-        <coccodrilli3>
-            <nome>Coccodrillo 4</nome>
-            <eta>15</eta>
-            <sesso>M</sesso>
-            <peso>436.000000</peso>
-            <cibo>Carne</cibo>
-            <lunghezza>3.112767</lunghezza>
-            <numeroDenti>68</numeroDenti>
-        </coccodrilli3>
     </coccodrilli>
     <pavoni>
-        <vita>96</vita>
+        <vita>92</vita>
         <numero>2</numero>
         <pavoni0>
             <nome>Pavone 1</nome>
-            <eta>8</eta>
+            <eta>12</eta>
             <sesso>M</sesso>
             <peso>3.000000</peso>
             <cibo>Frutta</cibo>
-            <raggioRuota>119.000000</raggioRuota>
+            <raggioRuota>95.000000</raggioRuota>
         </pavoni0>
         <pavoni1>
             <nome>Pavone 2</nome>
-            <eta>9</eta>
-            <sesso>M</sesso>
-            <peso>3.000000</peso>
+            <eta>13</eta>
+            <sesso>F</sesso>
+            <peso>5.000000</peso>
             <cibo>Frutta</cibo>
-            <raggioRuota>97.000000</raggioRuota>
+            <raggioRuota>0.000000</raggioRuota>
         </pavoni1>
     </pavoni>
     <tartarughe>
-        <vita>100</vita>
-        <numero>0</numero>
+        <vita>93</vita>
+        <numero>1</numero>
+        <tartarughe0>
+            <nome>Tartaruga 1</nome>
+            <eta>62</eta>
+            <sesso>M</sesso>
+            <peso>29.000000</peso>
+            <cibo>Erba</cibo>
+            <misuraGuscioX>48.234356</misuraGuscioX>
+            <misuraGuscioY>120.619904</misuraGuscioY>
+        </tartarughe0>
     </tartarughe>
     <struzzi>
-        <vita>100</vita>
-        <numero>0</numero>
+        <vita>94</vita>
+        <numero>1</numero>
+        <struzzi0>
+            <nome>Struzzo 1</nome>
+            <eta>52</eta>
+            <sesso>F</sesso>
+            <peso>70.000000</peso>
+            <cibo>Erba</cibo>
+            <velocita>57.000000</velocita>
+        </struzzi0>
     </struzzi>
     <giraffe>
-        <vita>97</vita>
+        <vita>95</vita>
         <numero>1</numero>
         <giraffe0>
             <nome>Giraffa 1</nome>
             <eta>17</eta>
             <sesso>M</sesso>
-            <peso>1267.000000</peso>
+            <peso>909.000000</peso>
             <cibo>Foglie</cibo>
-            <lunghezzaCollo>2.434457</lunghezzaCollo>
-            <altezza>4.363033</altezza>
+            <lunghezzaCollo>2.020618</lunghezzaCollo>
+            <altezza>4.620654</altezza>
         </giraffe0>
     </giraffe>
 </ZOO>
