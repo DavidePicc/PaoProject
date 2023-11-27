@@ -1,16 +1,13 @@
-#include "src/Coccodrillo.h"
-#include "src/Leone.h"
-#include "src/Pavone.h"///////////////Necessari ?
-
 #include "viewer/mainMenu.h"
 
-
-
 int main(int argc, char *argv[]){
-
     QApplication app(argc, argv);
-    MainMenu menu;
-    menu.show();
+    MainMenu *menu = new MainMenu;
+    menu->show();
 
-    return app.exec();
+    int result = app.exec();
+
+    delete menu;// Liberazione della memoria allocata dinamicamente
+
+    return result;
 }

@@ -2,14 +2,16 @@
 
 ## To do:
 ### IMPORTANTI
+- Visitor (da finire) 
+###
 - Caricamento (FATTO)
-- Visitor( funzione che stampa a schermo con bottoni personalizzati in base all'animale)
-- funzione del bottone EMETTI VERSO(con suono?)(stampa la funzione emetti verso di ogni animale sennò scrive "non fa versi")
-- Ricerca (FATTO?)
+- Ricerca (FATTO)
 
 ### MENO IMPORTANTI
-- Adattamento finestra / splitter (FATTO?)
-- Fermare orologio quando si preme exit
+- Aggiornamento widget recinto se eliminazione animale con recinto aperto
+- Fermare orologio quando si preme exit (Non importantissimo ?)
+###
+- Adattamento finestra / splitter (FATTO)
 
 ### DUBBI
 Dal file <i>"specifiche"</i>:  

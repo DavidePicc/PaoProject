@@ -326,31 +326,42 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
                                     QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 
         if (reply == QMessageBox::Save) {
-            QString nomePartita = QInputDialog::getText(nullptr, "Salvataggio Partita", "Inserisci il nome della partita:");
+            QString nomePartita = QInputDialog::getText(this, "Salvataggio Partita", "Inserisci il nome della partita:");
 
             QFile file("savedFile/" + nomePartita + ".xml");
 
             //Sovrascrittura ?
             if(file.exists()) {
                 QMessageBox::StandardButton reply;
-                reply = QMessageBox::question(nullptr, "File esistente", "Il file: " + nomePartita + " esiste già, vuoi sovrascriverlo ?", QMessageBox::Yes|QMessageBox::No);
+                reply = QMessageBox::question(this, "File esistente", "Il file: " + nomePartita + " esiste già, vuoi sovrascriverlo ?", QMessageBox::Yes|QMessageBox::No);
                 if (reply == QMessageBox::No) 
                     return;
             }
 
             if(DataManager::writeData(nomePartita.toStdString(), gameModel, clock.getTime()) == true){
-                QMessageBox::information(nullptr, "Salvataggio completato", "Partita salvata correttamente!");
+                QMessageBox::information(this, "Salvataggio completato", "Partita salvata correttamente!");
             }else{
-                QMessageBox::information(nullptr, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");
+                QMessageBox::information(this, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");
             }
         } else if (reply == QMessageBox::Discard) {
+            MainMenu *menu = new MainMenu();
+            menu->show();
+            
             this->close();
+            
+            // Connessione del segnale aboutToQuit dell'applicazione per eliminare l'oggetto MainMenu prima della chiusura dell'applicazione
+            QObject::connect(qApp, &QCoreApplication::aboutToQuit, [=]() {
+                delete menu;
+            });      
         }else {
             QWidget::keyPressEvent(event);
         }
         //gameModel.clockPausa(false); //STOP DELL'OROLOGIO
     }
 }
+
+
+
 
 
 
