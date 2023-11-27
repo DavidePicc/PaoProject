@@ -210,34 +210,43 @@ void DataManager::readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameMo
         cibo = xmlReader.readElementText().toStdString();
 
         if (animali == "leoni") {
+            jumpTo(xmlReader, "ruggito");
             unsigned int ruggito = xmlReader.readElementText().toInt();
             const Alimentazione* tipo = new Carnivoro(cibo);
 
             gameModel.addAnimal(gameModel.getLeoni(), std::make_shared<Leone>(nome, eta, sesso, peso, tipo, ruggito));
         } else if (animali == "coccodrilli") {
+            jumpTo(xmlReader, "lunghezza");
             float lunghezza = xmlReader.readElementText().toFloat();
+            jumpTo(xmlReader, "numeroDenti");
             int denti = xmlReader.readElementText().toInt();
             const Alimentazione* tipo = new Carnivoro(cibo);
 
             gameModel.addAnimal(gameModel.getCoccodrilli(), std::make_shared<Coccodrillo>(nome, eta, sesso, peso, tipo, lunghezza, denti));
         } else if (animali == "pavoni") {
+            jumpTo(xmlReader, "raggioRuota");
             float ruota = xmlReader.readElementText().toFloat();
             const Alimentazione* tipo = new Onnivoro(cibo);
 
             gameModel.addAnimal(gameModel.getPavoni(), std::make_shared<Pavone>(nome, eta, sesso, peso, tipo, ruota));
         } else if (animali == "tartarughe") {
+            jumpTo(xmlReader, "misuraGuscioX");
             float guscioX = xmlReader.readElementText().toFloat();
+            jumpTo(xmlReader, "misuraGuscioY");
             float guscioY = xmlReader.readElementText().toFloat();
             const Alimentazione* tipo = new Erbivoro(cibo);
 
             gameModel.addAnimal(gameModel.getTartarughe(), std::make_shared<Tartaruga>(nome, eta, sesso, peso, tipo, guscioX, guscioY));
         } else if (animali == "struzzi") {
+            jumpTo(xmlReader, "velocita");
             float velocita = xmlReader.readElementText().toFloat();
             const Alimentazione* tipo = new Onnivoro(cibo);
 
             gameModel.addAnimal(gameModel.getStruzzi(), std::make_shared<Struzzo>(nome, eta, sesso, peso, tipo, velocita));
         } else if (animali == "giraffe") {
+            jumpTo(xmlReader, "lunghezzaCollo");
             float collo = xmlReader.readElementText().toFloat();
+            jumpTo(xmlReader, "altezza");
             float altezza = xmlReader.readElementText().toFloat();
             const Alimentazione* tipo = new Erbivoro(cibo);
 
