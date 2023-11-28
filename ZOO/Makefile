@@ -462,15 +462,15 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-main.o: main.cpp src/Coccodrillo.h \
-		src/Animal.h \
-		src/animaltype.h \
-		src/Leone.h \
-		src/Pavone.h \
-		viewer/mainMenu.h \
+main.o: main.cpp viewer/mainMenu.h \
 		viewer/gameWidget.h \
 		viewer/gameModel.h \
+		src/Animal.h \
+		src/animaltype.h \
+		src/Coccodrillo.h \
 		src/Giraffa.h \
+		src/Leone.h \
+		src/Pavone.h \
 		src/Struzzo.h \
 		src/Tartaruga.h \
 		src/Container.h \

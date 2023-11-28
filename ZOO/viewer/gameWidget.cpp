@@ -370,15 +370,15 @@ void GameWidget::animalDetails(Animal& a){
     if(dynamic_cast<Coccodrillo*>(&a)) {
         details(dynamic_cast<Coccodrillo&>(a));
     } else if(dynamic_cast<Giraffa*>(&a)) {
-        // ...
+        details(dynamic_cast<Giraffa&>(a));
     } else if(dynamic_cast<Leone*>(&a)) {
         details(dynamic_cast<Leone&>(a));
     } else if(dynamic_cast<Pavone*>(&a)) {
         details(dynamic_cast<Pavone&>(a));
     } else if(dynamic_cast<Struzzo*>(&a)) {
-        // ...
+        details(dynamic_cast<Struzzo&>(a));
     } else if(dynamic_cast<Tartaruga*>(&a)) {
-        // ...
+        details(dynamic_cast<Tartaruga&>(a));
     } else {
         qDebug() << "Il tipo di animale scelto NON esiste\n";
     }
@@ -617,7 +617,107 @@ void GameWidget::details(Coccodrillo& c){
 
 //GIRAFFA
 void GameWidget::details(Giraffa& g){
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(g.getName()));
 
+    //stile CSS
+    dialog->setStyleSheet("QDialog { background-color: #ffd700;}"
+                          "QPushButton { background-color: #fff8dc; }");
+
+    //pulsante sialza
+    QPushButton *bottoneUp = new QPushButton("Si alza", dialog);
+    
+    connect(bottoneUp, &QPushButton::clicked, [&] (){
+        QDialog *dialogUp = new QDialog(this);
+
+        dialogUp->setStyleSheet("QDialog { background-color: #ffd700;}");
+
+        QLabel *fotoUp = new QLabel();
+        QPixmap image("assets/giraffa/giraffaUp.jpg");
+
+        fotoUp->setPixmap(image);
+        fotoUp->setScaledContents(true);
+        fotoUp->setFixedSize(200, 150);//dimensioni QLabel
+
+        QLabel *testa = new QLabel(QString::fromStdString(g.SiAlza()));
+        testa->setWordWrap(true);
+        testa->setMaximumWidth(500);
+        testa->setFixedHeight(200);
+
+        QHBoxLayout *layoutUp = new QHBoxLayout;
+        layoutUp->addWidget(testa);
+        layoutUp->addWidget(fotoUp);
+
+        layoutUp->setSpacing(70);  // Spaziamento tra widget
+        layoutUp->setAlignment(Qt::AlignCenter);  // Allineamento
+
+        dialogUp->setLayout(layoutUp);
+
+        dialogUp->exec();
+    });
+
+    QLabel *fotoGiraffa = new QLabel();
+    QPixmap image;
+    image.load("assets/giraffa/giraffaDown.jpg");
+
+    fotoGiraffa->setPixmap(image);
+    fotoGiraffa->setScaledContents(true);
+    fotoGiraffa->setFixedSize(200, 150);// dimensioni QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //layout
+    //(0, 0)
+    layout->addWidget(fotoGiraffa, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(g.getName()) + 
+                            "\nSesso:\t\t" +  QString(g.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(g.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(g.getCosto()) + 
+			    "\nAltezza: \t\t" +  QString::number(g.getAltezza()) + " m"
+                            "\nLunghezza collo:\t\t" +  QString::number(g.getLunghezzaCollo()) + " m"
+                            "\nCibo preferito:\t" +  QString::fromStdString(g.getTipo()->getCiboPreferito())
+                               );
+    
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(info);
+    verticalLayout->addWidget(bottoneUp);
+
+    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(g.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(200);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 1, 0, 1, 1);
+
+    //(1, 1)
+    QLabel *habitat = new QLabel();
+    QPixmap habitatImg("assets/giraffa/giraffaHabitat.jpg");
+
+    habitat->setPixmap(habitatImg);
+    habitat->setScaledContents(true);
+    habitat->setFixedSize(200, 150);
+
+    QLabel *descrizioneHabitat = new QLabel("Savane e aree boschive: l'habitat delle giraffe");
+
+    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
+    verticalLayout1->addWidget(habitat);
+    verticalLayout1->addWidget(descrizioneHabitat);
+
+    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+
+    dialog->setLayout(layout);
+
+    dialog->exec();
 }
 
 
@@ -733,12 +833,247 @@ void GameWidget::details(Pavone& p){
 
 //STRUZZO
 void GameWidget::details(Struzzo& s){
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(s.getName()));
 
+    //stile CSS
+    dialog->setStyleSheet("QDialog { background-color: #a9a9a9;}"
+                          "QPushButton { background-color: #d2b48c; }");
+
+    //pulsante SiNasconde
+    QPushButton *bottoneHide = new QPushButton("Si nasconde", dialog);
+    
+    connect(bottoneHide, &QPushButton::clicked, [&] (){
+        QDialog *dialogHide = new QDialog(this);
+
+        dialogHide->setStyleSheet("QDialog { background-color: #a9a9a9;}");
+
+        QLabel *fotoHide = new QLabel();
+        QPixmap image("assets/struzzo/struzzoHide.jpg");
+
+        fotoHide->setPixmap(image);
+        fotoHide->setScaledContents(true);
+        fotoHide->setFixedSize(200, 150);//dimensioni QLabel
+
+        QLabel *testa = new QLabel(QString::fromStdString(s.nascondeTesta()));
+        testa->setWordWrap(true);
+        testa->setMaximumWidth(500);
+        testa->setFixedHeight(200);
+
+        QHBoxLayout *layoutHide = new QHBoxLayout;
+        layoutHide->addWidget(testa);
+        layoutHide->addWidget(fotoHide);
+
+        layoutHide->setSpacing(70);  // Spaziamento tra widget
+        layoutHide->setAlignment(Qt::AlignCenter);  // Allineamento
+
+        dialogHide->setLayout(layoutHide);
+
+        dialogHide->exec();
+    });
+
+    //pulsante Corre
+    QPushButton *bottoneRun = new QPushButton("Corre", dialog);
+    
+    connect(bottoneRun, &QPushButton::clicked, [&] (){
+        QDialog *dialogRun = new QDialog(this);
+
+        dialogRun->setStyleSheet("QDialog { background-color: #a9a9a9;}");
+
+        QLabel *fotoRun = new QLabel();
+        QPixmap image("assets/struzzo/struzzoCorre.jpg");
+
+        fotoRun->setPixmap(image);
+        fotoRun->setScaledContents(true);
+        fotoRun->setFixedSize(200, 150);//dimensioni QLabel
+
+        QLabel *corre = new QLabel(QString::fromStdString(s.corre()));
+        corre->setWordWrap(true);
+        corre->setMaximumWidth(500);
+        corre->setFixedHeight(200);
+
+        QHBoxLayout *layoutHide = new QHBoxLayout;
+        layoutHide->addWidget(corre);
+        layoutHide->addWidget(fotoRun);
+
+        layoutHide->setSpacing(70);  // Spaziamento tra widget
+        layoutHide->setAlignment(Qt::AlignCenter);  // Allineamento
+
+        dialogRun->setLayout(layoutHide);
+
+        dialogRun->exec();
+    });
+
+    QLabel *fotoStruzzo = new QLabel();
+    QPixmap image;
+    
+    if(s.getSex() == 'M')
+        image.load("assets/struzzo/struzzoMale.jpg");
+    else
+        image.load("assets/struzzo/struzzoFem.jpg");
+
+    fotoStruzzo->setPixmap(image);
+    fotoStruzzo->setScaledContents(true);
+    fotoStruzzo->setFixedSize(200, 150);// dimensioni QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //layout
+    //(0, 0)
+    layout->addWidget(fotoStruzzo, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(s.getName()) + 
+                            "\nSesso:\t\t" +  QString(s.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(s.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(s.getCosto()) + 
+                            "\nVelocità:\t\t" +  QString::number(s.getVelocitaMax()) + " km/h"
+                            "\nCibo preferito:\t" +  QString::fromStdString(s.getTipo()->getCiboPreferito())
+                               );
+    
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(info);
+    verticalLayout->addWidget(bottoneHide);
+    verticalLayout->addWidget(bottoneRun);
+
+    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(s.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(200);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 1, 0, 1, 1);
+
+    //(1, 1)
+    QLabel *habitat = new QLabel();
+    QPixmap habitatImg("assets/struzzo/struzzoHabitat.jpg");
+
+    habitat->setPixmap(habitatImg);
+    habitat->setScaledContents(true);
+    habitat->setFixedSize(200, 150);
+
+    QLabel *descrizioneHabitat = new QLabel("Sahel: l'habitat dello struzzo");
+
+    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
+    verticalLayout1->addWidget(habitat);
+    verticalLayout1->addWidget(descrizioneHabitat);
+
+    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+
+    dialog->setLayout(layout);
+
+    dialog->exec();
 }
 
 
 
 //TARTARUGA
 void GameWidget::details(Tartaruga& t){
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(t.getName()));
 
+    //stile CSS
+    dialog->setStyleSheet("QDialog { background-color: #808000;}"
+                          "QPushButton { background-color: #d2b48c; }");
+
+    //pulsante guscio
+    QPushButton *bottoneHide = new QPushButton("Entra nel guscio", dialog);
+    
+    connect(bottoneHide, &QPushButton::clicked, [&] (){
+        QDialog *dialogHide = new QDialog(this);
+
+        dialogHide->setStyleSheet("QDialog { background-color: #808000;}");
+
+        QLabel *fotoHide = new QLabel();
+        QPixmap image("assets/tartaruga/tartaHide.jpg");
+
+        fotoHide->setPixmap(image);
+        fotoHide->setScaledContents(true);
+        fotoHide->setFixedSize(200, 150);//dimensioni QLabel
+
+        QLabel *testa = new QLabel(QString::fromStdString(t.siNasconde()));
+        testa->setWordWrap(true);
+        testa->setMaximumWidth(500);
+        testa->setFixedHeight(200);
+
+        QHBoxLayout *layoutHide = new QHBoxLayout;
+        layoutHide->addWidget(testa);
+        layoutHide->addWidget(fotoHide);
+
+        layoutHide->setSpacing(70);  // Spaziamento tra widget
+        layoutHide->setAlignment(Qt::AlignCenter);  // Allineamento
+
+        dialogHide->setLayout(layoutHide);
+
+        dialogHide->exec();
+    });
+
+    QLabel *fotoTarta = new QLabel();
+    QPixmap image;
+    image.load("assets/tartaruga/tartaOut.jpg");
+
+    fotoTarta->setPixmap(image);
+    fotoTarta->setScaledContents(true);
+    fotoTarta->setFixedSize(200, 150);// dimensioni QLabel
+
+    // Layout fatto con grid
+    QGridLayout *layout = new QGridLayout;
+    layout->setHorizontalSpacing(70);  // Spaziamento orizzontale tra i widget
+    layout->setVerticalSpacing(50);    // Spaziamento verticale tra i widget
+    layout->setAlignment(Qt::AlignCenter);  // Allineamento centrale
+
+    //layout
+    //(0, 0)
+    layout->addWidget(fotoTarta, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+
+    //(0, 1)
+    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(t.getName()) + 
+                            "\nSesso:\t\t" +  QString(t.getSex()) +
+                            "\nPeso: \t\t" +  QString::number(t.getPeso()) + " kg"
+                            "\nCosto: \t\t" +  QString::number(t.getCosto()) + 
+                            "\nGuscio di:\t\t" +  QString::number(t.getMisuraX()) + " per " + QString::number(t.getMisuraY()) +
+                            "\nCibo preferito:\t" +  QString::fromStdString(t.getTipo()->getCiboPreferito())
+                               );
+    
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(info);
+    verticalLayout->addWidget(bottoneHide);
+
+    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+
+    //(1, 0)
+    QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(t.getDescrizione()));
+    
+    descrizione->setWordWrap(true);
+    descrizione->setMaximumWidth(200);
+    descrizione->setFixedHeight(200);
+
+    layout->addWidget(descrizione, 1, 0, 1, 1);
+
+    //(1, 1)
+    QLabel *habitat = new QLabel();
+    QPixmap habitatImg("assets/struzzo/struzzoHabitat.jpg");
+
+    habitat->setPixmap(habitatImg);
+    habitat->setScaledContents(true);
+    habitat->setFixedSize(200, 150);
+
+    QLabel *descrizioneHabitat = new QLabel("Isole Galapagos: l'habitat delle tartarughe giganti");
+
+    QVBoxLayout *verticalLayout1 = new QVBoxLayout;
+    verticalLayout1->addWidget(habitat);
+    verticalLayout1->addWidget(descrizioneHabitat);
+
+    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+
+    dialog->setLayout(layout);
+
+    dialog->exec();
 }
