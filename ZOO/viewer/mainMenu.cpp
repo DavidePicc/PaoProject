@@ -118,13 +118,23 @@ void MainMenu::handleLoadGameButton() {
 
             fileLayout->addWidget(fileButton);
 
-            // Aggiungi un pulsante di eliminazione
-            QPushButton *deleteButton = new QPushButton("Elimina");
-            QObject::connect(deleteButton, &QPushButton::clicked, [&, filename]() {
+            // Aggiungi un pulsante di eliminazione con un'immagine
+            QToolButton *deleteButton = new QToolButton;
+            deleteButton->setIcon(QIcon("assets/cestino.png"));
+            deleteButton->setIconSize(QSize(32, 32));  // Imposta la dimensione dell'icona
+            deleteButton->setFixedSize(30, 30);  // Imposta le dimensioni fisse
+
+            QObject::connect(deleteButton, &QToolButton::clicked, [&, filename]() {
+                QMessageBox::StandardButton reply;
+                reply = QMessageBox::question(this, "Eliminazione salvataggio", "Sei sicuro di voler eliminare il salvataggio '" + filename + "' ?", QMessageBox::Yes|QMessageBox::No);
+                if (reply == QMessageBox::No) 
+                    return;
+
                 QFile::remove("savedFile/" + filename); // Rimuove il file
                 dialog.close();
                 handleLoadGameButton();
-             });
+            });
+
 
             fileLayout->addWidget(deleteButton);
 

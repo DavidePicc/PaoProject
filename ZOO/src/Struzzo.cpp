@@ -2,8 +2,8 @@
 #include "Struzzo.h"
 #include "generate.h"
 
-Struzzo::Struzzo()
-    :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 60), comodo::setSesso(), comodo::generaNumeroCasuale(70, 130), new Onnivoro("Erba"), 8), velocitamax(comodo::generaNumeroCasuale(30, 70)) {}
+Struzzo::Struzzo(unsigned int sizeRecinto)
+    :Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 60), comodo::setSesso(), comodo::generaNumeroCasuale(70, 130), new Onnivoro("Erba"), 8), velocitamax(comodo::generaNumeroCasuale(30, 70)) {}
 
 Struzzo::Struzzo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float velo)
     : Animal(name, setDescrizione(), age, sex, weight, type, 8), velocitamax(velo) {}
@@ -25,10 +25,8 @@ std::string Struzzo::nascondeTesta() const{
     return "lo struzzo ha nascosto la testa";
 }
 
-const std::string Struzzo::setNome(){
-    static unsigned int num = 0;
-    num ++;
-    return "Struzzo " + std::to_string(num);
+const std::string Struzzo::setNome(unsigned int sizeRecinto){
+    return "Struzzo " + std::to_string(sizeRecinto + 1);
 }
 
 std::string Struzzo::setDescrizione(){

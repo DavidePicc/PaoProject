@@ -1,8 +1,8 @@
 #include "Pavone.h"
 #include "generate.h"
 
-Pavone::Pavone()
-    :Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3, 6), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   
+Pavone::Pavone(unsigned int sizeRecinto)
+    :Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3, 6), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   
 
 Pavone::Pavone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float raggio)
     : Animal(name, setDescrizione(), age, sex, weight, type, 2), raggioRuota(raggio) {}
@@ -26,10 +26,8 @@ std::string Pavone::SfoggiaRuota() const{
         return "Il pavone non ha una ruota in quanto femmina";
 }
 
-const std::string Pavone::setNome(){
-    static unsigned int num = 0;    
-    num ++;
-    return "Pavone " + std::to_string(num);
+const std::string Pavone::setNome(unsigned int sizeRecinto){
+    return "Pavone " + std::to_string(sizeRecinto + 1);
 }
 
 std::string Pavone::setDescrizione(){

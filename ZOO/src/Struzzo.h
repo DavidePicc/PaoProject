@@ -8,7 +8,7 @@ protected:
     float velocitamax; //in km/h
 
 public:
-    Struzzo();
+    Struzzo(unsigned int sizeRecinto);
     Struzzo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float velo);
 
     void setVelocitaMax(float velo);
@@ -17,7 +17,7 @@ public:
     std::string corre() const;
     std::string nascondeTesta() const;
     
-    static const std::string setNome();
+    static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
     
     // METODI

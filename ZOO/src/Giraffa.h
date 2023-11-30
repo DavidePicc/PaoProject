@@ -8,10 +8,10 @@ protected:
     float Altezza;
 
 public:
-    Giraffa();
+    Giraffa(unsigned int sizeRecinto);
     Giraffa(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lungcollo, float altezza);
 
-    static const std::string setNome();
+    static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
 
     void setLunghezzaCollo(float lungcollo);

@@ -13,7 +13,7 @@ private:
     Dim_Guscio misura;
 
 public:
-    Tartaruga();
+    Tartaruga(unsigned int sizeRecinto);
     Tartaruga(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float X, float Y);
 
     void setMisura(float X, float Y);
@@ -23,7 +23,7 @@ public:
 
     std::string siNasconde() const;
     
-    static const std::string setNome();
+    static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
 
     // METODI

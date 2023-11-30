@@ -37,19 +37,20 @@ DLrecinto& GameModel::getGiraffe() {
 
 void GameModel::addAnimal(DLrecinto& recinto) {
     std::shared_ptr<Animal> a;
+    unsigned int sizeRecinto = recinto.getSize();
 
     if (&recinto == &leoni)
-        a = std::make_shared<Leone>();
+        a = std::make_shared<Leone>(sizeRecinto);
     else if (&recinto == &coccodrilli)
-        a = std::make_shared<Coccodrillo>();
+        a = std::make_shared<Coccodrillo>(sizeRecinto);
     else if (&recinto == &pavoni)
-        a = std::make_shared<Pavone>();
+        a = std::make_shared<Pavone>(sizeRecinto);
     else if (&recinto == &tartarughe)
-        a = std::make_shared<Tartaruga>();
+        a = std::make_shared<Tartaruga>(sizeRecinto);
     else if (&recinto == &struzzi)
-        a = std::make_shared<Struzzo>();
+        a = std::make_shared<Struzzo>(sizeRecinto);
     else if (&recinto == &giraffe)
-        a = std::make_shared<Giraffa>();
+        a = std::make_shared<Giraffa>(sizeRecinto);
     else
         throw("Errore 1\n");
 

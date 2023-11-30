@@ -2,8 +2,8 @@
 #include "Tartaruga.h"
 #include "generate.h"
 
-Tartaruga::Tartaruga()
-    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba"), 4){
+Tartaruga::Tartaruga(unsigned int sizeRecinto)
+    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba"), 4){
     misura.x = comodo::generaNumeroCasuale(30.0, 90.0);
     misura.y = comodo::generaNumeroCasuale(60.0, 130.0);
 }
@@ -33,10 +33,8 @@ std::string Tartaruga::siNasconde() const{
     return "La tartaruga si è nascosta dentro un guscio di:" + std::to_string(misura.x) + " e " + std::to_string(misura.y) ;
 }
 
-const std::string Tartaruga::setNome(){
-    static unsigned int num = 0;
-    num ++;
-    return "Tartaruga " + std::to_string(num);
+const std::string Tartaruga::setNome(unsigned int sizeRecinto){
+    return "Tartaruga " + std::to_string(sizeRecinto + 1);
 }
 
 std::string Tartaruga::setDescrizione(){

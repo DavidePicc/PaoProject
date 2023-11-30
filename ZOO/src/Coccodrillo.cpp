@@ -2,8 +2,8 @@
 #include "Coccodrillo.h"
 #include "generate.h"
 
-Coccodrillo::Coccodrillo()
-    : Animal(setNome(), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100, 800), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
+Coccodrillo::Coccodrillo(unsigned int sizeRecinto)
+    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100, 800), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
 
 Coccodrillo::Coccodrillo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lunghezza, int numerodenti)
     : Animal(name, setDescrizione(), age, sex, weight, type, 5), lunghezza(lunghezza), numero_denti(numerodenti) {}
@@ -24,10 +24,8 @@ int Coccodrillo::getNumeroDenti() const {
     return numero_denti;
 }
 
-const std::string Coccodrillo::setNome(){
-    static unsigned int num = 0;
-    num ++;
-    return "Coccodrillo " + std::to_string(num);
+const std::string Coccodrillo::setNome(unsigned int sizeRecinto){
+    return "Coccodrillo " + std::to_string(sizeRecinto + 1);
 }
 
 std::string Coccodrillo::setDescrizione(){

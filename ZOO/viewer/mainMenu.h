@@ -11,6 +11,7 @@
 #include <QDir>
 #include <QFileInfoList>
 #include <QDialog>
+#include <QToolButton>
 
 #include "gameWidget.h"
 

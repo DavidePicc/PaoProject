@@ -8,10 +8,10 @@ protected:
 
 
 public:
-    Leone();
+    Leone(unsigned int sizeRecinto);
     Leone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, int rug);
 
-    static const std::string setNome();
+    static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
 
     void setRuggito(int rug);

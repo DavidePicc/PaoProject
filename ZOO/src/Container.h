@@ -63,7 +63,7 @@ public:
     }
 
     void remove(){
-        remove((*this)[comodo::generaNumeroCasuale(0, static_cast<int>(this->getSize()))]);
+        remove(tail->data);
     }
 
     void remove(const std::shared_ptr<Animal>& value) {

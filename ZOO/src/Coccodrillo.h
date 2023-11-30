@@ -9,7 +9,7 @@ protected:
     int numero_denti;
 
 public:
-    Coccodrillo();
+    Coccodrillo(unsigned int sizeRecinto);
     Coccodrillo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lunghezza, int numerodenti);
     
     // Metodi setter e getter per lunghezza e numero denti
@@ -20,7 +20,7 @@ public:
     int getNumeroDenti() const;
 
     //Da aggiungere all'UML
-    static const std::string setNome();
+    static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
 
     std::string ApreBocca();
