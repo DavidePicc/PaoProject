@@ -144,8 +144,8 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
 
     // Connessione del segnale returnPressed()
     connect(searchLineEdit, &QLineEdit::returnPressed, [this, &recinto, searchLineEdit]() {
-    QString testoRicerca = searchLineEdit->text(); 
-    eseguiRicerca(recinto, testoRicerca);
+        QString testoRicerca = searchLineEdit->text(); 
+        eseguiRicerca(recinto, testoRicerca);
     });
 
     //Aggiungo bottone Aggiungi animale
@@ -187,6 +187,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     // Crea un QScrollArea
     QScrollArea *scrollArea = new QScrollArea(dialog);
     scrollArea->setWidget(buttonWidget); // Imposta buttonWidget come widget figlio di scrollArea
+    scrollArea->setFixedHeight(500);
     scrollArea->setWidgetResizable(true); // Permette al widget figlio di ridimensionarsi con scrollArea
 
     //Creo label titolo
