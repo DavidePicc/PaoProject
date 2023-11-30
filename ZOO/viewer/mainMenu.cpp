@@ -99,7 +99,14 @@ void MainMenu::handleLoadGameButton() {
         QStringList savedFile = directory.entryList(QStringList() << "*.xml", QDir::Files);
 
         foreach (QString filename, savedFile) {
-            QPushButton *fileButton = new QPushButton(filename); // Mostra il nome del file
+            QFileInfo fileInfo(filename);
+    
+            QString baseName = fileInfo.baseName(); // Ottieni solo il nome del file senza estensione
+
+            QHBoxLayout *fileLayout = new QHBoxLayout;
+
+            QPushButton *fileButton = new QPushButton(baseName); // Mostra solo il nome del file senza estensione
+
             
             // Connetti il segnale clicked del bottone a una slot o a una lambda function per gestire il click sul file
             QObject::connect(fileButton, &QPushButton::clicked, [&, filename]() {
@@ -109,7 +116,19 @@ void MainMenu::handleLoadGameButton() {
                 dialog.accept();
             });
 
-            layout->addWidget(fileButton);
+            fileLayout->addWidget(fileButton);
+
+            // Aggiungi un pulsante di eliminazione
+            QPushButton *deleteButton = new QPushButton("Elimina");
+            QObject::connect(deleteButton, &QPushButton::clicked, [&, filename]() {
+                QFile::remove("savedFile/" + filename); // Rimuove il file
+                dialog.close();
+                handleLoadGameButton();
+             });
+
+            fileLayout->addWidget(deleteButton);
+
+            layout->addLayout(fileLayout);
         }
 
         dialog.setLayout(layout);

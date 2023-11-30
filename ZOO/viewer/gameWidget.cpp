@@ -1059,7 +1059,7 @@ void GameWidget::details(Tartaruga& t){
 
     //(1, 1)
     QLabel *habitat = new QLabel();
-    QPixmap habitatImg("assets/struzzo/struzzoHabitat.jpg");
+    QPixmap habitatImg("assets/tartaruga/tartarugaHabitat.jpg");
 
     habitat->setPixmap(habitatImg);
     habitat->setScaledContents(true);

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>553</soldi>
+    <clock>30 - 11 - 2023  15:40</clock>
+    <leoni>
+        <vita>100</vita>
+        <numero>0</numero>
+    </leoni>
+    <coccodrilli>
+        <vita>0</vita>
+        <numero>8</numero>
+        <coccodrilli0>
+            <nome>Coccodrillo 1</nome>
+            <eta>38</eta>
+            <sesso>F</sesso>
+            <peso>242.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>2.855994</lunghezza>
+            <numeroDenti>65</numeroDenti>
+        </coccodrilli0>
+        <coccodrilli1>
+            <nome>Coccodrillo 3</nome>
+            <eta>91</eta>
+            <sesso>M</sesso>
+            <peso>138.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>2.065272</lunghezza>
+            <numeroDenti>65</numeroDenti>
+        </coccodrilli1>
+        <coccodrilli2>
+            <nome>Coccodrillo 8</nome>
+            <eta>76</eta>
+            <sesso>M</sesso>
+            <peso>409.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>3.177824</lunghezza>
+            <numeroDenti>69</numeroDenti>
+        </coccodrilli2>
+        <coccodrilli3>
+            <nome>Coccodrillo 10</nome>
+            <eta>59</eta>
+            <sesso>M</sesso>
+            <peso>482.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>2.612659</lunghezza>
+            <numeroDenti>63</numeroDenti>
+        </coccodrilli3>
+        <coccodrilli4>
+            <nome>Coccodrillo 11</nome>
+            <eta>16</eta>
+            <sesso>F</sesso>
+            <peso>313.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>2.938659</lunghezza>
+            <numeroDenti>69</numeroDenti>
+        </coccodrilli4>
+        <coccodrilli5>
+            <nome>Coccodrillo 26</nome>
+            <eta>77</eta>
+            <sesso>F</sesso>
+            <peso>121.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>2.635846</lunghezza>
+            <numeroDenti>61</numeroDenti>
+        </coccodrilli5>
+        <coccodrilli6>
+            <nome>Coccodrillo 27</nome>
+            <eta>20</eta>
+            <sesso>F</sesso>
+            <peso>321.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>2.524651</lunghezza>
+            <numeroDenti>64</numeroDenti>
+        </coccodrilli6>
+        <coccodrilli7>
+            <nome>Coccodrillo 32</nome>
+            <eta>58</eta>
+            <sesso>F</sesso>
+            <peso>487.000000</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>4.306721</lunghezza>
+            <numeroDenti>69</numeroDenti>
+        </coccodrilli7>
+    </coccodrilli>
+    <pavoni>
+        <vita>100</vita>
+        <numero>0</numero>
+    </pavoni>
+    <tartarughe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </tartarughe>
+    <struzzi>
+        <vita>100</vita>
+        <numero>0</numero>
+    </struzzi>
+    <giraffe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </giraffe>
+</ZOO>
