@@ -96,20 +96,6 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
     QLabel* numAnimali = new QLabel("Numero animali: " + QString::number(recinto.getSize()));
     numAnimali->setStyleSheet("QLabel{font-size: 15px; font-weight: bold; text-align: center;}");
 
-    //Per aggiornare la vita ogni 2 secondi tramite timer
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
-        recinto.riduciVita();
-        healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
-
-        if(recinto.getVita() == 0 && recinto.getSize() > 0)
-            recinto.remove();
-
-        numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
-    });
-    timer->start(2000);    // Avvia il timer per aggiornarsi ogni 2 secondi
-
-
     // Crea un QVBoxLayout
     QVBoxLayout *layout = new QVBoxLayout;
 
@@ -126,14 +112,30 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
-        this->seeAnimals(recinto, healthBar, recinto.getSize());});
+        this->seeAnimals(recinto, healthBar)
+    ;});
+    
+    //Per aggiornare la vita ogni 2 secondi tramite timer
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
+        recinto.riduciVita();
+        healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
+
+        numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
+
+        if(recinto.getVita() == 0 && recinto.getSize() > 0){
+            recinto.remove();
+            this->seeAnimals(recinto, healthBar);
+        }
+    });
+    timer->start(2000);    // Avvia il timer per aggiornarsi ogni 2 secondi
 }
 
 
 
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
-void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
+void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
 
     QWidget *dialog = new QWidget(emptyLabel);
@@ -210,14 +212,14 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
         this->gameModel.addAnimal(recinto); 
         dialog->close(); // chiude la finestra di dialogo attuale
-        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
+        this->seeAnimals(recinto, healthBar); 
     });
 
     //Evento sfama
     connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
         this->foodSlot(recinto, healthBar); 
         dialog->close(); // chiude la finestra di dialogo attuale        
-        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
+        this->seeAnimals(recinto, healthBar); 
     });     
 
     dialog->show();
