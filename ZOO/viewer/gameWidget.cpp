@@ -640,7 +640,7 @@ void GameWidget::details(Giraffa& g){
 
         fotoUp->setPixmap(image);
         fotoUp->setScaledContents(true);
-        fotoUp->setFixedSize(200, 150);//dimensioni QLabel
+        fotoUp->setFixedSize(220, 367);//dimensioni QLabel
 
         QLabel *testa = new QLabel(QString::fromStdString(g.SiAlza()));
         testa->setWordWrap(true);
@@ -682,9 +682,9 @@ void GameWidget::details(Giraffa& g){
                             "\nSesso:\t\t" +  QString(g.getSex()) +
                             "\nPeso: \t\t" +  QString::number(g.getPeso()) + " kg"
                             "\nCosto: \t\t" +  QString::number(g.getCosto()) + 
-			    "\nAltezza: \t\t" +  QString::number(g.getAltezza()) + " m"
-                            "\nLunghezza collo:\t\t" +  QString::number(g.getLunghezzaCollo()) + " m"
-                            "\nCibo preferito:\t" +  QString::fromStdString(g.getTipo()->getCiboPreferito())
+			    "\nAltezza: \t\t" +  QString::number(g.getAltezza(),'f', 2) + " m"
+                            "\nLunghezza collo: \t\t" +  QString::number(g.getLunghezzaCollo(),'f', 2) + " m"
+                            "\nCibo preferito:\t" +  QString::fromStdString(g.getTipo()->getCiboPreferito()) + "\n"
                                );
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
@@ -708,7 +708,7 @@ void GameWidget::details(Giraffa& g){
 
     habitat->setPixmap(habitatImg);
     habitat->setScaledContents(true);
-    habitat->setFixedSize(200, 150);
+    habitat->setFixedSize(310, 105);
 
     QLabel *descrizioneHabitat = new QLabel("Savane e aree boschive: l'habitat delle giraffe");
 
@@ -927,7 +927,7 @@ void GameWidget::details(Struzzo& s){
 
     //layout
     //(0, 0)
-    layout->addWidget(fotoStruzzo, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+    layout->addWidget(fotoStruzzo, 0, 1, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
     QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(s.getName()) + 
@@ -935,7 +935,7 @@ void GameWidget::details(Struzzo& s){
                             "\nPeso: \t\t" +  QString::number(s.getPeso()) + " kg"
                             "\nCosto: \t\t" +  QString::number(s.getCosto()) + 
                             "\nVelocità:\t\t" +  QString::number(s.getVelocitaMax()) + " km/h"
-                            "\nCibo preferito:\t" +  QString::fromStdString(s.getTipo()->getCiboPreferito())
+                            "\nCibo preferito:\t" +  QString::fromStdString(s.getTipo()->getCiboPreferito()) +"\n"
                                );
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
@@ -943,7 +943,7 @@ void GameWidget::details(Struzzo& s){
     verticalLayout->addWidget(bottoneHide);
     verticalLayout->addWidget(bottoneRun);
 
-    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+    layout->addLayout(verticalLayout, 0, 0, 1, 1);
 
     //(1, 0)
     QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(s.getDescrizione()));
@@ -952,7 +952,7 @@ void GameWidget::details(Struzzo& s){
     descrizione->setMaximumWidth(200);
     descrizione->setFixedHeight(200);
 
-    layout->addWidget(descrizione, 1, 0, 1, 1);
+    layout->addWidget(descrizione, 1, 1, 1, 1);
 
     //(1, 1)
     QLabel *habitat = new QLabel();
@@ -968,7 +968,7 @@ void GameWidget::details(Struzzo& s){
     verticalLayout1->addWidget(habitat);
     verticalLayout1->addWidget(descrizioneHabitat);
 
-    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+    layout->addLayout(verticalLayout1, 1, 0, 1, 1);
 
     dialog->setLayout(layout);
 
@@ -1034,22 +1034,22 @@ void GameWidget::details(Tartaruga& t){
 
     //layout
     //(0, 0)
-    layout->addWidget(fotoTarta, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
+    layout->addWidget(fotoTarta, 0, 1, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
     QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(t.getName()) + 
                             "\nSesso:\t\t" +  QString(t.getSex()) +
                             "\nPeso: \t\t" +  QString::number(t.getPeso()) + " kg"
                             "\nCosto: \t\t" +  QString::number(t.getCosto()) + 
-                            "\nGuscio di:\t\t" +  QString::number(t.getMisuraX()) + " per " + QString::number(t.getMisuraY()) +
-                            "\nCibo preferito:\t" +  QString::fromStdString(t.getTipo()->getCiboPreferito())
+                            "\nGuscio di:\t\t" +  QString::number(t.getMisuraX(),'f', 2) + " per " + QString::number(t.getMisuraY(),'f', 2) +
+                            "\nCibo preferito:\t" +  QString::fromStdString(t.getTipo()->getCiboPreferito()) + "\n"
                                );
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(info);
     verticalLayout->addWidget(bottoneHide);
 
-    layout->addLayout(verticalLayout, 0, 1, 1, 1);
+    layout->addLayout(verticalLayout, 0, 0, 1, 1);
 
     //(1, 0)
     QLabel *descrizione = new QLabel("<b>Descrizione:</b>\n" +  QString::fromStdString(t.getDescrizione()));
@@ -1058,7 +1058,7 @@ void GameWidget::details(Tartaruga& t){
     descrizione->setMaximumWidth(200);
     descrizione->setFixedHeight(200);
 
-    layout->addWidget(descrizione, 1, 0, 1, 1);
+    layout->addWidget(descrizione, 1, 1, 1, 1);
 
     //(1, 1)
     QLabel *habitat = new QLabel();
@@ -1066,7 +1066,7 @@ void GameWidget::details(Tartaruga& t){
 
     habitat->setPixmap(habitatImg);
     habitat->setScaledContents(true);
-    habitat->setFixedSize(200, 150);
+    habitat->setFixedSize(284, 177);
 
     QLabel *descrizioneHabitat = new QLabel("Isole Galapagos: l'habitat delle tartarughe giganti");
 
@@ -1074,7 +1074,7 @@ void GameWidget::details(Tartaruga& t){
     verticalLayout1->addWidget(habitat);
     verticalLayout1->addWidget(descrizioneHabitat);
 
-    layout->addLayout(verticalLayout1, 1, 1, 1, 1);
+    layout->addLayout(verticalLayout1, 1, 0, 1, 1);
 
     dialog->setLayout(layout);
 

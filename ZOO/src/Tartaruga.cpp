@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Tartaruga.h"
 #include "generate.h"
+#include <iomanip>
 
 Tartaruga::Tartaruga(unsigned int sizeRecinto)
     : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba"), 4){
@@ -30,7 +31,10 @@ float Tartaruga::getMisuraY() const{
 }
 
 std::string Tartaruga::siNasconde() const{
-    return "La tartaruga si è nascosta dentro un guscio di:" + std::to_string(misura.x) + " e " + std::to_string(misura.y) ;
+    std::ostringstream oss;
+    oss << std::fixed << std::setprecision(2); 
+    oss << "La tartaruga si è nascosta dentro un guscio di: " << misura.x << " cm per "  << misura.y <<" cm";
+    return oss.str(); 
 }
 
 const std::string Tartaruga::setNome(unsigned int sizeRecinto){
