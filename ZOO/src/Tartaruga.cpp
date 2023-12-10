@@ -3,7 +3,7 @@
 #include "generate.h"
 
 Tartaruga::Tartaruga(unsigned int sizeRecinto)
-    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba"), 4){
+    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10.0, 30.0), new Erbivoro("Erba"), 4){
     misura.x = comodo::generaNumeroCasuale(30.0, 90.0);
     misura.y = comodo::generaNumeroCasuale(60.0, 130.0);
 }
@@ -30,7 +30,11 @@ float Tartaruga::getMisuraY() const{
 }
 
 std::string Tartaruga::siNasconde() const{
-    return "La tartaruga si è nascosta dentro un guscio di:" + std::to_string(misura.x) + " e " + std::to_string(misura.y) ;
+    std::ostringstream misuraXStream, misuraYStream;
+    misuraXStream << std::fixed << std::setprecision(2) << misura.x;
+    misuraYStream << std::fixed << std::setprecision(2) << misura.y;
+
+    return "La tartaruga si è nascosta dentro al suo guscio di dimensioni: " + misuraXStream.str() + " cm per  " + misuraYStream.str() + " cm";
 }
 
 const std::string Tartaruga::setNome(unsigned int sizeRecinto){
@@ -42,5 +46,10 @@ std::string Tartaruga::setDescrizione(){
 }
 
 std::string Tartaruga::getInfo() const {
-    return Animal::getInfo() + "\nDimensioni guscio:\t" +  std::to_string(misura.x) + " x " + std::to_string(misura.y) ;
+    // Limita il numero di cifre decimali a 2 per le dimensioni del guscio
+    std::ostringstream misuraXStream, misuraYStream;
+    misuraXStream << std::fixed << std::setprecision(2) << misura.x;
+    misuraYStream << std::fixed << std::setprecision(2) << misura.y;
+
+    return Animal::getInfo() + "\nGuscio:\t\t" + misuraXStream.str() + " x " + misuraYStream.str() + " cm";
 }

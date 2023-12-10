@@ -2,7 +2,7 @@
 #include "generate.h"
 
 Pavone::Pavone(unsigned int sizeRecinto)
-    :Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3, 6), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   
+    :Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3.0, 6.0), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   
 
 Pavone::Pavone(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float raggio)
     : Animal(name, setDescrizione(), age, sex, weight, type, 2), raggioRuota(raggio) {}
@@ -35,5 +35,9 @@ std::string Pavone::setDescrizione(){
 }
 
 std::string Pavone::getInfo() const {
-    return Animal::getInfo() + "\nRaggio ruota:\t" +  std::to_string(raggioRuota);
+    // Limita il numero di cifre decimali a 2 per il raggio della ruota
+    std::ostringstream raggioRuotaStream;
+    raggioRuotaStream << std::fixed << std::setprecision(2) << raggioRuota;
+
+    return Animal::getInfo() + "\nRaggio ruota:\t" + raggioRuotaStream.str() + " cm";
 }

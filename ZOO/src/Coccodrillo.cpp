@@ -37,5 +37,7 @@ std::string Coccodrillo::ApreBocca(){
 }
 
 std::string Coccodrillo::getInfo() const {
-    return Animal::getInfo() + "\nLunghezza:\t" +  std::to_string(lunghezza) + " mt";
+    std::ostringstream stream;
+    stream << std::fixed << std::setprecision(2) << lunghezza;
+    return Animal::getInfo() + "\nLunghezza:\t" +  stream.str() + " mt";
 }

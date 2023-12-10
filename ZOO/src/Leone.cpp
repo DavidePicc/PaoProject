@@ -29,5 +29,9 @@ std::string Leone::setDescrizione(){
 }
 
 std::string Leone::getInfo() const {
-    return Animal::getInfo() + "\nRuggito\t\t" +  std::to_string(ruggito);
+    // Limita il numero di cifre decimali a 2 per il ruggito
+    std::ostringstream ruggitoStream;
+    ruggitoStream << std::fixed << std::setprecision(2) << ruggito;
+
+    return Animal::getInfo() + "\nRuggito\t\t" + ruggitoStream.str() + " db";
 }

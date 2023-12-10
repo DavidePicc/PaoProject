@@ -53,10 +53,14 @@ const Alimentazione* Animal::getTipo() const {
 
 // Metodo per stampare le informazioni dell'animale
 std::string Animal::getInfo() const {
+    // Limita il numero di cifre decimali a 2 per il peso e il costo
+    std::ostringstream pesoStream;
+    pesoStream << std::fixed << std::setprecision(2) << peso;
+
     return  "Nome:\t\t" + nome +
             "\nEtà:\t\t" + std::to_string(eta) +
             "\nSesso:\t\t" + sesso +
-            "\nPeso:\t\t" + std::to_string(peso) + " kg" +
+            "\nPeso:\t\t" + pesoStream.str() + " kg" +
             "\nCibo preferito:\t" + tipo->getCiboPreferito() +
             "\nCosto:\t\t" + std::to_string(costo);
 }

@@ -3,7 +3,7 @@
 #include "generate.h"
 
 Giraffa::Giraffa(unsigned int sizeRecinto)
-    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 25), comodo::setSesso(), comodo::generaNumeroCasuale(700, 1500), new Erbivoro("Foglie"), 7), LunghezzaCollo(comodo::generaNumeroCasuale(2.0, 2.5)), Altezza(comodo::generaNumeroCasuale(4.0, 6.0)) {}
+    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 25), comodo::setSesso(), comodo::generaNumeroCasuale(700.0, 1100.0), new Erbivoro("Foglie"), 7), LunghezzaCollo(comodo::generaNumeroCasuale(2.0, 2.5)), Altezza(comodo::generaNumeroCasuale(4.0, 6.0)) {}
 
 
 Giraffa::Giraffa(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lungcollo, float altezza)
@@ -35,11 +35,20 @@ std::string Giraffa::setDescrizione(){
 }
 
 std::string Giraffa::SiAlza(){
-    return "La giraffa si è alzata ed ha un altezza di: " + std::to_string(Altezza) + " mt ed un collo lungo:" + std::to_string(LunghezzaCollo) + " mt";
+    std::ostringstream colloStream, altezzaStream;
+    colloStream << std::fixed << std::setprecision(2) << LunghezzaCollo;
+    altezzaStream << std::fixed << std::setprecision(2) << Altezza;
+
+    return "La giraffa si è alzata ed ha un altezza di: " + colloStream.str() + " mt ed un collo lungo " + altezzaStream.str() + " mt";
 }
 
 std::string Giraffa::getInfo() const {
-    return Animal::getInfo() + 
-            "\nLunghezza collo:\t" +  std::to_string(LunghezzaCollo) +
-            "\nAltezza:\t\t" + std::to_string(Altezza);
+    // Limita il numero di cifre decimali a 2 per la lunghezza del collo e l'altezza
+    std::ostringstream colloStream, altezzaStream;
+    colloStream << std::fixed << std::setprecision(2) << LunghezzaCollo;
+    altezzaStream << std::fixed << std::setprecision(2) << Altezza;
+
+    return Animal::getInfo() +
+            "\nLunghezza collo:\t" + colloStream.str() + " mt" +
+            "\nAltezza:\t\t" + altezzaStream.str() + " mt";
 }
