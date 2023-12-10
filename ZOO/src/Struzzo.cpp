@@ -32,3 +32,7 @@ const std::string Struzzo::setNome(unsigned int sizeRecinto){
 std::string Struzzo::setDescrizione(){
     return "Lo struzzo comune semplicemente struzzo, è una grande specie di uccello incapace di volare originario delle vaste savane dell'Africa.";
 }
+
+std::string Struzzo::getInfo() const {
+    return Animal::getInfo() + "\nVelocita':\t" +  std::to_string(velocitamax);
+}

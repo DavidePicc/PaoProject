@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Tartaruga.h"
 #include "generate.h"
-#include <iomanip>
 
 Tartaruga::Tartaruga(unsigned int sizeRecinto)
     : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10, 30), new Erbivoro("Erba"), 4){
@@ -31,10 +30,7 @@ float Tartaruga::getMisuraY() const{
 }
 
 std::string Tartaruga::siNasconde() const{
-    std::ostringstream oss;
-    oss << std::fixed << std::setprecision(2); 
-    oss << "La tartaruga si è nascosta dentro un guscio di: " << misura.x << " cm per "  << misura.y <<" cm";
-    return oss.str(); 
+    return "La tartaruga si è nascosta dentro un guscio di:" + std::to_string(misura.x) + " e " + std::to_string(misura.y) ;
 }
 
 const std::string Tartaruga::setNome(unsigned int sizeRecinto){
@@ -43,4 +39,8 @@ const std::string Tartaruga::setNome(unsigned int sizeRecinto){
 
 std::string Tartaruga::setDescrizione(){
     return "Le testuggini delle Galapagos sono le tartarughe terrestri più grandi al mondo, con una lunghezza del carapace che si aggira attorno ai 150 centimetri ed un peso che può raggiungere i 300 kg. ";
+}
+
+std::string Tartaruga::getInfo() const {
+    return Animal::getInfo() + "\nDimensioni guscio:\t" +  std::to_string(misura.x) + " x " + std::to_string(misura.y) ;
 }

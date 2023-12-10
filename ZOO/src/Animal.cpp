@@ -52,17 +52,11 @@ const Alimentazione* Animal::getTipo() const {
 }
 
 // Metodo per stampare le informazioni dell'animale
-void Animal::stampa() const {
-    std::cout << "Nome: " << nome << std::endl;
-    std::cout << "Descrizione: " << descrizione << std::endl;
-    std::cout << "Età: " << eta << std::endl;
-    std::cout << "Sesso: " << sesso << std::endl;
-    std::cout << "Peso: " << peso << " kg" << std::endl;
-    std::cout << "Cibo preferito: " << tipo->getCiboPreferito() << std::endl;
-    std::cout << "Costo: " << costo << std::endl;
-}
-
-std::ostream& Animal::operator<<(std::ostream& os) {
-    (*this).stampa();
-    return os;
+std::string Animal::getInfo() const {
+    return  "Nome:\t\t" + nome +
+            "\nEtà:\t\t" + std::to_string(eta) +
+            "\nSesso:\t\t" + sesso +
+            "\nPeso:\t\t" + std::to_string(peso) + " kg" +
+            "\nCibo preferito:\t" + tipo->getCiboPreferito() +
+            "\nCosto:\t\t" + std::to_string(costo);
 }

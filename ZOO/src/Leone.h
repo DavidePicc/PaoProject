@@ -17,5 +17,8 @@ public:
     void setRuggito(int rug);
     int getRuggito() const;
     std::string getDescrizioneRuggito() const;
+
+    std::string getInfo() const override;
+
 };
 #endif

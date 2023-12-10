@@ -23,5 +23,7 @@ public:
 
     std::string SfoggiaRuota() const;
 
+    std::string getInfo() const override;
+
 };
 #endif

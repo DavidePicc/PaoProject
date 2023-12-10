@@ -96,6 +96,20 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
     QLabel* numAnimali = new QLabel("Numero animali: " + QString::number(recinto.getSize()));
     numAnimali->setStyleSheet("QLabel{font-size: 15px; font-weight: bold; text-align: center;}");
 
+    //Per aggiornare la vita ogni 2 secondi tramite timer
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
+        recinto.riduciVita();
+        healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
+
+        if(recinto.getVita() == 0 && recinto.getSize() > 0)
+            recinto.remove();
+
+        numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
+    });
+    timer->start(2000);    // Avvia il timer per aggiornarsi ogni 2 secondi
+
+
     // Crea un QVBoxLayout
     QVBoxLayout *layout = new QVBoxLayout;
 
@@ -112,30 +126,14 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
-        this->seeAnimals(recinto, healthBar)
-    ;});
-    
-    //Per aggiornare la vita ogni 2 secondi tramite timer
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, [this, &recinto, healthBar, numAnimali]() {    // Connessione del timer alla slot di aggiornamento
-        recinto.riduciVita();
-        healthBar->setValue(recinto.getVita()); // Aggiorna la barra della salute
-
-        numAnimali->setText("Numero animali: " + QString::number(recinto.getSize()));
-
-        if(recinto.getVita() == 0 && recinto.getSize() > 0){
-            recinto.remove();
-            this->seeAnimals(recinto, healthBar);
-        }
-    });
-    timer->start(2000);    // Avvia il timer per aggiornarsi ogni 2 secondi
+        this->seeAnimals(recinto, healthBar, recinto.getSize());});
 }
 
 
 
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
-void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
+void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
     qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
 
     QWidget *dialog = new QWidget(emptyLabel);
@@ -212,14 +210,14 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
         this->gameModel.addAnimal(recinto); 
         dialog->close(); // chiude la finestra di dialogo attuale
-        this->seeAnimals(recinto, healthBar); 
+        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
     });
 
     //Evento sfama
     connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
         this->foodSlot(recinto, healthBar); 
         dialog->close(); // chiude la finestra di dialogo attuale        
-        this->seeAnimals(recinto, healthBar); 
+        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
     });     
 
     dialog->show();
@@ -331,18 +329,22 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         if (reply == QMessageBox::Save) {
             QString nomePartita = QInputDialog::getText(this, "Salvataggio Partita", "Inserisci il nome della partita:");
 
-            QFile file("savedFile/" + nomePartita + ".xml");
+            if(nomePartita != ""){
+                QFile file("savedFile/" + nomePartita + ".xml");
 
-            //Sovrascrittura ?
-            if(file.exists()) {
-                QMessageBox::StandardButton reply;
-                reply = QMessageBox::question(this, "File esistente", "Il file: " + nomePartita + " esiste già, vuoi sovrascriverlo ?", QMessageBox::Yes|QMessageBox::No);
-                if (reply == QMessageBox::No) 
-                    return;
-            }
+                //Sovrascrittura ?
+                if(file.exists()) {
+                    QMessageBox::StandardButton reply;
+                    reply = QMessageBox::question(this, "File esistente", "Il file: " + nomePartita + " esiste già, vuoi sovrascriverlo ?", QMessageBox::Yes|QMessageBox::No);
+                    if (reply == QMessageBox::No) 
+                        return;
+                }
 
-            if(DataManager::writeData(nomePartita.toStdString(), gameModel, clock.getTime()) == true){
-                QMessageBox::information(this, "Salvataggio completato", "Partita salvata correttamente!");
+                if(DataManager::writeData(nomePartita.toStdString(), gameModel, clock.getTime()) == true){
+                    QMessageBox::information(this, "Salvataggio completato", "Partita salvata correttamente!");
+                }else{
+                    QMessageBox::information(this, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");
+                }
             }else{
                 QMessageBox::information(this, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");
             }
@@ -455,16 +457,11 @@ void GameWidget::details(Leone& l) {
     layout->addWidget(fotoLeo, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(l.getName()) + 
-                            "\nSesso:\t\t" +  QString(l.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(l.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(l.getCosto()) + 
-                            "\nRuggito:\t\t" +  QString::number(l.getRuggito()) + " dB"
-                            "\nCibo preferito:\t" +  QString::fromStdString(l.getTipo()->getCiboPreferito())
-                               );
+    QLabel *info = new QLabel(QString::fromStdString(l.getInfo()));
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(info);
+    verticalLayout->addSpacing(15);
     verticalLayout->addWidget(bottoneRuggito);
 
     layout->addLayout(verticalLayout, 0, 1, 1, 1);
@@ -578,17 +575,12 @@ void GameWidget::details(Coccodrillo& c){
 
     //(1, 0)
     QLabel *desc = new QLabel("<b>Attributi coccodrillo</b>");
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(c.getName()) + 
-                            "\nSesso:\t\t" +  QString(c.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(c.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(c.getCosto()) + 
-                            "\nCibo preferito:\t" +  QString::fromStdString(c.getTipo()->getCiboPreferito()) + 
-                            "\nLunghezza:\t" + QString::number(c.getLunghezza(), 'f', 2) + " mt\n"
-                               );
+    QLabel *info = new QLabel(QString::fromStdString(c.getInfo()));
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(desc);
     verticalLayout->addWidget(info);
+    verticalLayout->addSpacing(15);
     verticalLayout->addWidget(bottoneDenti);
 
     layout->addLayout(verticalLayout, 1, 0, 1, 1);
@@ -678,17 +670,11 @@ void GameWidget::details(Giraffa& g){
     layout->addWidget(fotoGiraffa, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(g.getName()) + 
-                            "\nSesso:\t\t" +  QString(g.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(g.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(g.getCosto()) + 
-			    "\nAltezza: \t\t" +  QString::number(g.getAltezza(),'f', 2) + " m"
-                            "\nLunghezza collo: \t\t" +  QString::number(g.getLunghezzaCollo(),'f', 2) + " m"
-                            "\nCibo preferito:\t" +  QString::fromStdString(g.getTipo()->getCiboPreferito()) + "\n"
-                               );
+    QLabel *info = new QLabel(QString::fromStdString(g.getInfo()));
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(info);
+    verticalLayout->addSpacing(15);
     verticalLayout->addWidget(bottoneUp);
 
     layout->addLayout(verticalLayout, 0, 1, 1, 1);
@@ -802,13 +788,7 @@ void GameWidget::details(Pavone& p){
     layout->addWidget(fotoPavone, 0, 0, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(p.getName()) + 
-                            "\nSesso:\t\t" +  QString(p.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(p.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(p.getCosto()) + 
-                            "\nRaggio ruota: \t" + QString::number(p.getRaggioRuota(), 'f', 2) +
-                            "\nCibo preferito:\t" +  QString::fromStdString(p.getTipo()->getCiboPreferito())
-                               );
+    QLabel *info = new QLabel(QString::fromStdString(p.getInfo()));
 
     layout->addWidget(info, 0, 1, 1, 1);
 
@@ -930,17 +910,13 @@ void GameWidget::details(Struzzo& s){
     layout->addWidget(fotoStruzzo, 0, 1, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(s.getName()) + 
-                            "\nSesso:\t\t" +  QString(s.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(s.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(s.getCosto()) + 
-                            "\nVelocità:\t\t" +  QString::number(s.getVelocitaMax()) + " km/h"
-                            "\nCibo preferito:\t" +  QString::fromStdString(s.getTipo()->getCiboPreferito()) +"\n"
-                               );
+    QLabel *info = new QLabel(QString::fromStdString(s.getInfo()));
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(info);
+    verticalLayout->addSpacing(15);
     verticalLayout->addWidget(bottoneHide);
+    verticalLayout->addSpacing(15);
     verticalLayout->addWidget(bottoneRun);
 
     layout->addLayout(verticalLayout, 0, 0, 1, 1);
@@ -1037,16 +1013,11 @@ void GameWidget::details(Tartaruga& t){
     layout->addWidget(fotoTarta, 0, 1, 1, 1); //Posizionato in colonna 0, riga 0 ed occupa 1 riga ed 1 colonna
 
     //(0, 1)
-    QLabel *info = new QLabel("Nome: \t\t" + QString::fromStdString(t.getName()) + 
-                            "\nSesso:\t\t" +  QString(t.getSex()) +
-                            "\nPeso: \t\t" +  QString::number(t.getPeso()) + " kg"
-                            "\nCosto: \t\t" +  QString::number(t.getCosto()) + 
-                            "\nGuscio di:\t\t" +  QString::number(t.getMisuraX(),'f', 2) + " per " + QString::number(t.getMisuraY(),'f', 2) +
-                            "\nCibo preferito:\t" +  QString::fromStdString(t.getTipo()->getCiboPreferito()) + "\n"
-                               );
+    QLabel *info = new QLabel(QString::fromStdString(t.getInfo()));
     
     QVBoxLayout *verticalLayout = new QVBoxLayout;
     verticalLayout->addWidget(info);
+    verticalLayout->addSpacing(15);
     verticalLayout->addWidget(bottoneHide);
 
     layout->addLayout(verticalLayout, 0, 0, 1, 1);
@@ -1066,7 +1037,7 @@ void GameWidget::details(Tartaruga& t){
 
     habitat->setPixmap(habitatImg);
     habitat->setScaledContents(true);
-    habitat->setFixedSize(284, 177);
+    habitat->setFixedSize(200, 150);
 
     QLabel *descrizioneHabitat = new QLabel("Isole Galapagos: l'habitat delle tartarughe giganti");
 

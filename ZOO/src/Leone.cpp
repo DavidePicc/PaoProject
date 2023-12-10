@@ -27,3 +27,7 @@ const std::string Leone::setNome(unsigned int sizeRecinto){
 std::string Leone::setDescrizione(){
     return "Il leone è un possente felino appartenente alla famiglia dei leoni e noto come il re della giungla. È uno dei più grandi carnivori terrestri esistenti e si distingue per la sua possente struttura fisica, la criniera caratteristica e l'imponente presenza.";
 }
+
+std::string Leone::getInfo() const {
+    return Animal::getInfo() + "\nRuggito\t\t" +  std::to_string(ruggito);
+}

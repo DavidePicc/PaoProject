@@ -19,11 +19,12 @@ public:
     void setNumeroDenti(int numerodenti);
     int getNumeroDenti() const;
 
-    //Da aggiungere all'UML
     static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
 
     std::string ApreBocca();
+
+    std::string getInfo() const override;
 };
 
 

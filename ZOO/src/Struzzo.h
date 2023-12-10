@@ -20,6 +20,6 @@ public:
     static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
     
-    // METODI
+    std::string getInfo() const override;
 };
 #endif

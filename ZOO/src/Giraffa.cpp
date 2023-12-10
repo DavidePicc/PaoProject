@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip>
 #include "Giraffa.h"
 #include "generate.h"
 
@@ -36,8 +35,11 @@ std::string Giraffa::setDescrizione(){
 }
 
 std::string Giraffa::SiAlza(){
-    std::ostringstream oss;
-    oss << std::fixed << std::setprecision(2); 
-    oss << "La giraffa si è alzata e ha un altezza di: " << Altezza << " m e un collo di: " << LunghezzaCollo << " m";
-    return oss.str();
+    return "La giraffa si è alzata ed ha un altezza di: " + std::to_string(Altezza) + " mt ed un collo lungo:" + std::to_string(LunghezzaCollo) + " mt";
+}
+
+std::string Giraffa::getInfo() const {
+    return Animal::getInfo() + 
+            "\nLunghezza collo:\t" +  std::to_string(LunghezzaCollo) +
+            "\nAltezza:\t\t" + std::to_string(Altezza);
 }

@@ -2,6 +2,7 @@
 #define ANIMAL_H
 
 #include <string>
+#include <iomanip> 
 #include "animaltype.h"
 
 class Animal {
@@ -16,16 +17,12 @@ protected:
     
 
 public:    
-    //Costruttore con parametri
     Animal(const std::string name, std::string description, int age, const char sex, float weight, const Alimentazione* type, unsigned int value);
-
-    //virtual ~Animal();
 
     bool operator==(const Animal& other) const;
 
     std::string getName() const; 
 
-    // start NEW
     void setDescrizione(const std::string& description);
 
     std::string getDescrizione() const;
@@ -44,11 +41,7 @@ public:
 
     unsigned int getCosto() const;
 
-    std::ostream& operator<<(std::ostream& os);
-
-    virtual void stampa() const;
-    //end NEW
-
+    virtual std::string getInfo() const;
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include "generate.h"
 
 Coccodrillo::Coccodrillo(unsigned int sizeRecinto)
-    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100, 800), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
+    : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100.0, 800.0), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
 
 Coccodrillo::Coccodrillo(const std::string& name, int age, const char sex, float weight, const Alimentazione* type, float lunghezza, int numerodenti)
     : Animal(name, setDescrizione(), age, sex, weight, type, 5), lunghezza(lunghezza), numero_denti(numerodenti) {}
@@ -36,3 +36,6 @@ std::string Coccodrillo::ApreBocca(){
     return "Il coccodrillo " + this->getName() + " ha aperto la bocca e sfoggia una dentatura di:" + std::to_string(numero_denti) + " denti";
 }
 
+std::string Coccodrillo::getInfo() const {
+    return Animal::getInfo() + "\nLunghezza:\t" +  std::to_string(lunghezza) + " mt";
+}

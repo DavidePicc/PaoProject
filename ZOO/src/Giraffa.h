@@ -19,7 +19,10 @@ public:
 
     void setAltezza(float altezza);
     float getAltezza() const;
-    // METODI
+
     std::string SiAlza();
+
+    std::string getInfo() const override;
+
 };
 #endif

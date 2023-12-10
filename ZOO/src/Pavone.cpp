@@ -33,3 +33,7 @@ const std::string Pavone::setNome(unsigned int sizeRecinto){
 std::string Pavone::setDescrizione(){
     return "Il pavone reale o pavone blu, anche noto come pavone indiano, è un uccello appartenente alla famiglia dei Fasianidi.";
 }
+
+std::string Pavone::getInfo() const {
+    return Animal::getInfo() + "\nRaggio ruota:\t" +  std::to_string(raggioRuota);
+}
