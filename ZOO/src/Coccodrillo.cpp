@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Coccodrillo.h"
-#include "generate.h"
 
 Coccodrillo::Coccodrillo(unsigned int sizeRecinto)
     : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 100), comodo::setSesso(), comodo::generaNumeroCasuale(100.0, 800.0), new Carnivoro("Carne"), 5), lunghezza(comodo::generaNumeroCasuale(2.0, 5.0)), numero_denti(comodo::generaNumeroCasuale(60, 70)) {}
@@ -32,7 +30,7 @@ std::string Coccodrillo::setDescrizione(){
     return "Il coccodrillo è un rettile appartenente all'ordine dei Crocodylia. È un animale di grandi dimensioni, con un corpo allungato e muscoloso, zampe corte e una lunga coda. Si caratterizza per la presenza di una testa larga e piatta, dotata di mascelle forti e denti affilati. I coccodrilli hanno una pelle dura e squamosa, di solito di colore verde-oliva o marrone, che può variare a seconda delle specie.";
 }
 
-std::string Coccodrillo::ApreBocca(){
+std::string Coccodrillo::ApreBocca() const{
     return "Il coccodrillo " + this->getName() + " ha aperto la bocca e sfoggia una dentatura di:" + std::to_string(numero_denti) + " denti";
 }
 

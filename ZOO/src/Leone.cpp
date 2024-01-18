@@ -1,5 +1,4 @@
 #include "Leone.h"
-#include "generate.h"
 
 Leone::Leone(unsigned int sizeRecinto)
     : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 20), comodo::setSesso(), comodo::generaNumeroCasuale(130, 180), new Carnivoro("Carne"), 10), ruggito(comodo::generaNumeroCasuale(50, 110)) {}

@@ -16,15 +16,11 @@ public:
     //Costruttore di copia
     Alimentazione(const Alimentazione& other);
 
-    //virtual ~Alimentazione();/////////////////////////////////////
-
     Alimentazione& operator=(const Alimentazione& other);
     
     void setCiboPreferito(std::string a);
 
     std::string getCiboPreferito() const;
-
-    // METODI
 };
 
 // Sottoclasse Erbivoro
@@ -32,8 +28,6 @@ class Erbivoro : virtual public Alimentazione {
 public:
     Erbivoro();
     Erbivoro(const std::string& cibo_preferito);
-
-    // METODI
 };
 
 // Sottoclasse Carnivoro
@@ -41,16 +35,13 @@ class Carnivoro : virtual public Alimentazione {
 public:
     Carnivoro();
     Carnivoro(const std::string& cibo_preferito);
-
-    // METODI
 };
 
 // Sottoclasse Onnivoro (sottoclasse di Carnivoro)
 class Onnivoro : public Carnivoro, public Erbivoro {
 public:
+    Onnivoro();
     Onnivoro(const std::string& cibo_preferito);
-
-    // METODI
 };
 
 #endif

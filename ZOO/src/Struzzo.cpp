@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Struzzo.h"
-#include "generate.h"
 
 Struzzo::Struzzo(unsigned int sizeRecinto)
     :Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 60), comodo::setSesso(), comodo::generaNumeroCasuale(70.0, 130.0), new Onnivoro("Erba"), 8), velocitamax(comodo::generaNumeroCasuale(30, 70)) {}

@@ -1,5 +1,6 @@
 #ifndef Coccodrillo_H
 #define Coccodrillo_H
+
 #include "Animal.h"
 
 
@@ -22,7 +23,7 @@ public:
     static const std::string setNome(unsigned int sizeRecinto);
     static std::string setDescrizione();
 
-    std::string ApreBocca();
+    std::string ApreBocca() const;
 
     std::string getInfo() const override;
 };

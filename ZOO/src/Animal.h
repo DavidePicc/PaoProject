@@ -3,6 +3,9 @@
 
 #include <string>
 #include <iomanip> 
+#include <typeinfo>
+#include <iostream>
+#include "generate.h"
 #include "animaltype.h"
 
 class Animal {

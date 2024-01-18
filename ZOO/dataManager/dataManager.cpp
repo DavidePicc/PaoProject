@@ -1,8 +1,6 @@
 #include "dataManager.h"
 #include "../viewer/gameModel.h"
 
-#include <iostream>/////////////////////////////////
-
 
 //SCRITTURA
 //Funzione per scrivere dati
@@ -36,7 +34,7 @@ bool DataManager::writeData(const std::string nome, GameModel& gameModel, QStrin
     xmlWriter.writeTextElement("clock", QString(time));
 
     if(writeDatiRecinto("leoni", gameModel.getLeoni(), &xmlWriter) == 0 || writeDatiRecinto("coccodrilli", gameModel.getCoccodrilli(), &xmlWriter) == 0 || writeDatiRecinto("pavoni", gameModel.getPavoni(), &xmlWriter) == 0 || writeDatiRecinto("tartarughe", gameModel.getTartarughe(), &xmlWriter) == 0 || writeDatiRecinto("struzzi", gameModel.getStruzzi(), &xmlWriter) == 0 || writeDatiRecinto("giraffe", gameModel.getGiraffe(), &xmlWriter) == 0){
-        //file.remove();// Se errori, elimino tutto il file
+        file.remove();  // Se errori, elimino tutto il file
         return false;
     }
     
@@ -61,8 +59,6 @@ bool DataManager::writeDatiRecinto(const std::string animali, const DLrecinto& r
             xmlWriter->writeTextElement("sesso", QString((*recinto[i]).getSex()));
             xmlWriter->writeTextElement("peso", QString::number((*recinto[i]).getPeso(), 'f'));
             xmlWriter->writeTextElement("cibo", QString::fromStdString((*recinto[i]).getTipo()->getCiboPreferito()));
-
-            //writeDatiAnimale(recinto.getObject(i), xmlWriter);
 
             //Converto il puntatore in nel suo oggetto appropriato
             if (animali == "leoni") {

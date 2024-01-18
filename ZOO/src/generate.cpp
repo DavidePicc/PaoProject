@@ -1,4 +1,3 @@
-#include <string>
 #include "generate.h"
 
 namespace comodo{

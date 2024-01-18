@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>294</soldi>
+    <clock>18 - 01 - 2024  18:02</clock>
+    <leoni>
+        <vita>83</vita>
+        <numero>2</numero>
+        <leoni0>
+            <nome>Leone 1</nome>
+            <eta>16</eta>
+            <sesso>F</sesso>
+            <peso>158.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>69</ruggito>
+        </leoni0>
+        <leoni1>
+            <nome>Leone 2</nome>
+            <eta>15</eta>
+            <sesso>F</sesso>
+            <peso>151.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>82</ruggito>
+        </leoni1>
+    </leoni>
+    <coccodrilli>
+        <vita>84</vita>
+        <numero>1</numero>
+        <coccodrilli0>
+            <nome>Coccodrillo 1</nome>
+            <eta>76</eta>
+            <sesso>M</sesso>
+            <peso>362.532959</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>3.369831</lunghezza>
+            <numeroDenti>65</numeroDenti>
+        </coccodrilli0>
+    </coccodrilli>
+    <pavoni>
+        <vita>100</vita>
+        <numero>0</numero>
+    </pavoni>
+    <tartarughe>
+        <vita>85</vita>
+        <numero>1</numero>
+        <tartarughe0>
+            <nome>Tartaruga 1</nome>
+            <eta>40</eta>
+            <sesso>F</sesso>
+            <peso>27.772810</peso>
+            <cibo>Erba</cibo>
+            <misuraGuscioX>71.421173</misuraGuscioX>
+            <misuraGuscioY>102.947327</misuraGuscioY>
+        </tartarughe0>
+    </tartarughe>
+    <struzzi>
+        <vita>72</vita>
+        <numero>3</numero>
+        <struzzi0>
+            <nome>Struzzo 1</nome>
+            <eta>39</eta>
+            <sesso>F</sesso>
+            <peso>86.259628</peso>
+            <cibo>Erba</cibo>
+            <velocita>51.000000</velocita>
+        </struzzi0>
+        <struzzi1>
+            <nome>Struzzo 2</nome>
+            <eta>12</eta>
+            <sesso>F</sesso>
+            <peso>104.199646</peso>
+            <cibo>Erba</cibo>
+            <velocita>43.000000</velocita>
+        </struzzi1>
+        <struzzi2>
+            <nome>Struzzo 3</nome>
+            <eta>35</eta>
+            <sesso>F</sesso>
+            <peso>118.617256</peso>
+            <cibo>Erba</cibo>
+            <velocita>68.000000</velocita>
+        </struzzi2>
+    </struzzi>
+    <giraffe>
+        <vita>85</vita>
+        <numero>1</numero>
+        <giraffe0>
+            <nome>Giraffa 1</nome>
+            <eta>15</eta>
+            <sesso>M</sesso>
+            <peso>803.287903</peso>
+            <cibo>Foglie</cibo>
+            <lunghezzaCollo>2.112411</lunghezzaCollo>
+            <altezza>5.855640</altezza>
+        </giraffe0>
+    </giraffe>
+</ZOO>

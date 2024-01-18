@@ -1,9 +1,6 @@
 #ifndef PAVONE_H
 #define PAVONE_H
 
-#include <iostream>
-#include <iomanip>
-
 #include "Animal.h"
 
 class Pavone : public Animal {

@@ -1,5 +1,4 @@
 #include "Pavone.h"
-#include "generate.h"
 
 Pavone::Pavone(unsigned int sizeRecinto)
     :Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(5, 15), comodo::setSesso(), comodo::generaNumeroCasuale(3.0, 6.0), new Onnivoro("Frutta"), 2), raggioRuota(sesso=='M' ? comodo::generaNumeroCasuale(30, 150) : 0) {}   

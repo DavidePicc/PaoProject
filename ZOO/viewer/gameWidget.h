@@ -47,7 +47,7 @@ public:
     GameWidget(std::string filename);
     void visualizer();
     void createButton(int x, int y, std::string animale, DLrecinto& recinto);
-    void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar, size_t numAnimali);
+    void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar);
     void keyPressEvent(QKeyEvent *event) override;
     
     void details(Leone& l);

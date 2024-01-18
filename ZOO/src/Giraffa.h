@@ -1,5 +1,6 @@
 #ifndef GIRAFFA_H
 #define GIRAFFA_H
+
 #include "Animal.h"
 
 class Giraffa : public Animal {
@@ -20,7 +21,7 @@ public:
     void setAltezza(float altezza);
     float getAltezza() const;
 
-    std::string SiAlza();
+    std::string SiAlza() const;
 
     std::string getInfo() const override;
 

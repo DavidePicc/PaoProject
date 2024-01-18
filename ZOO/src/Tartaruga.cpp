@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Tartaruga.h"
-#include "generate.h"
 
 Tartaruga::Tartaruga(unsigned int sizeRecinto)
     : Animal(setNome(sizeRecinto), setDescrizione(), comodo::generaNumeroCasuale(10, 90), comodo::setSesso(), comodo::generaNumeroCasuale(10.0, 30.0), new Erbivoro("Erba"), 4){

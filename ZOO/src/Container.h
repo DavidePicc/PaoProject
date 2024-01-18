@@ -3,7 +3,6 @@
 
 #include <memory>
 #include "Animal.h"
-#include "generate.h"
 
 class DLrecinto {
 private:
@@ -40,17 +39,6 @@ public:
         size++;
     }
 
-    bool IsThere(const std::shared_ptr<Animal> value) const { //ricerca di un oggetto specifico per vedere se c'è dentro ad un recinto, bisogna definire meglio l'operatore di ugualianza in animal
-        Node* currentNode = head;
-        while (currentNode) {
-            if (currentNode->data == value) {
-                return true;
-            }
-            currentNode = currentNode->next;
-        }
-        return false;
-    }
-    //cambiato
     std::shared_ptr<Animal> findAnimal(const std::string& string) const {//ricerca in base al nome visto che è unico
         Node* currentNode = head;
         while (currentNode) {
@@ -102,10 +90,6 @@ public:
 
         return currentNode->data;
     }
-
-    /*Animal& getObject(unsigned int i) const{
-        return *(*this)[i];
-    }*/
 
     void clear() {
         Node* currentNode = head;

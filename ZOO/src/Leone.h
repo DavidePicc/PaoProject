@@ -1,5 +1,6 @@
 #ifndef LEONE_H
 #define LEONE_H
+
 #include "Animal.h"
 
 class Leone : public Animal {

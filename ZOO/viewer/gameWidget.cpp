@@ -126,14 +126,14 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
-        this->seeAnimals(recinto, healthBar, recinto.getSize());});
+        this->seeAnimals(recinto, healthBar);});
 }
 
 
 
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
-void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t numAnimali) {
+void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
 
     QWidget *dialog = new QWidget(emptyLabel);
@@ -210,14 +210,14 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar, size_t
     connect(addButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar](){ 
         this->gameModel.addAnimal(recinto); 
         dialog->close(); // chiude la finestra di dialogo attuale
-        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
+        this->seeAnimals(recinto, healthBar); 
     });
 
     //Evento sfama
     connect(foodButton, &QPushButton::clicked, [this, dialog, &recinto, healthBar]() { 
         this->foodSlot(recinto, healthBar); 
         dialog->close(); // chiude la finestra di dialogo attuale        
-        this->seeAnimals(recinto, healthBar, recinto.getSize()); 
+        this->seeAnimals(recinto, healthBar); 
     });     
 
     dialog->show();
