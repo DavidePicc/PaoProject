@@ -85,19 +85,7 @@ void GameWidget::visualizer(){
     // Ridimensiona la finestra e il widget vuoto utilizzando le dimensioni totali del QGridLayout
     this->resize(totalSize.width() + 250, totalSize.height());
     emptyLabel->resize(250, totalSize.height()); 
-
-
-
-    /*
-    // Impostare la politica di ridimensionamento per il mainLayout
-    mainLayout->setContentsMargins(0, 0, 0, 0); // Assicura che non ci siano margini
-
-    //Creo l'orologio
-    clock.show();
-    clock.raise();
-
     
-*/
     this->show();
     mainWidget->show();
 }
@@ -165,15 +153,14 @@ void GameWidget::createButton(int x, int y, QGridLayout *gridLayout, std::string
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
 void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
-    //qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
-    // Rimuovi e elimina tutti i widget tranne il primo dal layout
-        for (int i = mainLayout->count() - 1; i > 0; --i) {
-            QLayoutItem* item = mainLayout->takeAt(i);
-            if (QWidget* widget = item->widget()) {
-                delete widget; // Elimina il widget dalla memoria
-            }
-            delete item; // Elimina l'elemento del layout
+    //Pulizia ->  Rimuovi e elimina tutti i widget tranne il primo dal layout
+    for (int i = mainLayout->count() - 1; i > 0; --i) {
+        QLayoutItem* item = mainLayout->takeAt(i);
+        if (QWidget* widget = item->widget()) {
+            delete widget; // Elimina il widget dalla memoria
         }
+        delete item; // Elimina l'elemento del layout
+    }
 
     QWidget *dialog = new QWidget();
     
