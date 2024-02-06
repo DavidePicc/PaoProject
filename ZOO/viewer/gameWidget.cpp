@@ -2,7 +2,16 @@
 #include <iostream>
 
 //Nuova partita
-GameWidget::GameWidget() : gameModel(), clock(this) {   
+GameWidget::GameWidget() : gameModel(){   
+    // Creazione del layout principale
+    mainLayout = new QHBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 0, 0); // Imposta i margini del layout a 0 per evitare spazi vuoti
+    mainLayout->setSpacing(0); // Imposta lo spazio tra i widget del layout a 0
+
+    // Creazione del widget principale
+    mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Politica di ridimensionamento
+
+
     visualizer();
 }
 
@@ -17,16 +26,50 @@ GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
 }
 
 void GameWidget::visualizer(){
-    QPixmap pixmap("assets/map.jpg"); // Carica l'immagine di sfondo
-    backgroundLabel->setPixmap(pixmap);
-    mainLayout->addWidget(backgroundLabel);
+    QWidget *gridWidget = new QWidget();
+    QGridLayout *gridLayout = new QGridLayout(gridWidget);
 
-    // Imposta il layout nella finestra principale
-    mainLayout->addWidget(emptyLabel);
+    //Creazione bottoni
+    createButton(1, 0, gridLayout, "leone", gameModel.getLeoni());
+    createButton(1, 1, gridLayout, "coccodrillo", gameModel.getCoccodrilli());
+    createButton(1, 2, gridLayout, "pavone", gameModel.getPavoni());
+    createButton(2, 0, gridLayout, "tartaruga", gameModel.getTartarughe());
+    createButton(2, 1, gridLayout, "struzzo", gameModel.getStruzzi());
+    createButton(2, 2, gridLayout, "giraffa", gameModel.getGiraffe());
 
-    // Imposta la dimensione della finestra principale(mainWidget)
-    emptyLabel->setFixedSize(250, pixmap.height()); 
-    this->setFixedSize(pixmap.width()+250, pixmap.height());
+    //Mostro i soldi
+    QVBoxLayout *moneyLayout = new QVBoxLayout();
+    QLabel *money = new QLabel(this);
+    money->setText("€ " + QString::number(gameModel.getSoldi())); // Aggiungi "€" prima del numero
+    moneyLayout->addWidget(money);
+    gridLayout->addLayout(moneyLayout, 0, 0);
+    money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px; max-height: 30px; max-width: 1000px;");
+    
+    //Per aggiornare i soldi ogni secondo tramite timer
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, [this, money]() {
+        gameModel.updateSoldi();
+
+        money->setText("€ " + QString::number(gameModel.getSoldi()));
+        //money->adjustSize();
+    });
+    timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
+
+    //Orologio
+    // Aggiungo il DigitalClock alla cella (0, 0) del QGridLayout
+    DigitalClock *clock = new DigitalClock();
+    gridLayout->addWidget(clock, 0, 2);
+
+    //Sfondo
+    QPixmap backgroundPixmap("assets/map2.jpg");
+    QLabel *backgroundLabel = new QLabel(mainWidget);
+    backgroundLabel->setPixmap(backgroundPixmap);
+    backgroundLabel->setScaledContents(true);
+    gridLayout->addWidget(backgroundLabel, 0, 0, 3, 3);
+
+    backgroundLabel->lower();
+
+    mainLayout->addWidget(gridWidget);
 
     // Ottieni le dimensioni dello schermo
     QScreen *screen = QGuiApplication::primaryScreen();
@@ -35,55 +78,43 @@ void GameWidget::visualizer(){
     int y = (screenGeometry.height() - this->height()) / 2;
     // Posiziona la finestra al centro dello schermo
     this->move(x, y);
-    
-    //Creo i bottoni nelle coordinate fisse
-    createButton(310, 30, "leone", gameModel.getLeoni());
-    createButton(660, 105, "coccodrillo", gameModel.getCoccodrilli());
-    createButton(245, 185, "pavone", gameModel.getPavoni());
-    createButton(528, 290, "tartaruga", gameModel.getTartarughe());
-    createButton(200, 410, "struzzo", gameModel.getStruzzi());
-    createButton(735, 445, "giraffa", gameModel.getGiraffe());
+
+    // Ottieni le dimensioni totali del QGridLayout
+    QSize totalSize = gridWidget->geometry().size();
+
+    // Ridimensiona la finestra e il widget vuoto utilizzando le dimensioni totali del QGridLayout
+    this->resize(totalSize.width() + 250, totalSize.height());
+    emptyLabel->resize(250, totalSize.height()); 
+
+
+
+    /*
+    // Impostare la politica di ridimensionamento per il mainLayout
+    mainLayout->setContentsMargins(0, 0, 0, 0); // Assicura che non ci siano margini
 
     //Creo l'orologio
     clock.show();
     clock.raise();
 
-    //Mostro i soldi
-    QLabel *money = new QLabel(this);
-    money->setText("€ " + QString::number(gameModel.getSoldi())); // Aggiungi "€" prima del numero
-    money->move(50, 40);
-    money->setStyleSheet("font-size: 30px; background-color: gold; border: 2px solid gold; border: 1px solid black;  border-radius: 10px;");
-    money->show();
-
-    //Per aggiornare i soldi ogni secondo tramite timer
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, [this, money]() {
-        gameModel.updateSoldi();
-
-        money->setText("€ " + QString::number(gameModel.getSoldi()));
-        money->adjustSize();
-    });
-    timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
-
+    
+*/
     this->show();
     mainWidget->show();
 }
 
 
-void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& recinto) {
+void GameWidget::createButton(int x, int y, QGridLayout *gridLayout, std::string animale, DLrecinto& recinto) {
     QString var = "assets/" + QString::fromStdString(animale) + "/" + QString::fromStdString(animale) + ".png";
     QPixmap pixmap(var);
     QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
 
     //Creo il bottone
-    QPushButton *button = new QPushButton(backgroundLabel);
+    QPushButton *button = new QPushButton();
     button->setIcon(ButtonIcon);
     button->setIconSize(QSize(80,100));
     button->setToolTip(QString::fromStdString(animale));//Se mi fermo sopra con il mouse vedo il nome dell'animale
     button->setCursor(Qt::PointingHandCursor);
     button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
-    button->move(x, y);
-    button->show();
 
     // Crea una QProgressBar
     QProgressBar *healthBar = new QProgressBar;
@@ -119,10 +150,10 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
     layout->addWidget(healthBar);
 
     // Crea un QWidget come contenitore
-    QWidget *container = new QWidget(backgroundLabel);
+    QWidget *container = new QWidget();
     container->setLayout(layout); // Imposta il layout del widget contenitore
-    container->move(x, y); // Sposta il contenitore
-    container->show();//mostra il layout con barra e numero animali
+
+    gridLayout->addWidget(container, x, y);
 
     // Connetti il segnale clicked() di button al tuo slot seeAnimals()
     connect(button, &QPushButton::clicked, [this, &recinto, healthBar]() {
@@ -134,9 +165,17 @@ void GameWidget::createButton(int x, int y, std::string animale, DLrecinto& reci
 //DA MIGLIORARE: non si aggiorna se muore animale
 // definizione di seeAnimals
 void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
-    qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
+    //qDeleteAll(emptyLabel->children());//puliza della label per nuovo seeAnimals()
+    // Rimuovi e elimina tutti i widget tranne il primo dal layout
+        for (int i = mainLayout->count() - 1; i > 0; --i) {
+            QLayoutItem* item = mainLayout->takeAt(i);
+            if (QWidget* widget = item->widget()) {
+                delete widget; // Elimina il widget dalla memoria
+            }
+            delete item; // Elimina l'elemento del layout
+        }
 
-    QWidget *dialog = new QWidget(emptyLabel);
+    QWidget *dialog = new QWidget();
     
     //BARRA RICERCA
     QLineEdit *searchLineEdit = new QLineEdit(emptyLabel); //non cambia se metto dentro dialog o searchline
@@ -193,9 +232,30 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     //Creo label titolo
     QLabel *titolo = new QLabel("Recinto con " + QString::number(recinto.getSize()) + (recinto.getSize() == 1 ? " animale" : " animali"));
     titolo->setStyleSheet("QLabel{font-size: 20px; font-weight: bold; text-align: center;}");
+    
+    //Bottone per chiudere -> pulsante di eliminazione con un'immagine
+    QToolButton *deleteButton = new QToolButton;
+    deleteButton->setIcon(QIcon("assets/cestino.png"));
+    deleteButton->setIconSize(QSize(22, 22));  // Imposta la dimensione dell'icona
+    deleteButton->setFixedSize(20, 20);  // Imposta le dimensioni fisse
+
+    QObject::connect(deleteButton, &QToolButton::clicked, [&]() {
+        // Rimuovi e elimina tutti i widget tranne il primo dal layout
+        for (int i = mainLayout->count() - 1; i > 0; --i) {
+            QLayoutItem* item = mainLayout->takeAt(i);
+            if (QWidget* widget = item->widget()) {
+                delete widget; // Elimina il widget dalla memoria
+            }
+            delete item; // Elimina l'elemento del layout
+        }
+    });
+
+    QHBoxLayout *titoloLayout = new QHBoxLayout();
+    titoloLayout->addWidget(titolo);
+    titoloLayout->addWidget(deleteButton);
 
     QVBoxLayout *layout = new QVBoxLayout(dialog);
-    layout->addWidget(titolo);
+    layout->addLayout(titoloLayout);
     layout->addWidget(scrollArea);
     layout->addLayout(buttonLayout); // Aggiunge il layout orizzontale al layout verticale
     layout->addWidget(searchLineEdit);
@@ -220,8 +280,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
         this->seeAnimals(recinto, healthBar); 
     });     
 
-    dialog->show();
-
+    mainLayout->addWidget(dialog);
 }
 
 void GameWidget::foodSlot(DLrecinto& recinto, QProgressBar *healthBar) {

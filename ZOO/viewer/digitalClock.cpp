@@ -1,12 +1,12 @@
 #include "digitalClock.h"
 
 DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent){
-    label = new QLabel(this);
+    label = new QLabel;
 
     QFont font;
     font.setBold(true);
     label->setFont(font);
-    label->setStyleSheet("QLabel { color : black; font-size : 24px; border: 1px solid black; border-radius: 10px; background-color: rgba(0, 0, 0, 50);}");
+    label->setStyleSheet("QLabel { color : black; font-size : 24px; border: 1px solid black; border-radius: 10px; background-color: rgba(0, 0, 0, 50); max-height: 30px;}");    
     label->setAlignment(Qt::AlignCenter);
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -18,11 +18,6 @@ DigitalClock::DigitalClock(QWidget *parent) : QWidget(parent){
     timer->start(1000);  // Aggiorna ogni secondo
 
     updateDisplay();  // Aggiorna subito l'orologio all'avvio
-
-    setWindowTitle("Digital Clock");
-    resize(280, 60);
-
-    this->move(600, 30);
 }
 
 QString DigitalClock::getTime() const{

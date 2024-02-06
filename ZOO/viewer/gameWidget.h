@@ -40,7 +40,7 @@ private:
     QWidget *mainWidget = new QWidget(this);                //Finestra principale
     QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);  //Layout principale
     QLabel *emptyLabel = new QLabel(mainWidget);            // Crea un widget a destra vuoto per le liste dei recinti
-    QLabel *backgroundLabel = new QLabel(mainWidget);       // Crea un widget a sinistra per la mappa
+    //QLabel *backgroundLabel = new QLabel(mainWidget);       // Crea un widget a sinistra per la mappa
 
 public:
     QTimer *timer = new QTimer(this);
@@ -48,7 +48,7 @@ public:
     GameWidget();
     GameWidget(std::string filename);
     void visualizer();
-    void createButton(int x, int y, std::string animale, DLrecinto& recinto);
+    void createButton(int x, int y, QGridLayout *gridLayout, std::string animale, DLrecinto& recinto);
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar);
     void keyPressEvent(QKeyEvent *event) override;
     
