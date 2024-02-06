@@ -50,3 +50,7 @@ std::string Giraffa::getInfo() const {
             "\nLunghezza collo:\t" + colloStream.str() + " mt" +
             "\nAltezza:\t\t" + altezzaStream.str() + " mt";
 }
+
+void Giraffa::accept(animalVisitor& v){
+    v.visitGiraffa(*this);
+}

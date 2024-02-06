@@ -40,3 +40,7 @@ std::string Pavone::getInfo() const {
 
     return Animal::getInfo() + "\nRaggio ruota:\t" + raggioRuotaStream.str() + " cm";
 }
+
+void Pavone::accept(animalVisitor& v){
+    v.visitPavone(*this);
+}

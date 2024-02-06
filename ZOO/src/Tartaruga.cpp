@@ -51,3 +51,7 @@ std::string Tartaruga::getInfo() const {
 
     return Animal::getInfo() + "\nGuscio:\t\t" + misuraXStream.str() + " x " + misuraYStream.str() + " cm";
 }
+
+void Tartaruga::accept(animalVisitor& v){
+    v.visitTartaruga(*this);
+}

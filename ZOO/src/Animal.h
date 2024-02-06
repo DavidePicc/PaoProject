@@ -7,6 +7,7 @@
 #include <iostream>
 #include "generate.h"
 #include "animaltype.h"
+#include "../visitor/animalVisitor.h"
 
 class Animal {
 protected:
@@ -45,6 +46,8 @@ public:
     unsigned int getCosto() const;
 
     virtual std::string getInfo() const;
+
+    virtual void accept(animalVisitor& v) = 0;
 };
 
 #endif

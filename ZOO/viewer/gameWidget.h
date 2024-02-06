@@ -27,6 +27,7 @@
 #include "gameModel.h"
 #include "digitalClock.h"
 #include "mainMenu.h"
+#include "../visitor/animalDetails.h"
 #include "../dataManager/dataManager.h"
 
 class GameWidget : public QWidget {
@@ -34,6 +35,7 @@ class GameWidget : public QWidget {
 private:
     GameModel gameModel;
     DigitalClock clock;
+    animalDetails visitor;
 
     QWidget *mainWidget = new QWidget(this);                //Finestra principale
     QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);  //Layout principale
@@ -50,18 +52,10 @@ public:
     void seeAnimals(DLrecinto& recinto, QProgressBar* healthBar);
     void keyPressEvent(QKeyEvent *event) override;
     
-    void details(Leone& l);
-    void details(Coccodrillo& c);
-    void details(Giraffa& g);
-    void details(Pavone& p);
-    void details(Struzzo& s);
-    void details(Tartaruga& t);
-    
     void eseguiRicerca(DLrecinto& recinto, QString testoRicerca);
     friend void readDatiRecinto(QXmlStreamReader& xmlReader, GameModel& gameModel, std::string animali);
 
 public slots:
-    void animalDetails(Animal& a);
     void foodSlot(DLrecinto& recinto, QProgressBar *healthBar);
     
 };

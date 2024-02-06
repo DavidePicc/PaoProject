@@ -40,3 +40,7 @@ std::string Struzzo::getInfo() const {
     
     return Animal::getInfo() + "\nVelocita':\t" + stream.str() + " km/h";
 }
+
+void Struzzo::accept(animalVisitor& v){
+    v.visitStruzzo(*this);
+}

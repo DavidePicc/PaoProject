@@ -26,6 +26,8 @@ public:
     std::string ApreBocca() const;
 
     std::string getInfo() const override;
+
+    virtual void accept(animalVisitor& v) override;
 };
 
 

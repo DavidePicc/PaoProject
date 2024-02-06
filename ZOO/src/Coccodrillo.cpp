@@ -39,3 +39,7 @@ std::string Coccodrillo::getInfo() const {
     stream << std::fixed << std::setprecision(2) << lunghezza;
     return Animal::getInfo() + "\nLunghezza:\t" +  stream.str() + " mt";
 }
+
+void Coccodrillo::accept(animalVisitor& v){
+    v.visitCoccodrillo(*this);
+}

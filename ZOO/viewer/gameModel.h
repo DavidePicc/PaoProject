@@ -2,13 +2,6 @@
 #define GAMEMODEL_H
 
 #include "../src/Animal.h"
-#include "../src/Coccodrillo.h"
-#include "../src/Giraffa.h"
-#include "../src/Leone.h"
-#include "../src/Pavone.h"
-#include "../src/Struzzo.h"
-#include "../src/Tartaruga.h"
-#include "../src/Container.h"
 #include "../dataManager/dataManager.h"
 
 

@@ -34,3 +34,7 @@ std::string Leone::getInfo() const {
 
     return Animal::getInfo() + "\nRuggito\t\t" + ruggitoStream.str() + " db";
 }
+
+void Leone::accept(animalVisitor& v){
+    v.visitLeone(*this);
+}

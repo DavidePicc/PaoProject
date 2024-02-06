@@ -22,5 +22,6 @@ public:
 
     std::string getInfo() const override;
 
+    virtual void accept(animalVisitor& v) override;
 };
 #endif
