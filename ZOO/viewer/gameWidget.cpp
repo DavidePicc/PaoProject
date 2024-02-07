@@ -16,7 +16,15 @@ GameWidget::GameWidget() : gameModel(){
 }
 
 //Carica partita
-GameWidget::GameWidget(std::string filename): gameModel(), clock(this){
+GameWidget::GameWidget(std::string filename): gameModel(){
+    // Creazione del layout principale
+    mainLayout = new QHBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 0, 0); // Imposta i margini del layout a 0 per evitare spazi vuoti
+    mainLayout->setSpacing(0); // Imposta lo spazio tra i widget del layout a 0
+
+    // Creazione del widget principale
+    mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Politica di ridimensionamento
+    
     QString ora;
     if(DataManager::readData(filename, gameModel, ora) == true){
         visualizer();
