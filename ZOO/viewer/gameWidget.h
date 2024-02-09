@@ -39,7 +39,7 @@ private:
     animalDetails visitor;
 
     QString *ora = new QString();
-    bool check;//variabile binaria
+    
 
     QWidget *mainWidget = new QWidget(this);                //Finestra principale
     QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);  //Layout principale

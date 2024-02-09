@@ -11,7 +11,6 @@ GameWidget::GameWidget() : gameModel(){
     // Creazione del widget principale
     mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Politica di ridimensionamento
 
-    check=true; //controllo SE CARICA O MENO
     visualizer();
 }
 
@@ -27,10 +26,11 @@ GameWidget::GameWidget(std::string filename): gameModel(){
     
     //QString ora;
     if(DataManager::readData(filename, gameModel, *ora) == true){
+        
         QDateTime dateTime = QDateTime::fromString(*ora, "dd - MM - yyyy  hh:mm");//Conversione in QDateTime FUNZIONA
 
         clock->setTime(dateTime);
-        //check=false;//controllo SE CARICA O MENO
+        
         visualizer();
     }
     else
@@ -63,7 +63,7 @@ void GameWidget::visualizer(){
         gameModel.updateSoldi();
 
         money->setText("€ " + QString::number(gameModel.getSoldi()));
-        //money->adjustSize();
+        
     });
     timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
 
@@ -377,7 +377,7 @@ void GameWidget::eseguiRicerca(DLrecinto& recinto, QString testoRicerca) {
 //Funzione per fare in modo che schiacciando esc esca un menù
 void GameWidget::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_Escape) {
-        //gameModel.clockPausa(true);
+        
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Menu di pausa", "Vuoi salvare la partita o tornare al menu principale?",
                                     QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
@@ -417,6 +417,6 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
         }else {
             QWidget::keyPressEvent(event);
         }
-        //gameModel.clockPausa(false); //STOP DELL'OROLOGIO
+        
     }
 }
