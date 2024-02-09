@@ -16,6 +16,9 @@ class DigitalClock : public QWidget
 
 public:
     DigitalClock(QWidget *parent = nullptr);
+    DigitalClock(const QDateTime ora);
+
+    QVBoxLayout* setLabel();
     QString getTime() const;
     void setTime(const QDateTime& newDateTime);
 

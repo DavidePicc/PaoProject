@@ -27,7 +27,10 @@ GameWidget::GameWidget(std::string filename): gameModel(){
     
     //QString ora;
     if(DataManager::readData(filename, gameModel, *ora) == true){
-        check=false;//controllo SE CARICA O MENO
+        QDateTime dateTime = QDateTime::fromString(*ora, "dd - MM - yyyy  hh:mm");//Conversione in QDateTime FUNZIONA
+
+        clock->setTime(dateTime);
+        //check=false;//controllo SE CARICA O MENO
         visualizer();
     }
     else
@@ -65,16 +68,7 @@ void GameWidget::visualizer(){
     timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
 
     //OROlOGIO WIDGET
-    // Aggiungo il DigitalClock alla cella (0, 0) del QGridLayout
-    //DigitalClock *clock = new DigitalClock();
-    if(!check){
-        QDateTime DateTime = QDateTime::fromString(*ora, "dd - MM - yyyy hh:mm");
-    
-    clock->setTime(DateTime);
-    }
-    
     gridLayout->addWidget(clock, 0, 2);
-    //OROlOGIO WIDGET
     
     //Sfondo
     QPixmap backgroundPixmap("assets/map2.jpg");
