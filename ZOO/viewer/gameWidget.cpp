@@ -11,7 +11,7 @@ GameWidget::GameWidget() : gameModel(){
     // Creazione del widget principale
     mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Politica di ridimensionamento
 
-
+    check=true; //controllo SE CARICA O MENO
     visualizer();
 }
 
@@ -25,8 +25,9 @@ GameWidget::GameWidget(std::string filename): gameModel(){
     // Creazione del widget principale
     mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Politica di ridimensionamento
     
-    QString ora;
-    if(DataManager::readData(filename, gameModel, ora) == true){
+    //QString ora;
+    if(DataManager::readData(filename, gameModel, *ora) == true){
+        check=false;//controllo SE CARICA O MENO
         visualizer();
     }
     else
@@ -63,11 +64,18 @@ void GameWidget::visualizer(){
     });
     timer->start(1000); // Aggiorna ogni 1 secondi (1000 millisecondi)
 
-    //Orologio
+    //OROlOGIO WIDGET
     // Aggiungo il DigitalClock alla cella (0, 0) del QGridLayout
-    DigitalClock *clock = new DigitalClock();
+    //DigitalClock *clock = new DigitalClock();
+    if(!check){
+        QDateTime DateTime = QDateTime::fromString(*ora, "dd - MM - yyyy hh:mm");
+    
+    clock->setTime(DateTime);
+    }
+    
     gridLayout->addWidget(clock, 0, 2);
-
+    //OROlOGIO WIDGET
+    
     //Sfondo
     QPixmap backgroundPixmap("assets/map2.jpg");
     QLabel *backgroundLabel = new QLabel(mainWidget);
@@ -158,7 +166,7 @@ void GameWidget::createButton(int x, int y, QGridLayout *gridLayout, std::string
 
 
 
-//DA MIGLIORARE: non si aggiorna se muore animale
+//DA MIGLIORARE:
 // definizione di seeAnimals
 void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     //Pulizia ->  Rimuovi e elimina tutti i widget tranne il primo dal layout
@@ -394,7 +402,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event){
                         return;
                 }
 
-                if(DataManager::writeData(nomePartita.toStdString(), gameModel, clock.getTime()) == true){
+                if(DataManager::writeData(nomePartita.toStdString(), gameModel, clock->getTime()) == true){
                     QMessageBox::information(this, "Salvataggio completato", "Partita salvata correttamente!");
                 }else{
                     QMessageBox::information(this, "Salvataggio non completato", "La partita non è stata salvata correttamente, riprovare");

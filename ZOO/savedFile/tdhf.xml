@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>122</soldi>
+    <clock>08 - 02 - 2024  12:28</clock>
+    <leoni>
+        <vita>100</vita>
+        <numero>0</numero>
+    </leoni>
+    <coccodrilli>
+        <vita>80</vita>
+        <numero>4</numero>
+        <coccodrilli0>
+            <nome>Coccodrillo 1</nome>
+            <eta>39</eta>
+            <sesso>F</sesso>
+            <peso>418.639221</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>3.392044</lunghezza>
+            <numeroDenti>68</numeroDenti>
+        </coccodrilli0>
+        <coccodrilli1>
+            <nome>Coccodrillo 2</nome>
+            <eta>82</eta>
+            <sesso>M</sesso>
+            <peso>775.747803</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>3.351165</lunghezza>
+            <numeroDenti>68</numeroDenti>
+        </coccodrilli1>
+        <coccodrilli2>
+            <nome>Coccodrillo 3</nome>
+            <eta>92</eta>
+            <sesso>M</sesso>
+            <peso>159.356339</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>3.111439</lunghezza>
+            <numeroDenti>67</numeroDenti>
+        </coccodrilli2>
+        <coccodrilli3>
+            <nome>Coccodrillo 4</nome>
+            <eta>38</eta>
+            <sesso>F</sesso>
+            <peso>600.970947</peso>
+            <cibo>Carne</cibo>
+            <lunghezza>4.072411</lunghezza>
+            <numeroDenti>69</numeroDenti>
+        </coccodrilli3>
+    </coccodrilli>
+    <pavoni>
+        <vita>100</vita>
+        <numero>0</numero>
+    </pavoni>
+    <tartarughe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </tartarughe>
+    <struzzi>
+        <vita>100</vita>
+        <numero>0</numero>
+    </struzzi>
+    <giraffe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </giraffe>
+</ZOO>

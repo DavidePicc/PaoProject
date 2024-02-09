@@ -34,8 +34,12 @@ class GameWidget : public QWidget {
     Q_OBJECT
 private:
     GameModel gameModel;
-    DigitalClock clock;
+    //DigitalClock clock;
+    DigitalClock *clock = new DigitalClock();
     animalDetails visitor;
+
+    QString *ora = new QString();
+    bool check;//variabile binaria
 
     QWidget *mainWidget = new QWidget(this);                //Finestra principale
     QHBoxLayout *mainLayout = new QHBoxLayout(mainWidget);  //Layout principale

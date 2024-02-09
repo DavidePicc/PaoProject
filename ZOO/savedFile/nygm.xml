@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZOO>
+    <soldi>244</soldi>
+    <clock>09 - 02 - 2024  12:39</clock>
+    <leoni>
+        <vita>71</vita>
+        <numero>7</numero>
+        <leoni0>
+            <nome>Leone 1</nome>
+            <eta>7</eta>
+            <sesso>F</sesso>
+            <peso>130.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>105</ruggito>
+        </leoni0>
+        <leoni1>
+            <nome>Leone 2</nome>
+            <eta>7</eta>
+            <sesso>M</sesso>
+            <peso>157.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>87</ruggito>
+        </leoni1>
+        <leoni2>
+            <nome>Leone 3</nome>
+            <eta>11</eta>
+            <sesso>F</sesso>
+            <peso>165.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>91</ruggito>
+        </leoni2>
+        <leoni3>
+            <nome>Leone 4</nome>
+            <eta>17</eta>
+            <sesso>F</sesso>
+            <peso>168.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>93</ruggito>
+        </leoni3>
+        <leoni4>
+            <nome>Leone 5</nome>
+            <eta>12</eta>
+            <sesso>F</sesso>
+            <peso>139.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>73</ruggito>
+        </leoni4>
+        <leoni5>
+            <nome>Leone 6</nome>
+            <eta>11</eta>
+            <sesso>M</sesso>
+            <peso>173.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>78</ruggito>
+        </leoni5>
+        <leoni6>
+            <nome>Leone 7</nome>
+            <eta>15</eta>
+            <sesso>M</sesso>
+            <peso>136.000000</peso>
+            <cibo>Carne</cibo>
+            <ruggito>94</ruggito>
+        </leoni6>
+    </leoni>
+    <coccodrilli>
+        <vita>100</vita>
+        <numero>0</numero>
+    </coccodrilli>
+    <pavoni>
+        <vita>100</vita>
+        <numero>0</numero>
+    </pavoni>
+    <tartarughe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </tartarughe>
+    <struzzi>
+        <vita>100</vita>
+        <numero>0</numero>
+    </struzzi>
+    <giraffe>
+        <vita>100</vita>
+        <numero>0</numero>
+    </giraffe>
+</ZOO>

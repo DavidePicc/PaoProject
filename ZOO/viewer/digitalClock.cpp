@@ -32,4 +32,5 @@ void DigitalClock::updateDisplay(){
 
 void DigitalClock::setTime(const QDateTime& newDateTime){
     clock.setDateTime(newDateTime);
+    updateDisplay(); 
 }
