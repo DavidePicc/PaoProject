@@ -232,7 +232,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     
     //Bottone per chiudere -> pulsante di eliminazione con un'immagine
     QToolButton *deleteButton = new QToolButton;
-    deleteButton->setIcon(QIcon("assets/cestino.png"));
+    deleteButton->setIcon(QIcon("assets/x.png"));
     deleteButton->setIconSize(QSize(22, 22));  // Imposta la dimensione dell'icona
     deleteButton->setFixedSize(20, 20);  // Imposta le dimensioni fisse
 
