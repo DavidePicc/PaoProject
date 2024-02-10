@@ -104,12 +104,12 @@ void GameWidget::visualizer(){
 void GameWidget::createButton(int x, int y, QGridLayout *gridLayout, std::string animale, DLrecinto& recinto) {
     QString var = "assets/" + QString::fromStdString(animale) + "/" + QString::fromStdString(animale) + ".png";
     QPixmap pixmap(var);
-    QIcon ButtonIcon(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::FastTransformation));
+    QIcon ButtonIcon(pixmap);
 
     //Creo il bottone
     QPushButton *button = new QPushButton();
     button->setIcon(ButtonIcon);
-    button->setIconSize(QSize(80,100));
+    button->setIconSize(QSize(150,160));
     button->setToolTip(QString::fromStdString(animale));//Se mi fermo sopra con il mouse vedo il nome dell'animale
     button->setCursor(Qt::PointingHandCursor);
     button->setStyleSheet("QPushButton {font-size: 50px; font-weight: bold; color: gray; background-color: transparent; border:none;}");
@@ -215,6 +215,7 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     }else{
         for(unsigned int i=0; i<recinto.getSize(); i++){
             QPushButton *button = new QPushButton(QString::fromStdString((*recinto[i]).getName()), buttonWidget);
+            button->setCursor(Qt::PointingHandCursor);
             buttonLayout2->addWidget(button);
             connect(button, &QPushButton::clicked, [this, &recinto, i](){ (*recinto[i]).accept(visitor); });
         }
@@ -232,6 +233,8 @@ void GameWidget::seeAnimals(DLrecinto& recinto,  QProgressBar* healthBar) {
     
     //Bottone per chiudere -> pulsante di eliminazione con un'immagine
     QToolButton *deleteButton = new QToolButton;
+    deleteButton->setStyleSheet("QToolButton {border:none}");
+    deleteButton->setCursor(Qt::PointingHandCursor);
     deleteButton->setIcon(QIcon("assets/x.png"));
     deleteButton->setIconSize(QSize(22, 22));  // Imposta la dimensione dell'icona
     deleteButton->setFixedSize(20, 20);  // Imposta le dimensioni fisse
